@@ -12,7 +12,7 @@ nbproject
 # windows thumbnail cache
 Thumbs.db
 
-# composer vendor dir
+# composer vendor dir/
 #/vendor
 
 # composer itself is not needed

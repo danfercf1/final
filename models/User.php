@@ -2,6 +2,7 @@
 
 namespace app\models;
 use yii\mongodb\Query;
+use Yii;
 
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
@@ -129,6 +130,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        //var_dump($this->password, sha1($password));die;
+        return $this->password === sha1($password);
     }
 }

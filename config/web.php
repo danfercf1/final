@@ -80,6 +80,8 @@ $config = [
         ],*/
     ],
     'params' => $params,
+    'language'=>'es-ES',
+    'charset'=>'UTF-8'
 ];
 
 if (YII_ENV_DEV) {

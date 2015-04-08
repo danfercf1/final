@@ -10,8 +10,9 @@ use Yii;
  * @property \MongoId|string $_id
  * @property mixed $nombre
  * @property mixed $apellido
- * @property mixed $email
+ * @property mixed $username
  * @property mixed $password
+ * @property mixed $oldPassword
  * @property mixed $rol
  * @property mixed $fecha_creacion
  */
@@ -34,8 +35,9 @@ class Usuarios extends \yii\mongodb\ActiveRecord
             '_id',
             'nombre',
             'apellido',
-            'email',
+            'username',
             'password',
+            'oldPassword',
             'rol',
             'fecha_creacion',
         ];
@@ -47,7 +49,7 @@ class Usuarios extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'apellido', 'email', 'password', 'rol', 'fecha_creacion'], 'safe']
+            [['nombre', 'apellido', 'username', 'password', 'rol', 'fecha_creacion', 'oldPassword'], 'safe']
         ];
     }
 
@@ -60,10 +62,20 @@ class Usuarios extends \yii\mongodb\ActiveRecord
             '_id' => 'ID',
             'nombre' => 'Nombre',
             'apellido' => 'Apellido',
-            'email' => 'Email',
+            'username' => 'Email',
             'password' => 'Password',
             'rol' => 'Rol',
             'fecha_creacion' => 'Fecha Creacion',
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+
+        if ($this->oldPassword != $this->password) {
+            $this->password = sha1($this->password);
+        }
+
+        return parent::beforeSave($insert);
     }
 }

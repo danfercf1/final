@@ -16,9 +16,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'apellido') ?>
 
-    <?= $form->field($model, 'email') ?>
+    <?= $form->field($model, 'username') ?>
 
     <?= $form->field($model, 'password')->passwordInput() ?>
+
+    <?= $form->field($model, 'oldPassword')->hiddenInput(['value'=>$model->isNewRecord ? '' : $model->password])->label(false); ?>
 
     <?= $form->field($model, 'rol') ?>
 

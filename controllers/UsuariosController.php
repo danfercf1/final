@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UsuariosController implements the CRUD actions for Usuarios model.
@@ -17,10 +18,26 @@ class UsuariosController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'confirm'],
+                'rules' => [
+                    [
+                        'actions' => ['logout', 'index', 'view', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['create', 'confirm'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -41,6 +58,20 @@ class UsuariosController extends Controller
         ]);
     }
 
+
+    /***
+     * Vista de confirmacion de registro
+     *
+    */
+
+    public function actionConfirm()
+    {
+        $model = array();
+        return $this->render('confirm', [
+            'model' => $model,
+        ]);
+    }
+
     /**
      * Displays a single Usuarios model.
      * @param integer $_id
@@ -55,7 +86,7 @@ class UsuariosController extends Controller
 
     /**
      * Creates a new Usuarios model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'confirm' page.
      * @return mixed
      */
     public function actionCreate()
@@ -63,7 +94,8 @@ class UsuariosController extends Controller
         $model = new Usuarios();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => (string)$model->_id]);
+            //return $this->redirect(['view', 'id' => (string)$model->_id]);
+            return $this->redirect(['confirm']);
         } else {
             return $this->render('create', [
                 'model' => $model,

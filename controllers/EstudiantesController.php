@@ -8,6 +8,7 @@ use app\models\EstudiantesBusqueda;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * EstudiantesController implements the CRUD actions for Estudiantes model.
@@ -17,6 +18,17 @@ class EstudiantesController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'cargarexcel'],
+                'rules' => [
+                    [
+                        'actions' => ['logout', 'index', 'view', 'update', 'delete', 'cargarexcel'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

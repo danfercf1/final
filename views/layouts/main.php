@@ -26,8 +26,8 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'Test Yii',
-                //'brandLabel' => 'Departamento de Matem&aacute;ticas',
+                //'brandLabel' => 'Test Yii',
+                'brandLabel' => 'Olimpiadas Matem&aacute;ticas',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
@@ -37,7 +37,7 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
+                    ['label' => 'Inicio', 'url' => ['/site/index']],
                     ['label' => 'Estudiantes', 'url' => ['/estudiantes/index']],
                     ['label' => 'Usuarios', 'url' => ['/usuarios/index']],
                     Yii::$app->user->isGuest ?

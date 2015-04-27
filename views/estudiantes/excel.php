@@ -11,12 +11,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="estudiantes-form">
 
-    <?php $form = ActiveForm::begin(); ?>
 
-    <?= Html::fileInput("excel")?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
+
+    <?= $form->field($model, 'file')->fileInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Cargar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('Cargar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

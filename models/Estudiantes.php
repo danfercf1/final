@@ -20,15 +20,19 @@ use Yii;
  * @property mixed $FECHA_NAC
  * @property mixed $CORREO
  * @property mixed $FONO
+ * @property mixed $GESTION
+ * @property mixed $UE
+ * @property mixed $TUTOR
  */
 class Estudiantes extends \yii\mongodb\ActiveRecord
 {
     /**
      * @inheritdoc
      */
+    public $rango = 12;
     public static function collectionName()
     {
-        return ['datos', 'estudiantes'];
+        return ['datos', 'estudiante'];
     }
 
     /**
@@ -50,6 +54,9 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'FECHA_NAC',
             'CORREO',
             'FONO',
+            'GESTION',
+            'UE',
+            'TUTOR'
         ];
     }
 
@@ -59,7 +66,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['DISTRITO_EDUCATIVO', 'MATERIA', 'CURSO', 'NOMBRE', 'Ap_PATERNO', 'Ap_MATERNO', 'RUDE', 'GENERO', 'CI', 'FECHA_NAC', 'CORREO', 'FONO'], 'safe']
+            [['DISTRITO_EDUCATIVO', 'MATERIA', 'CURSO', 'NOMBRE', 'Ap_PATERNO', 'Ap_MATERNO', 'RUDE', 'GENERO', 'CI', 'FECHA_NAC', 'CORREO', 'FONO', 'GESTION', 'UE', 'TUTOR'], 'safe']
         ];
     }
 
@@ -74,14 +81,17 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'MATERIA' => 'Materia',
             'CURSO' => 'Curso',
             'NOMBRE' => 'Nombre',
-            'Ap_PATERNO' => 'Ap  Paterno',
-            'Ap_MATERNO' => 'Ap  Materno',
+            'Ap_PATERNO' => 'Ap.  Paterno',
+            'Ap_MATERNO' => 'Ap.  Materno',
             'RUDE' => 'Rude',
-            'GENERO' => 'Genero',
-            'CI' => 'Ci',
-            'FECHA_NAC' => 'Fecha  Nac',
+            'GENERO' => 'Género',
+            'CI' => 'CI',
+            'FECHA_NAC' => 'Fecha  Nacimiento',
             'CORREO' => 'Correo',
-            'FONO' => 'Fono',
+            'FONO' => 'Teléfono',
+            'GESTION' => 'Gestión',
+            'UE' => 'Unidad Educativa',
+            'TUTOR' => 'Tutor',
         ];
     }
 

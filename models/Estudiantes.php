@@ -23,6 +23,7 @@ use Yii;
  * @property mixed $GESTION
  * @property mixed $UE
  * @property mixed $TUTOR
+ * @property mixed $NOTA
  */
 class Estudiantes extends \yii\mongodb\ActiveRecord
 {
@@ -66,7 +67,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['DISTRITO_EDUCATIVO', 'MATERIA', 'CURSO', 'NOMBRE', 'Ap_PATERNO', 'Ap_MATERNO', 'RUDE', 'GENERO', 'CI', 'FECHA_NAC', 'CORREO', 'FONO', 'GESTION', 'UE', 'TUTOR'], 'safe']
+            [['DISTRITO_EDUCATIVO', 'MATERIA', 'CURSO', 'NOMBRE', 'Ap_PATERNO', 'Ap_MATERNO', 'RUDE', 'GENERO', 'CI', 'FECHA_NAC', 'CORREO', 'FONO', 'GESTION', 'UE', 'TUTOR', "NOTA"], 'safe']
         ];
     }
 
@@ -92,6 +93,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'GESTION' => 'Gestión',
             'UE' => 'Unidad Educativa',
             'TUTOR' => 'Tutor',
+            'NOTA' => 'Nota',
         ];
     }
 

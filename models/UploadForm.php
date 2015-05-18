@@ -15,6 +15,8 @@ class UploadForm extends Model
      * @var UploadedFile file attribute
      */
     public $file;
+    public $gestion;
+    public $etapa;
 
     /**
      * @return array the validation rules.
@@ -23,6 +25,17 @@ class UploadForm extends Model
     {
         return [
             [['file'], 'file', 'extensions' => 'xls,xlsx'],
+            /*[['gestion'], 'required'],*/
+            [['gestion'], 'number'],
         ];
+    }
+
+    public function gestiones(){
+        $anio  = (int) date("Y");
+        $gestion = array();
+        for($i=$anio; $i<=$anio+20;$i++){
+            $gestion[$i] = $i;
+        }
+        return $gestion;
     }
 }

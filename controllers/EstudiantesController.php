@@ -27,7 +27,7 @@ class EstudiantesController extends Controller
                 'only' => ['index', 'view', 'create', 'update', 'delete', 'cargarexcel'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'view', 'update', 'delete', 'cargarexcel'],
+                        'actions' => ['logout', 'index', 'view', 'update', 'delete', 'cargarexcel', 'cargarnotas'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -93,9 +93,11 @@ class EstudiantesController extends Controller
 
     public function actionCargarexcel()
     {
-        set_time_limit(240);
+        set_time_limit(360);
 
         $model_file = new UploadForm();
+
+        $gestiones = $model_file->gestiones();
 
         if (Yii::$app->request->post()) {
 
@@ -183,7 +185,7 @@ class EstudiantesController extends Controller
                     //CORREO
                     $cell = $objWorksheet->getCellByColumnAndRow(11, $row);
                     $val = $cell->getValue();
-                    $model->CORREO = $val;
+                    $model->CORREO = strtolower($val);
 
                     //FONO
                     $cell = $objWorksheet->getCellByColumnAndRow(12, $row);
@@ -191,7 +193,7 @@ class EstudiantesController extends Controller
                     $model->FONO = $val;
 
                     //GESTION
-                    $model->GESTION = "2015";
+                    $model->GESTION = $_POST["UploadForm"]["gestion"];
 
 
                     $cell = $objWorksheet->getCellByColumnAndRow(14, $row);
@@ -237,8 +239,6 @@ class EstudiantesController extends Controller
 
                     $model->UE = new \MongoId($id_ue);
 
-
-
                     /*Comprobar y guardar tutor*/
                     $cell = $objWorksheet->getCellByColumnAndRow(19, $row);
                     $nom_tutor = strtolower($cell->getValue());
@@ -249,8 +249,12 @@ class EstudiantesController extends Controller
                     $cell = $objWorksheet->getCellByColumnAndRow(21, $row);
                     $mat_tutor = strtolower($cell->getValue());
 
-                    $tutor = Tutor::find()->where(['NOMBRE' => $nom_tutor, 'PATERNO'=>$pat_tutor,'MATERNO'=>$mat_tutor])->one();
+                    $cell = $objWorksheet->getCellByColumnAndRow(24, $row);
+                    $email_tutor = strtolower($cell->getValue());
 
+                    /*$tutor = Tutor::find()->where(['NOMBRE' => $nom_tutor, 'PATERNO'=>$pat_tutor,'MATERNO'=>$mat_tutor])->one();*/
+
+                    $tutor = Tutor::find()->where(['CORREO' => $email_tutor])->one();
 
                     if(is_null($tutor)){
 
@@ -270,7 +274,7 @@ class EstudiantesController extends Controller
 
                         $cell = $objWorksheet->getCellByColumnAndRow(24, $row);
                         $val = $cell->getValue();
-                        $model_tutor->CORREO = $val;
+                        $model_tutor->CORREO = strtolower($val);
 
                         $cell = $objWorksheet->getCellByColumnAndRow(25, $row);
                         $val = $cell->getValue();
@@ -302,12 +306,119 @@ class EstudiantesController extends Controller
             //return $this->redirect(['view', 'id' => (string)$model->_id]);
         } else {
             return $this->render('excel', [
-                'model' => $model_file,
+                'model' => $model_file, 'gestiones'=>$gestiones
             ]);
         }
 
         return $this->render('excel', [
-            'model' => $model_file,
+            'model' => $model_file, 'gestiones'=>$gestiones
+        ]);
+    }
+
+    /**
+     * Cargar excel
+     */
+
+    public function actionCargarnotas()
+    {
+        $texto_columna_puntaje = strtolower("puntaje");
+
+        set_time_limit(360);
+
+        $model_file = new UploadForm();
+
+        $gestiones = $model_file->gestiones();
+
+        if (Yii::$app->request->post()) {
+
+            $model_file->file = UploadedFile::getInstance($model_file, 'file');
+
+            $etapa = $_POST["UploadForm"]["etapa"];
+
+            $gestion = $_POST["UploadForm"]["gestion"];
+
+
+            if ($model_file->file && $model_file->validate()) {
+
+                if(!is_dir($model_file->ubicacion.$gestion)){
+                    mkdir($model_file->ubicacion.$gestion);
+                    if(!is_dir($model_file->ubicacion.$gestion."/".$etapa)){
+                        mkdir($model_file->ubicacion.$gestion);
+                    }
+                }else{
+                    if(!is_dir($model_file->ubicacion.$gestion."/".$etapa)){
+                        mkdir($model_file->ubicacion.$gestion."/".$etapa);
+                    }
+                }
+
+                $model_file->file->saveAs($model_file->ubicacion.$gestion."/".$etapa."/".$model_file->file->baseName . '.' . $model_file->file->extension);
+
+                $cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_to_wincache;
+                $cacheSettings = array(
+                    'cacheTime' => 600
+                );
+                \PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+
+                $objPHPExcel = \PHPExcel_IOFactory::load($model_file->ubicacion.$gestion."/".$etapa."/".$model_file->file->baseName . '.' . $model_file->file->extension);
+
+                $objWorksheet = $objPHPExcel->setActiveSheetIndex(0);
+
+                $worksheetTitle     = $objWorksheet->getTitle();
+                $highestRow         = $objWorksheet->getHighestRow(); // e.g. 10
+                $highestColumn      = $objWorksheet->getHighestColumn(); // e.g 'F'
+                $highestColumnIndex = \PHPExcel_Cell::columnIndexFromString($highestColumn);
+
+                for($col = 0; $col <= $highestColumnIndex; $col++){
+                    $cell = $objWorksheet->getCellByColumnAndRow($col, 2);
+                    $val = $cell->getValue();
+                    if(strtolower($val) == strtolower("RUDE")){
+                        $posiciones["rude"] = $col;
+                    }
+                    if(strtolower($val) == $texto_columna_puntaje){
+                        $posiciones["puntaje"] = $col;
+                        continue;
+                    }
+                }
+
+                for ($row = 3; $row <= $highestRow; ++ $row) {
+                    $cell = $objWorksheet->getCellByColumnAndRow((int) $posiciones["rude"], $row);
+                    $rude = $cell->getValue();
+
+                    $cell = $objWorksheet->getCellByColumnAndRow(1, $row);
+                    $nombre = $cell->getValue();
+
+                    $cell = $objWorksheet->getCellByColumnAndRow(2, $row);
+                    $ap_paterno = $cell->getValue();
+
+                    $cell = $objWorksheet->getCellByColumnAndRow(3, $row);
+                    $ap_materno = $cell->getValue();
+
+                    if($rude == null || $rude == "x"){
+                        $consult =
+                        $estudiante = Estudiantes::findOne(["NOMBRE"=> $nombre, "Ap_PATERNO"=> $ap_paterno, "Ap_MATERNO"=>$ap_materno,"GESTION"=>$gestion]);
+                    }else{
+                        $estudiante = Estudiantes::findOne(["RUDE"=>$rude, "GESTION"=>$gestion]);
+                    }
+
+                    if(!is_null($estudiante)){
+                        $cell = $objWorksheet->getCellByColumnAndRow($posiciones["puntaje"], $row);
+                        $nota = $cell->getValue();
+                        Estudiantes::updateAll(["NOTA"=>$nota, "ETAPA"=>$etapa],["RUDE"=>$rude, "GESTION"=>$gestion]);
+                    }
+                }
+
+            }else{
+                //var_dump("aaaa");
+            }
+            //return $this->redirect(['view', 'id' => (string)$model->_id]);
+        } else {
+            return $this->render('nota', [
+                'model' => $model_file, 'gestiones'=>$gestiones
+            ]);
+        }
+
+        return $this->render('nota', [
+            'model' => $model_file, 'gestiones'=>$gestiones
         ]);
     }
 

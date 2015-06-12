@@ -15,6 +15,7 @@ use Yii;
  * @property mixed $CI
  * @property mixed $CORREO
  * @property mixed $FONO
+ * @property mixed $GESTION
  */
 class Tutor extends \yii\mongodb\ActiveRecord
 {
@@ -40,6 +41,7 @@ class Tutor extends \yii\mongodb\ActiveRecord
             'CI',
             'CORREO',
             'FONO',
+            'GESTION',
         ];
     }
 
@@ -49,7 +51,7 @@ class Tutor extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['NOMBRE', 'PATERNO', 'MATERNO', 'GENERO', 'CI', 'CORREO', 'FONO'], 'safe']
+            [['NOMBRE', 'PATERNO', 'MATERNO', 'GENERO', 'CI', 'CORREO', 'FONO', 'GESTION'], 'safe']
         ];
     }
 
@@ -64,9 +66,10 @@ class Tutor extends \yii\mongodb\ActiveRecord
             'PATERNO' => 'Paterno',
             'MATERNO' => 'Materno',
             'GENERO' => 'Genero',
-            'CI' => 'Ci',
+            'CI' => 'CI',
             'CORREO' => 'Correo',
-            'FONO' => 'Fono',
+            'FONO' => 'Telefono',
+            'GESTION' => 'Gestion',
         ];
     }
 }

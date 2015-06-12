@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e731786f0208fe1a2ee05974be70a56b",
+    "hash": "a910e9ea8302afb7d9aa7c02c687dc4a",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -324,12 +324,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PHPExcel.git",
-                "reference": "caad6b1956b6b407baa3a2d0cca0caf5e2d09bfa"
+                "reference": "72f3a3b6f4e71e6a5292d9c1c6a1f982893dd2c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/caad6b1956b6b407baa3a2d0cca0caf5e2d09bfa",
-                "reference": "caad6b1956b6b407baa3a2d0cca0caf5e2d09bfa",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/72f3a3b6f4e71e6a5292d9c1c6a1f982893dd2c3",
+                "reference": "72f3a3b6f4e71e6a5292d9c1c6a1f982893dd2c3",
                 "shasum": ""
             },
             "require": {
@@ -373,7 +373,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2015-03-28 17:45:49"
+            "time": "2015-04-27 22:07:30"
         },
         {
             "name": "swiftmailer/swiftmailer",

@@ -89,3 +89,17 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+/*menu inico*/
+
+.logo-inicio {
+    float: left;
+    margin-right: 10px;
+    margin-top: -10px;
+    width: 30px;
+}
+.logo-texto {
+    float: left;
+}
+
+/*/FIN menu inicio*/

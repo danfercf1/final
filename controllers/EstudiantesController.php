@@ -48,15 +48,31 @@ class EstudiantesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new EstudiantesBusqueda();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        /*$searchModel = new EstudiantesBusqueda();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
 
-        return $this->render('index', [
+        /*return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);*/
+        return $this->render('index');
+        
+    }
+    
+    public function actionDatos()
+    {
+        $searchModel = new EstudiantesBusqueda();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        return $this->render('datos',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
         ]);
     }
 
+    public function actionPrueba(){
+        return $this->render('prueba');
+    }
     /**
      * Displays a single Estudiantes model.
      * @param integer $_id

@@ -27,7 +27,9 @@ AppAsset::register($this);
         <?php
             NavBar::begin([
                 //'brandLabel' => 'Test Yii',
-                'brandLabel' => 'Olimpiadas Matem&aacute;ticas',
+                //'brandLabel' => 'Olimpiadas Matem&aacute;ticas',
+                'brandLabel' => "<img class='logo-inicio' src='/images/logoFinal.png' />
+                <div class='logo-texto'>Olimpiadas Matem&aacute;ticas</div>",
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',

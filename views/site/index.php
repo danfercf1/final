@@ -34,7 +34,7 @@ $this->title = 'Departamento de Matemáticas - Inicio';
             <div class="col-lg-4">
                 <h2>Estad&iacute;sticas</h2>
 
-                <p>Todas las calificaciones obtenidas por etapa y en general, son procesadas segun un analisis 
+                <p>Todas las calificaciones obtenidas por etapa y en conjunto, son procesadas segun un analisis 
                 estad&iacute;stico como un indicador del buen rendimiento acad&eacute;mico en la gestion actual.</p>
 
             </div>

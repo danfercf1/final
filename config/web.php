@@ -49,8 +49,16 @@ $config = [
         //'db' => require(__DIR__ . '/db.php'),
         'mongodb' => [
             'class' => '\yii\mongodb\Connection',
-            'dsn' => 'mongodb://datos:datos@localhost:27017/datos',
+            'dsn' => 'mongodb://admin:admin@localhost:27017/datos',
         ],
+        /*codigo importacion theme*/
+        /*'view' => [
+            'theme' => [
+            'pathMap' => ['@app/views' => '@app/themes/tf-dorian'],
+            'baseUrl' => '@web/themes/tf-dorian',
+            ]
+        ],
+        /*fin codigo importacion*/
     ],
 
     'modules' => [

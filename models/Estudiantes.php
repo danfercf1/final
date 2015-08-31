@@ -67,7 +67,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['DISTRITO_EDUCATIVO', 'MATERIA', 'CURSO', 'NOMBRE', 'Ap_PATERNO', 'Ap_MATERNO', 'RUDE', 'GENERO', 'CI', 'FECHA_NAC', 'CORREO', 'FONO', 'GESTION', 'UE', 'TUTOR', "NOTA"], 'safe']
+            [['DISTRITO_EDUCATIVO', 'MATERIA', 'CURSO', 'NOMBRE', 'Ap_PATERNO', 'Ap_MATERNO', 'RUDE', 'GENERO', 'CI', 'FECHA_NAC', 'CORREO', 'FONO', 'GESTION', 'UE', 'TUTOR'], 'safe']
         ];
     }
 

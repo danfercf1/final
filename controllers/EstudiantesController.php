@@ -119,7 +119,6 @@ class EstudiantesController extends Controller
 
             $model_file->file = UploadedFile::getInstance($model_file, 'file');
 
-
             if ($model_file->file && $model_file->validate()) {
 
                 $model_file->file->saveAs($model_file->ubicacion.$model_file->file->baseName . '.' . $model_file->file->extension);
@@ -139,7 +138,12 @@ class EstudiantesController extends Controller
                 $highestColumn      = $objWorksheet->getHighestColumn(); // e.g 'F'
                 $highestColumnIndex = \PHPExcel_Cell::columnIndexFromString($highestColumn);
 
-                for ($row = 3; $row <= $highestRow; ++ $row) {
+                for ($row = 1; $row <= $highestRow; ++ $row) {
+
+                    $cell = $objWorksheet->getCellByColumnAndRow(3, $row);
+                    $val = $cell->getValue();
+
+                    if($val == 'matematica'){
 
                     $model = new Estudiantes();
 
@@ -148,131 +152,104 @@ class EstudiantesController extends Controller
                     $model_ue = new Ue();
 
                     //DISTRITO EDUCATIVO
-                    $cell = $objWorksheet->getCellByColumnAndRow(1, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(2, $row);
                     $val = $cell->getValue();
                     $model->DISTRITO_EDUCATIVO = $val;
 
                     //MATERIA
-                    $cell = $objWorksheet->getCellByColumnAndRow(2, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(3, $row);
                     $val = $cell->getValue();
                     $model->MATERIA = $val;
 
                     //CURSO
-                    $cell = $objWorksheet->getCellByColumnAndRow(3, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(4, $row);
                     $val = $cell->getValue();
                     $model->CURSO = $val;
 
+                    //RUDE
+                    $cell = $objWorksheet->getCellByColumnAndRow(5, $row);
+                    $val = $cell->getValue();
+                    $model->RUDE = $val;
+
                     //NOMBRE
-                    $cell = $objWorksheet->getCellByColumnAndRow(4, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(6, $row);
                     $val = $cell->getValue();
                     $model->NOMBRE = $val;
 
                     //AP_PATERNO
-                    $cell = $objWorksheet->getCellByColumnAndRow(5, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(7, $row);
                     $val = $cell->getValue();
                     $model->Ap_PATERNO = $val;
 
                     //AP_MATERNO
-                    $cell = $objWorksheet->getCellByColumnAndRow(6, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(8, $row);
                     $val = $cell->getValue();
                     $model->Ap_MATERNO = $val;
 
-                    //RUDE
-                    $cell = $objWorksheet->getCellByColumnAndRow(7, $row);
-                    $val = $cell->getValue();
-                    $model->RUDE = $val;
-
                     //GENERO
-                    $cell = $objWorksheet->getCellByColumnAndRow(8, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(9, $row);
                     $val = $cell->getValue();
                     $model->GENERO = $val;
 
+                    //NOTA
+                    $cell = $objWorksheet->getCellByColumnAndRow(10, $row);
+                    $val = $cell->getValue();
+                    $model->NOTA = $val;
+
+                    //FECHA_NAC
+                    $cell = $objWorksheet->getCellByColumnAndRow(11, $row);
+                    $val = \PHPExcel_Shared_Date::ExcelToPHP($cell->getValue());
+                    $model->FECHA_NAC = new \MongoDate($val);
+
                     //CI
-                    $cell = $objWorksheet->getCellByColumnAndRow(9, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(12, $row);
                     $val = $cell->getValue();
                     $model->CI = $val;
 
-                    //FECHA_NAC
-                    $cell = $objWorksheet->getCellByColumnAndRow(10, $row);
+                    //FONO
+                    $cell = $objWorksheet->getCellByColumnAndRow(13, $row);
                     $val = $cell->getValue();
-                    $model->FECHA_NAC = new \MongoDate(strtotime($val." 00:00:00"));
-
+                    $model->FONO = $val;
 
                     //CORREO
-                    $cell = $objWorksheet->getCellByColumnAndRow(11, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(14, $row);
                     $val = $cell->getValue();
                     $model->CORREO = strtolower($val);
 
-                    //FONO
-                    $cell = $objWorksheet->getCellByColumnAndRow(12, $row);
+                    //DISCAPACIDAD
+
+                    $cell = $objWorksheet->getCellByColumnAndRow(30, $row);
                     $val = $cell->getValue();
-                    $model->FONO = $val;
+                    $model->DISCAPACIDAD = strtolower($val);
+
+                    //NACIONALIDAD
+
+                    $cell = $objWorksheet->getCellByColumnAndRow(31, $row);
+                    $val = $cell->getValue();
+                    $model->NACIONALIDAD = strtolower($val);
 
                     //GESTION
                     $model->GESTION = $_POST["UploadForm"]["gestion"];
 
 
-                    $cell = $objWorksheet->getCellByColumnAndRow(14, $row);
-                    $codigosie = $cell->getValue();
-
-                    /*Comprobar y guardar unidad educativa*/
-
-                    $ue = Ue::find()->where(['CODIGOSIE' => $codigosie])->one();
-
-                    if(is_null($ue)){
-
-                        $cell = $objWorksheet->getCellByColumnAndRow(13, $row);
-                        $val = $cell->getValue();
-                        $model_ue->NOMBRE = $val;
-
-                        $model_ue->CODIGOSIE = $codigosie;
-
-                        $cell = $objWorksheet->getCellByColumnAndRow(15, $row);
-                        $val = $cell->getValue();
-                        $model_ue->DEPENDENCIA = $val;
-
-                        $cell = $objWorksheet->getCellByColumnAndRow(16, $row);
-                        $val = $cell->getValue();
-                        $model_ue->AREA = $val;
-
-                        $cell = $objWorksheet->getCellByColumnAndRow(17, $row);
-                        $val = $cell->getValue();
-                        $model_ue->PROVINCIA = $val;
-
-                        $cell = $objWorksheet->getCellByColumnAndRow(18, $row);
-                        $val = $cell->getValue();
-                        $model_ue->LOCALIDAD = $val;
-
-                        $model_ue->save();
-
-                        $id_ue = $model_ue->_id->{'$id'};
-
-                    }else{
-                        $id_ue = $ue->_id->{'$id'};
-                    }
-
-                    /*Unidad educativa*/
-
-                    $model->UE = new \MongoId($id_ue);
-
                     /*Comprobar y guardar tutor*/
-                    $cell = $objWorksheet->getCellByColumnAndRow(19, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(15, $row);
                     $nom_tutor = strtolower($cell->getValue());
 
-                    $cell = $objWorksheet->getCellByColumnAndRow(20, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(16, $row);
                     $pat_tutor = strtolower($cell->getValue());
 
-                    $cell = $objWorksheet->getCellByColumnAndRow(21, $row);
+                    $cell = $objWorksheet->getCellByColumnAndRow(17, $row);
                     $mat_tutor = strtolower($cell->getValue());
 
-                    $cell = $objWorksheet->getCellByColumnAndRow(24, $row);
-                    $email_tutor = strtolower($cell->getValue());
+                    $cell = $objWorksheet->getCellByColumnAndRow(19, $row);
+                    $ci_tutor = strtolower($cell->getValue());
 
                     /*$tutor = Tutor::find()->where(['NOMBRE' => $nom_tutor, 'PATERNO'=>$pat_tutor,'MATERNO'=>$mat_tutor])->one();*/
 
-                    $tutor = Tutor::find()->where(['CORREO' => $email_tutor])->one();
+                    $tutor = Tutor::find()->where(['CI' => $ci_tutor])->one();
 
-                    if(is_null($tutor)){
+                    if (is_null($tutor)) {
 
                         $model_tutor->NOMBRE = $nom_tutor;
 
@@ -280,27 +257,27 @@ class EstudiantesController extends Controller
 
                         $model_tutor->MATERNO = $mat_tutor;
 
-                        $cell = $objWorksheet->getCellByColumnAndRow(22, $row);
+                        $cell = $objWorksheet->getCellByColumnAndRow(18, $row);
                         $val = $cell->getValue();
                         $model_tutor->GENERO = $val;
 
-                        $cell = $objWorksheet->getCellByColumnAndRow(23, $row);
+                        $cell = $objWorksheet->getCellByColumnAndRow(19, $row);
                         $val = $cell->getValue();
                         $model_tutor->CI = $val;
 
-                        $cell = $objWorksheet->getCellByColumnAndRow(24, $row);
-                        $val = $cell->getValue();
-                        $model_tutor->CORREO = strtolower($val);
-
-                        $cell = $objWorksheet->getCellByColumnAndRow(25, $row);
+                        $cell = $objWorksheet->getCellByColumnAndRow(20, $row);
                         $val = $cell->getValue();
                         $model_tutor->FONO = $val;
+
+                        $cell = $objWorksheet->getCellByColumnAndRow(21, $row);
+                        $val = $cell->getValue();
+                        $model_tutor->CORREO = strtolower($val);
 
                         $model_tutor->save();
 
                         $id_tutor = $model_tutor->_id->{'$id'};
 
-                    }else{
+                    } else {
                         $id_tutor = $tutor->_id->{'$id'};
                     }
 
@@ -309,12 +286,67 @@ class EstudiantesController extends Controller
 
                     $model->TUTOR = new \MongoId($id_tutor);
 
+                    /***
+                     * Unidad educativa
+                     ***/
 
-                    /**GUARDADO**/
-                    if($model->save()){
+                    $cell = $objWorksheet->getCellByColumnAndRow(22, $row);
+                    $codigosie = $cell->getValue();
 
+                    /*Comprobar y guardar unidad educativa*/
+
+                    $ue = Ue::find()->where(['CODIGOSIE' => $codigosie])->one();
+
+                    if (is_null($ue)) {
+
+                        $cell = $objWorksheet->getCellByColumnAndRow(23, $row);
+                        $val = $cell->getValue();
+                        $model_ue->NOMBRE = $val;
+
+                        $model_ue->CODIGOSIE = $codigosie;
+
+                        $cell = $objWorksheet->getCellByColumnAndRow(24, $row);
+                        $val = $cell->getValue();
+                        $model_ue->AREA = $val;
+
+                        $cell = $objWorksheet->getCellByColumnAndRow(25, $row);
+                        $val = $cell->getValue();
+                        $model_ue->DEPENDENCIA = $val;
+
+                        $cell = $objWorksheet->getCellByColumnAndRow(26, $row);
+                        $val = $cell->getValue();
+                        $model_ue->PROVINCIA = $val;
+
+                        $cell = $objWorksheet->getCellByColumnAndRow(27, $row);
+                        $val = $cell->getValue();
+                        $model_ue->SECCION = $val;
+
+                        $cell = $objWorksheet->getCellByColumnAndRow(28, $row);
+                        $val = $cell->getValue();
+                        $model_ue->CANTON = $val;
+
+                        $cell = $objWorksheet->getCellByColumnAndRow(29, $row);
+                        $val = $cell->getValue();
+                        $model_ue->LOCALIDAD = $val;
+
+                        $model_ue->save();
+
+                        $id_ue = $model_ue->_id->{'$id'};
+
+                    } else {
+                        $id_ue = $ue->_id->{'$id'};
                     }
 
+                    /*Unidad educativa*/
+
+                    $model->UE = new \MongoId($id_ue);
+
+
+                    /**GUARDADO**/
+                    if ($model->save()) {
+
+                    }
+                }
                 }
             }else{
                 //var_dump("aaaa");

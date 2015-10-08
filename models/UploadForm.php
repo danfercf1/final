@@ -33,7 +33,7 @@ class UploadForm extends Model
     public function gestiones(){
         $anio  = (int) date("Y");
         $gestion = array();
-        for($i=$anio; $i<=$anio+20;$i++){
+        for($i=$anio; $i<=$anio+10;$i++){
             $gestion[$i] = $i;
         }
         return $gestion;

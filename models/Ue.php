@@ -14,6 +14,8 @@ use Yii;
  * @property mixed $AREA
  * @property mixed $PROVINCIA
  * @property mixed $LOCALIDAD
+ * @property mixed $SECCION
+ * @property mixed $CANTON
  */
 class Ue extends \yii\mongodb\ActiveRecord
 {
@@ -39,6 +41,8 @@ class Ue extends \yii\mongodb\ActiveRecord
             'DEPENDENCIA',
             'AREA',
             'PROVINCIA',
+            'SECCION',
+            'CANTON',
             'LOCALIDAD',
         ];
     }
@@ -49,7 +53,7 @@ class Ue extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['NOMBRE', 'CODIGOSIE', 'DEPENDENCIA', 'AREA', 'PROVINCIA', 'LOCALIDAD'], 'safe']
+            [['NOMBRE', 'CODIGOSIE', 'DEPENDENCIA', 'AREA', 'PROVINCIA', 'SECCION', 'CANTON','LOCALIDAD'], 'safe']
         ];
     }
 
@@ -65,6 +69,8 @@ class Ue extends \yii\mongodb\ActiveRecord
             'DEPENDENCIA' => 'Dependencia',
             'AREA' => 'Area',
             'PROVINCIA' => 'Provincia',
+            'SECCION' => 'Seccion',
+            'CANTON' => 'Canton',
             'LOCALIDAD' => 'Localidad',
         ];
     }

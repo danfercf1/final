@@ -59,6 +59,13 @@ class EstudiantesController extends Controller
         
     }
     
+    public function actionAdministracion()
+    {      
+        return $this->render('administracion',[
+            'dataProvider' => $dataProvider
+        ]);
+    }
+    
     public function actionDatos()
     {
         $searchModel = new EstudiantesBusqueda();

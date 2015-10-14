@@ -28,21 +28,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'_id',
-            'NOMBRE',
+            
             'DISTRITO_EDUCATIVO',
-            'MATERIA',
+            //'MATERIA',
+            'Ap_PATERNO',
+            'Ap_MATERNO',
+            'NOMBRE',
             'CURSO',
-            // 'Ap_PATERNO',
-            // 'Ap_MATERNO',
+            'UE',
             // 'RUDE',
             // 'GENERO',
             // 'CI',
-            [
+            /*[
                 "label"=>"Fecha de Nac",
                 "value"=>function ($model) {
                     return $model->getFechaNac();
                 }
-            ],
+            ],*/
             // 'CORREO',
             // 'FONO',
 

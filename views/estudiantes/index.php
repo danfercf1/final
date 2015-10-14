@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="lista">
     <h1>Estudiantes</h1>
     <ul>
-        <li><a>Administracion de Datos</a></li>
+        <li><a href="/estudiantes/administracion">Administracion de Datos</a></li>
         <li><a href="/estudiantes/datos">Exploracion de datos</a></li>
         <li><a href="/estudiantes/prueba">Prueba</a></li>
     </ul>

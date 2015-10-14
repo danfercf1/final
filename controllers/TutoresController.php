@@ -8,6 +8,7 @@ use app\models\TutoresBusqueda;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * TutoresController implements the CRUD actions for Tutor model.

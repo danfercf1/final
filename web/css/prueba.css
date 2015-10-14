@@ -1,3 +1,10 @@
 .main-content a {
     color:green;
 }
+.main-content a:hover {
+    text-decoration: none;
+}
+
+.main-content p{
+    text-align: center;
+}

@@ -14,5 +14,5 @@ $this->registerCssFile("@web/css/prueba.css");
 <div class="main-content">
     <a>link</a>
     <br />
-    <span>Span</span>
+    <p>Paragraph</p>
 </div>

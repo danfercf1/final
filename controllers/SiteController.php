@@ -8,8 +8,14 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Estudiantes;
+use app\models\EstudiantesBusqueda;
+use app\models\Ue;
+use app\models\UeBusqueda;
+use yii\data\ActiveDataProvider;
 use yii\mongodb\Query;
 use yii\mongodb\Collection;
+
 
 class SiteController extends Controller
 {
@@ -110,4 +116,52 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+  
+    public function actionClasificados()
+    {
+        return $this->render('clasificados');
+    }
+    
+    public function actionEstadisticas()
+    {
+        return $this->render('estadisticas');
+    }
+    
+    public function actionReportes()
+    {
+        return $this->render('reportes');
+    }
+    
+    public function actionEtapa_3()
+    {
+        $searchModel = new EstudiantesBusqueda();
+        $dataProvider = new ActiveDataProvider([
+                'query' => Estudiantes::find(),
+            ]);
+        
+        return $this->render('etapa_3',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionEtapa_nacional()
+    {
+        $dataProvider = new ActiveDataProvider([
+                'query' => Estudiantes::find(),
+            ]);
+        return $this->render('etapa_nacional',[
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionMedallero_cbba()
+    {
+        $dataProvider = new ActiveDataProvider([
+                'query' => Estudiantes::find(),
+            ]);
+        return $this->render('medallero_cbba',[
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+    
 }

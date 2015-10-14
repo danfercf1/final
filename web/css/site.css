@@ -103,3 +103,23 @@ a.desc:after {
 }
 
 /*/FIN menu inicio*/
+
+/* site/index */
+.col-lg-4 a:hover {
+    text-decoration: none;
+}
+
+
+/* Clasificacion */
+
+.clasificacion h2 {
+    text-align: center;
+}
+
+.lead {
+    text-align: center;
+}
+
+.main-content a:hover {
+    text-decoration: none;
+}

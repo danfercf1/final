@@ -16,7 +16,6 @@ use Yii;
  * @property mixed $CORREO
  * @property mixed $FONO
  * @property mixed $GESTION
- * @property mixed $UE
  */
 class Tutor extends \yii\mongodb\ActiveRecord
 {
@@ -43,7 +42,6 @@ class Tutor extends \yii\mongodb\ActiveRecord
             'CORREO',
             'FONO',
             'GESTION',
-            'UE',
         ];
     }
 
@@ -53,7 +51,7 @@ class Tutor extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['NOMBRE', 'PATERNO', 'MATERNO', 'GENERO', 'CI', 'CORREO', 'FONO', 'GESTION', 'UE'], 'safe']
+            [['NOMBRE', 'PATERNO', 'MATERNO', 'GENERO', 'CI', 'CORREO', 'FONO', 'GESTION'], 'safe']
         ];
     }
 
@@ -72,7 +70,11 @@ class Tutor extends \yii\mongodb\ActiveRecord
             'CORREO' => 'Correo',
             'FONO' => 'Telefono',
             'GESTION' => 'Gestion',
-            'UE' => 'Unidad Educativa',
         ];
+    }
+    
+    public function nombreCompleto()
+    {
+        return $this->NOMBRE.' '.$this->PATERNO.' '.$this->MATERNO;
     }
 }

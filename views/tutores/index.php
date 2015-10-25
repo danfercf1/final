@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
             //'GENERO',
             // 'CORREO',
             // 'FONO',
-            'UE',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

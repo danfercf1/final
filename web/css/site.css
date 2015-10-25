@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    /*font-size: 100%;*/
 }
 
 .wrap {
@@ -91,7 +92,6 @@ a.desc:after {
 }
 
 /*menu inico*/
-
 .logo-inicio {
     float: left;
     margin-right: 10px;
@@ -102,7 +102,14 @@ a.desc:after {
     float: left;
 }
 
-/*/FIN menu inicio*/
+
+/*titulo principal site*/
+.jumbotron p {
+    color: #000029;
+    font-size: 23px;
+    font-weight: bold;
+}
+
 
 /* site/index */
 .col-lg-4 a:hover {
@@ -111,7 +118,6 @@ a.desc:after {
 
 
 /* Clasificacion */
-
 .clasificacion h2 {
     text-align: center;
 }
@@ -123,6 +129,7 @@ a.desc:after {
 .main-content a:hover {
     text-decoration: none;
 }
+
 
 /*para quitar los slash del breadcrumb */
 .breadcrumb > li + li::before {

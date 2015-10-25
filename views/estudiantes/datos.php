@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Ap_MATERNO',
             'NOMBRE',
             'CURSO',
-            'UE',
+            //'UE',
             // 'RUDE',
             // 'GENERO',
             // 'CI',

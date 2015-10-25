@@ -6,9 +6,10 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Estudiantes */
 
-$this->title = $model->_id;
+$this->title = $model->nombreCompleto();
 $this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$test = 'asdasd';
 ?>
 <div class="estudiantes-view">
 
@@ -39,8 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'GENERO',
             'CI',
             'FECHA_NAC',
+            'EDAD',
             'CORREO',
             'FONO',
+            ['label'=>'TUTOR','value'=>$test],
+            'UE',
         ],
     ]) ?>
 

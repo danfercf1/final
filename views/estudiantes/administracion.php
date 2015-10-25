@@ -16,9 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="lista">
     <h1>Administracion</h1>
     <ul>
-        <li><a href="/estudiantes/administracion/excel">Registro participantes</a></li>
-        <li><a href="/estudiantes/administracion/create">Inscribir estudiante</a></li>
-        <li><a href="/estudiantes/administracion/nota">Registro notas</a></li>
+        <li><a href="/estudiantes/cargarexcel">Nuevo registro</a></li>
+        
     </ul>
     
     

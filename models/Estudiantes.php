@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+use app\models\Estudiantes;
 
 use Yii;
 
@@ -18,6 +19,7 @@ use Yii;
  * @property mixed $GENERO
  * @property mixed $CI
  * @property mixed $FECHA_NAC
+ * @property mixed $EDAD
  * @property mixed $CORREO
  * @property mixed $FONO
  * @property mixed $GESTION
@@ -55,6 +57,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'GENERO',
             'CI',
             'FECHA_NAC',
+            'EDAD',
             'CORREO',
             'FONO',
             'GESTION',
@@ -72,7 +75,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['DISTRITO_EDUCATIVO', 'MATERIA', 'CURSO', 'NOMBRE', 'Ap_PATERNO', 'Ap_MATERNO', 'RUDE', 'GENERO', 'CI', 'FECHA_NAC', 'CORREO', 'FONO', 'NOTA', 'GESTION', 'UE', 'TUTOR', 'DISCAPACIDAD', 'NACIONALIDAD'], 'safe']
+            [['DISTRITO_EDUCATIVO', 'MATERIA', 'CURSO', 'NOMBRE', 'Ap_PATERNO', 'Ap_MATERNO', 'RUDE', 'GENERO', 'CI', 'FECHA_NAC', 'EDAD', 'CORREO', 'FONO', 'NOTA', 'GESTION', 'UE', 'TUTOR', 'DISCAPACIDAD', 'NACIONALIDAD'], 'safe']
         ];
     }
 
@@ -93,6 +96,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'GENERO' => 'Género',
             'CI' => 'CI',
             'FECHA_NAC' => 'Fecha  Nacimiento',
+            'EDAD' => 'Edad',
             'CORREO' => 'Correo',
             'FONO' => 'Teléfono',
             'GESTION' => 'Gestión',
@@ -102,6 +106,21 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'DISCAPACIDAD'=>'Discapacidad',
             'NACIONALIDAD'=>'Nacionalidad'
         ];
+    }
+    
+    public function getTeacher($idEstudiante)
+    {
+        $sql = "SELECT tutor FROM estudiantes WHERE id = '.$idEstudiante.'";
+
+        $model = Estudiantes::findBySql($sql)->all();  
+        return $model;
+
+
+    }
+    
+    public function nombreCompleto()
+    {
+        return $this->NOMBRE.' '.$this->Ap_PATERNO.' '.$this->Ap_MATERNO;
     }
 
     public function getFechaNaC()

@@ -11,6 +11,7 @@ use app\models\ContactForm;
 use app\models\Estudiantes;
 use app\models\EstudiantesBusqueda;
 use app\models\Ue;
+use app\models\CustomForm;
 use app\models\UeBusqueda;
 use yii\data\ActiveDataProvider;
 use yii\mongodb\Query;
@@ -132,26 +133,22 @@ class SiteController extends Controller
         return $this->render('reportes');
     }
     
-    public function actionEtapa_3()
+    public function actionR_general()
     {
         $searchModel = new EstudiantesBusqueda();
         $dataProvider = new ActiveDataProvider([
                 'query' => Estudiantes::find(),
             ]);
         
-        return $this->render('etapa_3',[
+        return $this->render('r_general',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-    public function actionEtapa_nacional()
+    public function actionPersonalizar()
     {
-        $dataProvider = new ActiveDataProvider([
-                'query' => Estudiantes::find(),
-            ]);
-        return $this->render('etapa_nacional',[
-            'dataProvider' => $dataProvider,
-        ]);
+        $model_custom = new CustomForm();
+        return $this->render('personalizar',['model'=>$model_custom]);
     }
     public function actionMedallero_cbba()
     {

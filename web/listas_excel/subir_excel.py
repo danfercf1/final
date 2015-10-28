@@ -54,7 +54,7 @@ for i in range(1, sheet.nrows):
             if(j <=14):
                 dataEstudiante[titulo] = celda
             #TUTOR
-            elif(j>=15 and j<=20):
+            elif(j>=15 and j<=21):
                 dataTutor[titulo] = celda
             #UE
             elif (j>=22 and j<=28):

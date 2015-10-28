@@ -12,6 +12,7 @@ use app\models\Estudiantes;
 use app\models\EstudiantesBusqueda;
 use app\models\Ue;
 use app\models\CustomForm;
+use app\models\MultiSelectForm;
 use app\models\UeBusqueda;
 use yii\data\ActiveDataProvider;
 use yii\mongodb\Query;
@@ -150,14 +151,17 @@ class SiteController extends Controller
         $model_custom = new CustomForm();
         return $this->render('personalizar',['model'=>$model_custom]);
     }
-    public function actionMedallero_cbba()
+    public function actionMejor_nota()
     {
-        $dataProvider = new ActiveDataProvider([
+        $model_multiselect = new MultiSelectForm();
+        return $this->render('mejor_nota',['model'=>$model_multiselect]);
+        
+        /*$dataProvider = new ActiveDataProvider([
                 'query' => Estudiantes::find(),
             ]);
-        return $this->render('medallero_cbba',[
+        return $this->render('mejor_nota',[
             'dataProvider' => $dataProvider,
-        ]);
+        ]);*/
     }
     
     

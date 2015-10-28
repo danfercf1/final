@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Ue */
 
-$this->title = $model->_id;
+$this->title = $model->NOMBRE_UE;
 $this->params['breadcrumbs'][] = ['label' => 'Ues', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -29,12 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             '_id',
-            'NOMBRE',
-            'CODIGOSIE',
+            'NOMBRE_UE',
+            'COD_SIE',
             'DEPENDENCIA',
             'AREA',
+            'SECCION',
+            'CANTON',
             'PROVINCIA',
-            'LOCALIDAD',
         ],
     ]) ?>
 

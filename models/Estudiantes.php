@@ -123,6 +123,11 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
         return $this->hasOne(Ue::className(),['_id'=>'UNIDAD_EDUCATIVA']);
     }
 
+    public function getTutor()
+    {
+        return $this->hasOne(Tutor::className(),['_id'=>'TUTOR']);
+    }
+
     /*
      * Retornar Alumnos segun unidad educativa RURAL o URBANA
     */
@@ -148,16 +153,6 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
 
     public function nombreCompleto()
     {
-        return $this->NOMBRE.' '.$this->Ap_PATERNO.' '.$this->Ap_MATERNO;
-    }
-
-    public function getTeacher($idEstudiante)
-    {
-        $sql = "SELECT tutor FROM estudiantes WHERE id = '.$idEstudiante.'";
-
-        $model = Estudiantes::findBySql($sql)->all();
-        return $model;
-
-
+        return $this->NOMBRE.' '.$this->PATERNO.' '.$this->MATERNO;
     }
 }

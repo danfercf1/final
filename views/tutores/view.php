@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Tutor */
 
 $this->title = $model->nombreCompleto();
-$this->params['breadcrumbs'][] = ['label' => 'Tutors', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Tutores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tutor-view">
@@ -29,13 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             '_id',
-            'NOMBRE',
-            'PATERNO',
-            'MATERNO',
-            'GENERO',
-            'CI',
-            'CORREO',
-            'FONO',
+            'NOMBRE_T',
+            'PATERNO_T',
+            'MATERNO_T',
+            'GENERO_T',
+            'CI_T',
+            'CORREO_T',
+            'FONO_T',
         ],
     ]) ?>
 

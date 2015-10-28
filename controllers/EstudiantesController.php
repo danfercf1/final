@@ -60,7 +60,8 @@ class EstudiantesController extends Controller
     }
     
     public function actionAdministracion()
-    {      
+    {
+
         return $this->render('administracion',[
             'dataProvider' => $dataProvider
         ]);
@@ -87,9 +88,15 @@ class EstudiantesController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),'idEstudiante' => $id
-        ]);
+        $model = Estudiantes::find()->with('tutor')->where(['_id'=>$id])->one();
+
+        if ($model !== null) {
+            return $this->render('view', [
+                'model' => $model,'idEstudiante' => $id
+            ]);
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**

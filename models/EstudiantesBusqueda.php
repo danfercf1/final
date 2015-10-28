@@ -67,7 +67,7 @@ class EstudiantesBusqueda extends Estudiantes
             ->andFilterWhere(['like', 'FECHA_NACIMIENTO', $this->FECHA_NACIMIENTO])
             ->andFilterWhere(['like', 'CORREO', $this->CORREO])
             ->andFilterWhere(['like', 'FONO', $this->FONO])
-            ->andFilterWhere(['like', 'UE', $this->UE])
+            ->andFilterWhere(['like', 'UE', $this->UNIDAD_EDUCATIVA])
             ->andFilterWhere(['like', 'TUTOR', $this->TUTOR]);
 
         return $dataProvider;

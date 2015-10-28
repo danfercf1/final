@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'NOMBRE') ?>
+    <?= $form->field($model, 'NOMBRE_UE') ?>
 
-    <?= $form->field($model, 'CODIGOSIE') ?>
+    <?= $form->field($model, 'COD_SIE') ?>
 
     <?= $form->field($model, 'DEPENDENCIA') ?>
 
@@ -22,7 +22,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'PROVINCIA') ?>
 
-    <?= $form->field($model, 'LOCALIDAD') ?>
+    <?= $form->field($model, 'CANTON') ?>
+
+    <?= $form->field($model, 'SECCION') ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

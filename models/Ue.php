@@ -14,6 +14,7 @@ use Yii;
  * @property mixed $COD_SIE
  * @property mixed $CANTON
  * @property mixed $DEPENDENCIA
+ * @property mixed $SECCION
  */
 class Ue extends \yii\mongodb\ActiveRecord
 {

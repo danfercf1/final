@@ -10,13 +10,13 @@ use yii\web\UploadedFile;
 
 class UploadForm extends Model
 {
-    public $ubicacion = "listas_excel/";
+    public $ubicacion = "listas_excel/archivos/";
     /**
      * @var UploadedFile file attribute
      */
     public $file;
     public $gestion;
-    public $etapa;
+    public $etapas;
 
     /**
      * @return array the validation rules.
@@ -27,6 +27,7 @@ class UploadForm extends Model
             //[['file'], 'file', 'extensions' => 'xlsx'],
             /*[['gestion'], 'required'],*/
             [['gestion'], 'number'],
+            [['etapas'], 'number'],
         ];
     }
 

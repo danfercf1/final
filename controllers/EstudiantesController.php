@@ -27,7 +27,7 @@ class EstudiantesController extends Controller
                 'only' => ['index', 'view', 'create', 'update', 'delete', 'cargarexcel'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'view', 'update', 'delete', 'cargarexcel', 'cargarnotas'],
+                        'actions' => ['logout', 'index', 'view', 'update', 'delete', 'cargarexcel', 'cargarnotas', 'vernotas', 'cargarfinal'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -109,7 +109,7 @@ class EstudiantesController extends Controller
 
     public function actionCargarexcel()
     {
-        set_time_limit(360);
+        set_time_limit(600);
 
         $model_file = new UploadForm();
 
@@ -123,6 +123,21 @@ class EstudiantesController extends Controller
 
                 $model_file->file->saveAs($model_file->ubicacion.$model_file->file->baseName . '.' . $model_file->file->extension);
 
+                $gestion = $_POST["UploadForm"]["gestion"];
+                $etapas = (int)$_POST["UploadForm"]["etapas"];
+                $archivo = $model_file->file->baseName;
+
+                $json = ["archivo"=>$archivo. '.' . $model_file->file->extension, "gestion"=>$gestion, "etapas"=>$etapas];
+
+                $fp = fopen("listas_excel/configuracion.json", "w");
+
+                fwrite($fp, json_encode($json));
+
+                fclose($fp);
+
+                return $this->redirect(['cargarfinal']);
+
+                /*
                 $cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_to_wincache;
                 $cacheSettings = array(
                     'cacheTime' => 600
@@ -232,7 +247,8 @@ class EstudiantesController extends Controller
                     $model->GESTION = $_POST["UploadForm"]["gestion"];
 
 
-                    /*Comprobar y guardar tutor*/
+                    //Comprobar y guardar tutor
+
                     $cell = $objWorksheet->getCellByColumnAndRow(15, $row);
                     $nom_tutor = strtolower($cell->getValue());
 
@@ -245,7 +261,7 @@ class EstudiantesController extends Controller
                     $cell = $objWorksheet->getCellByColumnAndRow(19, $row);
                     $ci_tutor = strtolower($cell->getValue());
 
-                    /*$tutor = Tutor::find()->where(['NOMBRE' => $nom_tutor, 'PATERNO'=>$pat_tutor,'MATERNO'=>$mat_tutor])->one();*/
+                    //$tutor = Tutor::find()->where(['NOMBRE' => $nom_tutor, 'PATERNO'=>$pat_tutor,'MATERNO'=>$mat_tutor])->one();
 
                     $tutor = Tutor::find()->where(['CI' => $ci_tutor])->one();
 
@@ -282,18 +298,16 @@ class EstudiantesController extends Controller
                     }
 
 
-                    /*Tutor*/
+                    //Tutor
 
                     $model->TUTOR = new \MongoId($id_tutor);
 
-                    /***
-                     * Unidad educativa
-                     ***/
+                    //Unidad educativa
 
                     $cell = $objWorksheet->getCellByColumnAndRow(22, $row);
                     $codigosie = $cell->getValue();
 
-                    /*Comprobar y guardar unidad educativa*/
+                    //Comprobar y guardar unidad educativa
 
                     $ue = Ue::find()->where(['CODIGOSIE' => $codigosie])->one();
 
@@ -337,21 +351,23 @@ class EstudiantesController extends Controller
                         $id_ue = $ue->_id->{'$id'};
                     }
 
-                    /*Unidad educativa*/
+                    //Unidad educativa
 
                     $model->UE = new \MongoId($id_ue);
 
 
-                    /**GUARDADO**/
+                    //GUARDADO
                     if ($model->save()) {
 
                     }
+
                 }
                 }
+            */
             }else{
                 //var_dump("aaaa");
             }
-            //return $this->redirect(['view', 'id' => (string)$model->_id]);
+
         } else {
             return $this->render('excel', [
                 'model' => $model_file, 'gestiones'=>$gestiones
@@ -361,6 +377,25 @@ class EstudiantesController extends Controller
         return $this->render('excel', [
             'model' => $model_file, 'gestiones'=>$gestiones
         ]);
+    }
+
+
+    public function actionVernotas($notaMin=51){
+
+        $estudiantes = new Estudiantes();
+
+        $urbano = $estudiantes->getAlumnos(10, 'u', 51);
+
+        $rural = $estudiantes->getAlumnos(10, 'r', 51);
+
+        return $this->render('vernotas', [
+            'urbano' => $urbano, 'rural'=>$rural
+        ]);
+    }
+
+    public function actionCargarfinal(){
+
+        return $this->render('cargar_final', []);
     }
 
     /**

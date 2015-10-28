@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'gestion')->dropDownList($gestiones, ['prompt'=>'Seleccionar Gestion...']) ?>
 
+    <?= $form->field($model, 'etapas')->dropDownList(["1"=>"1", "2"=>"2", "3"=>"3", "4"=>"4", "5"=>"5"], ['prompt'=>'Seleccionar Cantidad de Etapas']) ?>
+
     <div class="form-group">
         <?= Html::submitButton('Cargar', ['class' => 'btn btn-success']) ?>
     </div>

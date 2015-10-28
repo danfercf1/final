@@ -19,7 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <?php $form = ActiveForm::begin(['method' => 'get']); ?>
     
-    <?= $form->field($model, 'cantidad')->textInput()->hint('Ingrese un numero entre 1 y 100')->label('Cantidad'); ?>
+    
+    
+    <?= $form->field($model, 'cantidad')->
+    input('number', ['min'=>1, 'max'=> 100, 'placeholder'=>'Ingrese un numero entre 1-100...']) ->label('Cantidad'); ?>
+    
 
     <?= $form->field($model, 'atributo')->dropDownList(array("a1"=>"Distrito", "a2"=>"Curso", "a3"=>"Area", "a4"=>"Dependencia", "a5"=>"Genero", "a6"=>"Edad sub-15", "a7"=>"Edad sub-17",), ['prompt'=>'Seleccionar Variable...']) ?>
 

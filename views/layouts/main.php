@@ -41,9 +41,9 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Inicio', 'url' => ['/site/index']],
-                    ['label' => 'Estudiantes', 'url' => ['/estudiantes/index']],
-                    ['label' => 'Usuarios', 'url' => ['/usuarios/index']],
+                    //['label' => 'Inicio', 'url' => ['/site/index']],
+                    //['label' => 'Estudiantes', 'url' => ['/estudiantes/index']],
+                    //['label' => 'Usuarios', 'url' => ['/usuarios/index']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
                         ['label' => 'Logout (' . Yii::$app->user->identity->nombre . ')',
@@ -68,24 +68,25 @@ AppAsset::register($this);
                 'items' => [
                     // Important: you need to specify url as 'controller/action',
                     // not just as 'controller' even if default action is used.
-                    ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/site/home', 'type'=>$type]), 'active' => ($item == 'home')],
-                    ['label' => 'Books', 'icon' => 'book', 'items' => [
-                        ['label' => '<span class="pull-right badge">10</span> New Arrivals', 'url' => Url::to(['/site/new-arrivals', 'type'=>$type]), 'active' => ($item == 'new-arrivals')],
-                        ['label' => '<span class="pull-right badge">5</span> Most Popular', 'url' => Url::to(['/site/most-popular', 'type'=>$type]), 'active' => ($item == 'most-popular')],
-                        ['label' => 'Read Online', 'icon' => 'cloud', 'items' => [
-                            ['label' => 'Online 1', 'url' => Url::to(['/site/online-1', 'type'=>$type]), 'active' => ($item == 'online-1')],
-                            ['label' => 'Online 2', 'url' => Url::to(['/site/online-2', 'type'=>$type]), 'active' => ($item == 'online-2')]
+                    ['label' => 'Inicio', 'icon' => 'home', 'url' => Url::to(['/site/index', 'type'=>$type]), 'active' => ($item == 'index')],
+                    ['label' => 'Estudiantes', 'icon' => 'book', 'items' => [
+                        ['label' => 'Nuevo registro', 'url' => Url::to(['/estudiantes/cargarexcel', 'type'=>$type]), 'active' => ($item == 'cargarexcel')],
+                        ['label' => 'Exploracion de datos', 'url' => Url::to(['/estudiantes/datos', 'type'=>$type]), 'active' => ($item == 'datos')],
+                        ['label' => 'Historial', 'icon' => 'user', 'items' => [
+                            ['label' => 'Registro 1', 'url' => Url::to(['/site/online-1', 'type'=>$type]), 'active' => ($item == 'online-1')],
+                            ['label' => 'Registro 2', 'url' => Url::to(['/site/online-2', 'type'=>$type]), 'active' => ($item == 'online-2')]
                         ]],
                     ]],
-                    ['label' => '<span class="pull-right badge">3</span> Categories', 'icon' => 'tags', 'items' => [
-                        ['label' => 'Fiction', 'url' => Url::to(['/site/fiction', 'type'=>$type]), 'active' => ($item == 'fiction')],
-                        ['label' => 'Historical', 'url' => Url::to(['/site/historical', 'type'=>$type]), 'active' => ($item == 'historical')],
-                        ['label' => '<span class="pull-right badge">2</span> Announcements', 'icon' => 'bullhorn', 'items' => [
-                            ['label' => 'Event 1', 'url' => Url::to(['/site/event-1', 'type'=>$type]), 'active' => ($item == 'event-1')],
-                            ['label' => 'Event 2', 'url' => Url::to(['/site/event-2', 'type'=>$type]), 'active' => ($item == 'event-2')]
+                    ['label' => 'Clasificacion', 'icon' => 'tags', 'items' => [
+                        ['label' => 'Ranking general', 'url' => Url::to(['/site/r_general', 'type'=>$type]), 'active' => ($item == 'r_general')],
+                        ['label' => 'Personalizar ranking', 'url' => Url::to(['/site/personalizar', 'type'=>$type]), 'active' => ($item == 'personalizar')],
+                        ['label' => 'Mejores notas', 'url' => Url::to(['/site/mejor_nota', 'type'=>$type]), 'active' => ($item == 'mejor_nota')],
+                        ['label' => 'Boletin informativo', 'icon' => 'bullhorn', 'items' => [
+                            ['label' => 'Estadisticas', 'url' => Url::to(['/site/estadisticas', 'type'=>$type]), 'active' => ($item == 'estadisticas')],
+                            ['label' => 'Reportes', 'url' => Url::to(['/site/reportes', 'type'=>$type]), 'active' => ($item == 'reportes')]
                         ]],
                     ]],
-                    ['label' => 'Profile', 'icon' => 'user', 'url' => Url::to(['/site/profile', 'type'=>$type]), 'active' => ($item == 'profile')],
+                    ['label' => 'Cuenta de usuario', 'icon' => 'user', 'url' => Url::to(['/usuarios/index', 'type'=>$type]), 'active' => ($item == 'index')],
                 ],
             ]);
             ?>

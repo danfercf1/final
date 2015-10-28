@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <ul>
         <li><a href="/site/r_general">Ranking general</a></li> 
         <li><a href="/site/personalizar">Personalizar Ranking</a></li>
-      
+        <li><a href="/site/mejor_nota">Mejores notas</a></li>
     </ul>
     
 </div>

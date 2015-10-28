@@ -18,7 +18,7 @@ class UeBusqueda extends Ue
     public function rules()
     {
         return [
-            [['_id', 'NOMBRE', 'CODIGOSIE', 'DEPENDENCIA', 'AREA', 'PROVINCIA', 'LOCALIDAD'], 'safe'],
+            [['_id', 'NOMBRE_UE', 'COD_SIE', 'DEPENDENCIA', 'AREA', 'PROVINCIA', 'SECCION', 'CANTON'], 'safe'],
         ];
     }
 
@@ -55,13 +55,13 @@ class UeBusqueda extends Ue
         }
 
         $query->andFilterWhere(['like', '_id', $this->_id])
-            ->andFilterWhere(['like', 'NOMBRE', $this->NOMBRE])
-            ->andFilterWhere(['like', 'CODIGOSIE', $this->CODIGOSIE])
+            ->andFilterWhere(['like', 'NOMBRE_UE', $this->NOMBRE_UE])
+            ->andFilterWhere(['like', 'COD_SIE', $this->COD_SIE])
             ->andFilterWhere(['like', 'DEPENDENCIA', $this->DEPENDENCIA])
             ->andFilterWhere(['like', 'AREA', $this->AREA])
             ->andFilterWhere(['like', 'PROVINCIA', $this->PROVINCIA])
-            ->andFilterWhere(['like', 'LOCALIDAD', $this->LOCALIDAD]);
-
+            ->andFilterWhere(['like', 'CANTON', $this->CANTON])
+            ->andFilterWhere(['like', 'SECCION', $this->SECCION]);
         return $dataProvider;
     }
 }

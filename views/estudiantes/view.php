@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->nombreCompleto();
 $this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-$test = 'asdasd';
+
 ?>
 <div class="estudiantes-view">
 
@@ -23,28 +23,29 @@ $test = 'asdasd';
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ]);
+        ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             '_id',
-            'DISTRITO_EDUCATIVO',
+            'DISTRITO',
             'MATERIA',
             'CURSO',
             'NOMBRE',
-            'Ap_PATERNO',
-            'Ap_MATERNO',
+            'PATERNO',
+            'MATERNO',
             'RUDE',
             'GENERO',
             'CI',
-            'FECHA_NAC',
+            'FECHA_NACIMIENTO',
             'EDAD',
             'CORREO',
             'FONO',
-            ['label'=>'TUTOR','value'=>$test],
-            'UE',
+            ['label'=>'TUTOR', 'format'=>'raw', 'value'=>Html::a($model->tutor->NOMBRE_T." ".$model->tutor->PATERNO_T." ".$model->tutor->MATERNO_T, ['tutores/view', 'id' => $model->TUTOR->{'$id'}])],
+            ['label'=>'UNIDAD EDUCATIVA', 'format'=>'raw', 'value'=>Html::a($model->uE->NOMBRE_UE, ['ue/view', 'id' => $model->UNIDAD_EDUCATIVA->{'$id'}])],
         ],
     ]) ?>
 

@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'DISTRITO_EDUCATIVO') ?>
+    <?= $form->field($model, 'DISTRITO') ?>
 
     <?= $form->field($model, 'MATERIA') ?>
 
@@ -20,9 +20,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'NOMBRE') ?>
 
-    <?= $form->field($model, 'Ap_PATERNO') ?>
+    <?= $form->field($model, 'PATERNO') ?>
 
-    <?= $form->field($model, 'Ap_MATERNO') ?>
+    <?= $form->field($model, 'MATERNO') ?>
 
     <?= $form->field($model, 'RUDE') ?>
 
@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'CI') ?>
 
-    <?= $form->field($model, 'FECHA_NAC') ?>
+    <?= $form->field($model, 'FECHA_NACIMIENTO') ?>
 
     <?= $form->field($model, 'CORREO') ?>
 

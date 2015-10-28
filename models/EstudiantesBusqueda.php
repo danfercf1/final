@@ -18,7 +18,7 @@ class EstudiantesBusqueda extends Estudiantes
     public function rules()
     {
         return [
-            [['_id', 'DISTRITO_EDUCATIVO', 'MATERIA', 'CURSO', 'NOMBRE', 'Ap_PATERNO', 'Ap_MATERNO', 'RUDE', 'GENERO', 'CI', 'FECHA_NAC', 'CORREO', 'FONO', 'UE', 'TUTOR'], 'safe'],
+            [['_id', 'PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD','EDAD'], 'safe'],
         ];
     }
 
@@ -55,19 +55,19 @@ class EstudiantesBusqueda extends Estudiantes
         }
 
         $query->andFilterWhere(['like', '_id', $this->_id])
-            ->andFilterWhere(['like', 'DISTRITO_EDUCATIVO', $this->DISTRITO_EDUCATIVO])
+            ->andFilterWhere(['like', 'DISTRITO', $this->DISTRITO])
             ->andFilterWhere(['like', 'MATERIA', $this->MATERIA])
             ->andFilterWhere(['like', 'CURSO', $this->CURSO])
             ->andFilterWhere(['like', 'NOMBRE', $this->NOMBRE])
-            ->andFilterWhere(['like', 'Ap_PATERNO', $this->Ap_PATERNO])
-            ->andFilterWhere(['like', 'Ap_MATERNO', $this->Ap_MATERNO])
+            ->andFilterWhere(['like', 'PATERNO', $this->PATERNO])
+            ->andFilterWhere(['like', 'MATERNO', $this->MATERNO])
             ->andFilterWhere(['like', 'RUDE', $this->RUDE])
             ->andFilterWhere(['like', 'GENERO', $this->GENERO])
             ->andFilterWhere(['like', 'CI', $this->CI])
-            ->andFilterWhere(['like', 'FECHA_NAC', $this->FECHA_NAC])
+            ->andFilterWhere(['like', 'FECHA_NACIMIENTO', $this->FECHA_NACIMIENTO])
             ->andFilterWhere(['like', 'CORREO', $this->CORREO])
             ->andFilterWhere(['like', 'FONO', $this->FONO])
-            ->andFilterWhere(['like', 'UE', $this->UE])
+            ->andFilterWhere(['like', 'UE', $this->UNIDAD_EDUCATIVA])
             ->andFilterWhere(['like', 'TUTOR', $this->TUTOR]);
 
         return $dataProvider;
@@ -75,7 +75,7 @@ class EstudiantesBusqueda extends Estudiantes
 
     public function getFechaNaC()
     {
-        $fecha = $this->FECHA_NAC;
+        $fecha = $this->FECHA_NACIMIENTO;
         return date("d/m/Y", $fecha->sec);
     }
 }

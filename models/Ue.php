@@ -8,14 +8,13 @@ use Yii;
  * This is the model class for collection "ue".
  *
  * @property \MongoId|string $_id
- * @property mixed $NOMBRE
- * @property mixed $CODIGOSIE
- * @property mixed $DEPENDENCIA
- * @property mixed $AREA
  * @property mixed $PROVINCIA
- * @property mixed $LOCALIDAD
- * @property mixed $SECCION
+ * @property mixed $NOMBRE_UE
+ * @property mixed $AREA
+ * @property mixed $COD_SIE
  * @property mixed $CANTON
+ * @property mixed $DEPENDENCIA
+ * @property mixed $SECCION
  */
 class Ue extends \yii\mongodb\ActiveRecord
 {
@@ -36,14 +35,13 @@ class Ue extends \yii\mongodb\ActiveRecord
     {
         return [
             '_id',
-            'NOMBRE',
-            'CODIGOSIE',
-            'DEPENDENCIA',
-            'AREA',
             'PROVINCIA',
+            'NOMBRE_UE',
+            'AREA',
+            'COD_SIE',
             'SECCION',
             'CANTON',
-            'LOCALIDAD',
+            'DEPENDENCIA',
         ];
     }
 
@@ -53,7 +51,7 @@ class Ue extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['NOMBRE', 'CODIGOSIE', 'DEPENDENCIA', 'AREA', 'PROVINCIA', 'SECCION', 'CANTON','LOCALIDAD'], 'safe']
+            [['PROVINCIA', 'NOMBRE_UE', 'AREA', 'COD_SIE', 'SECCION', 'CANTON', 'DEPENDENCIA'], 'safe']
         ];
     }
 
@@ -64,15 +62,18 @@ class Ue extends \yii\mongodb\ActiveRecord
     {
         return [
             '_id' => 'ID',
-            'NOMBRE' => 'Nombre',
-            'CODIGOSIE' => 'Codigosie',
-            'DEPENDENCIA' => 'Dependencia',
-            'AREA' => 'Area',
             'PROVINCIA' => 'Provincia',
-            'SECCION' => 'Seccion',
-            'CANTON' => 'Canton',
-            'LOCALIDAD' => 'Localidad',
+            'NOMBRE_UE' => 'Nombre',
+            'AREA' => 'Area',
+            'COD_SIE' => 'Código SIE',
+            'SECCION' => 'Sección',
+            'CANTON' => 'Cantón',
+            'DEPENDENCIA' => 'Dependencia',
         ];
+    }
+
+    public function getEstudiantes(){
+        return $this->hasMany(Estudiantes::className(),['UNIDAD_EDUCATIVA'=>'_id']);
     }
 
     /*public function afterSave(){

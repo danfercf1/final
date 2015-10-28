@@ -29,23 +29,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'_id',
             
-            'DISTRITO_EDUCATIVO',
-            //'MATERIA',
-            'Ap_PATERNO',
-            'Ap_MATERNO',
+            'DISTRITO',
+            'PATERNO',
+            'MATERNO',
             'NOMBRE',
             'CURSO',
-            //'UE',
-            // 'RUDE',
+            'RUDE',
             // 'GENERO',
             // 'CI',
             /*[
-                "label"=>"Fecha de Nac",
+                "label"=>"Fecha de N.",
                 "value"=>function ($model) {
                     return $model->getFechaNac();
                 }
             ],*/
-            // 'CORREO',
+            'NOTA',
             // 'FONO',
 
             ['class' => 'yii\grid\ActionColumn'],

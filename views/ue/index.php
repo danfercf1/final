@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UeBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ues';
+$this->title = 'Unidades Educativas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ue-index">
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            '_id',
+            //'_id',
             'NOMBRE',
             'CODIGOSIE',
             'DEPENDENCIA',

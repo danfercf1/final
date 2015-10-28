@@ -59,6 +59,13 @@ class EstudiantesController extends Controller
         
     }
     
+    public function actionAdministracion()
+    {      
+        return $this->render('administracion',[
+            'dataProvider' => $dataProvider
+        ]);
+    }
+    
     public function actionDatos()
     {
         $searchModel = new EstudiantesBusqueda();
@@ -81,7 +88,7 @@ class EstudiantesController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id),'idEstudiante' => $id
         ]);
     }
 

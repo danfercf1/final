@@ -26,7 +26,8 @@ use Yii;
  * @property mixed $CORREO
  * @property mixed $DISCAPACIDAD
  * @property mixed $NACIONALIDAD
-  */
+ * @property mixed $EDAD
+ */
 class Estudiantes extends \yii\mongodb\ActiveRecord
 {
     /**
@@ -63,7 +64,8 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'UNIDAD_EDUCATIVA',
             'CORREO',
             'DISCAPACIDAD',
-            'NACIONALIDAD'
+            'NACIONALIDAD',
+            'EDAD'
         ];
     }
 
@@ -73,7 +75,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD'], 'safe']
+            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD'], 'safe']
         ];
     }
 
@@ -84,23 +86,24 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     {
         return [
             '_id' => 'ID',
-            'PATERNO' => 'Apellido Paterno',
+            'PATERNO' => 'Ap. Paterno',
             'CURSO' => 'Curso',
             'GENERO' => 'Género',
-            'MATERNO' => 'Apellido Materno',
+            'MATERNO' => 'Ap. Materno',
             'CI' => 'CI',
             'RUDE' => 'RUDE',
-            'NOMBRE' => 'Nombres',
-            'FECHA_NACIMIENTO' => 'Fecha N.',
+            'NOMBRE' => 'Nombre',
+            'FECHA_NACIMIENTO' => 'Fecha Nacimiento',
             'NOTA' => 'Nota',
             'MATERIA' => 'Materia',
             'FONO' => 'Teléfono',
             'TUTOR' => 'Tutor',
-            'DISTRITO' => 'Distrito',
+            'DISTRITO' => 'Distrito Educativo',
             'UNIDAD_EDUCATIVA' => 'Unidad Educativa',
-            'CORREO' => 'Email',
+            'CORREO' => 'Correo',
             'DISCAPACIDAD'=>'Discapacidad',
-            'NACIONALIDAD'=>'Nacionalidad'
+            'NACIONALIDAD'=>'Nacionalidad',
+            'EDAD'=>'Edad'
         ];
     }
 
@@ -141,5 +144,20 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             }
         }
         return $notaSelec;
+    }
+
+    public function nombreCompleto()
+    {
+        return $this->NOMBRE.' '.$this->Ap_PATERNO.' '.$this->Ap_MATERNO;
+    }
+
+    public function getTeacher($idEstudiante)
+    {
+        $sql = "SELECT tutor FROM estudiantes WHERE id = '.$idEstudiante.'";
+
+        $model = Estudiantes::findBySql($sql)->all();
+        return $model;
+
+
     }
 }

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TutoresBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tutors';
+$this->title = 'Tutores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tutor-index">
@@ -25,12 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            '_id',
+            //'_id',
             'NOMBRE',
             'PATERNO',
             'MATERNO',
-            'GENERO',
-            // 'CI',
+            'CI',
+            //'GENERO',
             // 'CORREO',
             // 'FONO',
 

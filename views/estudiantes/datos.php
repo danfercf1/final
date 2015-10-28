@@ -7,14 +7,15 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Datos Estudiantes';
+$this->title = 'Exploracion de Datos';
+$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="estudiantes-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
     
-    <?php /*echo $this->render('_search', ['model' => $searchModel]); ?>
+    <h1>Datos Estudiantes</h1>
+    
+    <?php /* echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Estudiantes', ['create'], ['class' => 'btn btn-success']) */?>
@@ -27,20 +28,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'_id',
-            'NOMBRE',
+            
             'DISTRITO',
-            'CURSO',
             'PATERNO',
             'MATERNO',
+            'NOMBRE',
+            'CURSO',
             'RUDE',
             // 'GENERO',
             // 'CI',
-            [
+            /*[
                 "label"=>"Fecha de N.",
                 "value"=>function ($model) {
                     return $model->getFechaNac();
                 }
-            ],
+            ],*/
             'NOTA',
             // 'FONO',
 

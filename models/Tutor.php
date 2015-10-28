@@ -63,13 +63,18 @@ class Tutor extends \yii\mongodb\ActiveRecord
         return [
             '_id' => 'ID',
             'NOMBRE' => 'Nombre',
-            'PATERNO' => 'Paterno',
-            'MATERNO' => 'Materno',
+            'PATERNO' => 'Ap. Paterno',
+            'MATERNO' => 'Ap. Materno',
             'GENERO' => 'Genero',
             'CI' => 'CI',
             'CORREO' => 'Correo',
             'FONO' => 'Telefono',
             'GESTION' => 'Gestion',
         ];
+    }
+    
+    public function nombreCompleto()
+    {
+        return $this->NOMBRE.' '.$this->PATERNO.' '.$this->MATERNO;
     }
 }

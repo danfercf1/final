@@ -18,7 +18,7 @@ class EstudiantesBusqueda extends Estudiantes
     public function rules()
     {
         return [
-            [['_id', 'PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD'], 'safe'],
+            [['_id', 'PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD','EDAD'], 'safe'],
         ];
     }
 
@@ -66,7 +66,9 @@ class EstudiantesBusqueda extends Estudiantes
             ->andFilterWhere(['like', 'CI', $this->CI])
             ->andFilterWhere(['like', 'FECHA_NACIMIENTO', $this->FECHA_NACIMIENTO])
             ->andFilterWhere(['like', 'CORREO', $this->CORREO])
-            ->andFilterWhere(['like', 'FONO', $this->FONO]);
+            ->andFilterWhere(['like', 'FONO', $this->FONO])
+            ->andFilterWhere(['like', 'UE', $this->UE])
+            ->andFilterWhere(['like', 'TUTOR', $this->TUTOR]);
 
         return $dataProvider;
     }

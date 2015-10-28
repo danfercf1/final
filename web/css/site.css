@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    /*font-size: 100%;*/
 }
 
 .wrap {
@@ -91,7 +92,6 @@ a.desc:after {
 }
 
 /*menu inico*/
-
 .logo-inicio {
     float: left;
     margin-right: 10px;
@@ -102,4 +102,134 @@ a.desc:after {
     float: left;
 }
 
-/*/FIN menu inicio*/
+
+/*titulo principal site*/
+.jumbotron p {
+    color: #000029;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+
+/* site/index */
+.col-lg-4 a:hover {
+    text-decoration: none;
+}
+
+
+/* Clasificacion */
+.clasificacion h2 {
+    text-align: center;
+}
+
+.lead {
+    text-align: center;
+}
+
+.main-content a:hover {
+    text-decoration: none;
+}
+
+
+/*para quitar los slash del breadcrumb */
+.breadcrumb > li + li::before {
+    content: " ";
+}
+
+
+/*alinear breadcrumb*/
+.breadcrumb > li{
+    display: inline;
+}
+
+/*ultimo breadcrumb*/
+
+.breadcrumb > li + li::before {
+    padding: 0;
+}
+.breadcrumb > .active {
+    color: white;
+    font-size: 12px;
+   padding-left: 25px;
+    padding-right: 15px;
+}
+
+
+/*breadcrumb*/
+.breadcrumb {
+   background: rgba(0, 0, 0, 0) linear-gradient(#E8E8EC, #8C8C9E) repeat scroll 0 0;
+    
+    border-radius: 5px;
+	box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.15);
+    display: inline-block;
+	overflow: hidden;
+	
+    list-style: outside none none;
+    margin-bottom: 25px;
+    padding: 0;
+}
+
+.breadcrumb a {
+	text-decoration: none;
+	outline: none;
+	display: block;
+	float: left;
+	font-size: 12px;
+	line-height: 25px;
+	color: white;
+	/*need more margin on the left of links to accomodate the numbers*/
+	padding: 0 10px 0 45px;
+	background: #CCCCD4;
+	background: linear-gradient(#CCCCD4, #19193E);
+	position: relative;
+}
+/*since the first link does not have a triangle before it we can reduce the left padding to make it look consistent with other links*/
+.breadcrumb a:first-child {
+	padding-left: 25px;
+	border-radius: 5px 0 0 5px; /*to match with the parent's radius*/
+}
+
+.breadcrumb a:last-child {
+	border-radius: 0 5px 5px 0; /*this was to prevent glitches on hover*/
+	padding-right: 25px;
+}
+
+/*hover/active styles*/
+.breadcrumb a.active, .breadcrumb a:hover{
+	background: #333354;
+	background: linear-gradient(#333354, #000029);
+}
+.breadcrumb a.active:after, .breadcrumb a:hover:after {
+	background: #333354;
+	background: linear-gradient(135deg, #333354, #000029);
+}
+
+/*adding the arrows for the breadcrumbs using rotated pseudo elements*/
+.breadcrumb a:after {
+	content: '';
+	position: absolute;
+	/*posicion del cuadrado como flecha*/
+	top: 0px; 
+    right: -10px;
+	/*tamaño de lados del cuadrado como flecha*/
+	width: 26px; 
+	height: 26px;
+	/*rota el cuadrado generado a 45 grados*/
+	transform: scale(0.757) rotate(45deg);
+	/*para prevenir que las flechas se oculten al aprecer el siguiente link*/
+	z-index: 1;
+	/*background flecha*/
+	background: #CCCCD4;
+	background: linear-gradient(135deg, #CCCCD4, #19193E);
+	/*box shadow flecha*/
+	box-shadow: 
+		2px -2px 0 2px rgba(0, 0, 0, 0.4), 
+		3px -3px 0 2px rgba(255, 255, 255, 0.1);
+	/*curvatura de la flecha*/
+	border-radius: 0 5px 0 50px;
+}
+/*we dont need an arrow after the last link
+.breadcrumb a:last-child:after {
+	content: none;
+}*/
+

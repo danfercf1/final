@@ -18,7 +18,7 @@ class TutoresBusqueda extends Tutor
     public function rules()
     {
         return [
-            [['_id', 'NOMBRE', 'PATERNO', 'MATERNO', 'GENERO', 'CI', 'CORREO', 'FONO'], 'safe'],
+            [['_id', 'NOMBRE_T', 'PATERNO_T', 'MATERNO_T', 'GENERO_T', 'CI_T', 'CORREO_T', 'FONO_T'], 'safe'],
         ];
     }
 
@@ -55,13 +55,13 @@ class TutoresBusqueda extends Tutor
         }
 
         $query->andFilterWhere(['like', '_id', $this->_id])
-            ->andFilterWhere(['like', 'NOMBRE', $this->NOMBRE])
-            ->andFilterWhere(['like', 'PATERNO', $this->PATERNO])
-            ->andFilterWhere(['like', 'MATERNO', $this->MATERNO])
-            ->andFilterWhere(['like', 'GENERO', $this->GENERO])
-            ->andFilterWhere(['like', 'CI', $this->CI])
-            ->andFilterWhere(['like', 'CORREO', $this->CORREO])
-            ->andFilterWhere(['like', 'FONO', $this->FONO]);
+            ->andFilterWhere(['like', 'NOMBRE_T', $this->NOMBRE_T])
+            ->andFilterWhere(['like', 'PATERNO_T', $this->PATERNO_T])
+            ->andFilterWhere(['like', 'MATERNO_T', $this->MATERNO_T])
+            ->andFilterWhere(['like', 'GENERO_T', $this->GENERO_T])
+            ->andFilterWhere(['like', 'CI_T', $this->CI_T])
+            ->andFilterWhere(['like', 'CORREO_T', $this->CORREO_T])
+            ->andFilterWhere(['like', 'FONO_T', $this->FONO_T]);
 
         return $dataProvider;
     }

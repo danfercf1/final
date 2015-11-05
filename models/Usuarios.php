@@ -78,4 +78,9 @@ class Usuarios extends \yii\mongodb\ActiveRecord
 
         return parent::beforeSave($insert);
     }
+    
+    public function nombreCompleto()
+    {
+        return $this->nombre.' '.$this->apellido;
+    }
 }

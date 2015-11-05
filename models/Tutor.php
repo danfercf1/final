@@ -70,6 +70,7 @@ class Tutor extends \yii\mongodb\ActiveRecord
         ];
     }
     
+    
     public function nombreCompleto()
     {
         return $this->NOMBRE_T.' '.$this->PATERNO_T.' '.$this->MATERNO_T;

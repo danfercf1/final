@@ -12,22 +12,22 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'NOMBRE') ?>
+    <?= $form->field($model, 'NOMBRE_T') ?>
 
-    <?= $form->field($model, 'PATERNO') ?>
+    <?= $form->field($model, 'PATERNO_T') ?>
 
-    <?= $form->field($model, 'MATERNO') ?>
+    <?= $form->field($model, 'MATERNO_T') ?>
 
-    <?= $form->field($model, 'GENERO') ?>
+    <?= $form->field($model, 'GENERO_T') ?>
 
-    <?= $form->field($model, 'CI') ?>
+    <?= $form->field($model, 'CI_T') ?>
 
-    <?= $form->field($model, 'CORREO') ?>
+    <?= $form->field($model, 'CORREO_T') ?>
 
-    <?= $form->field($model, 'FONO') ?>
+    <?= $form->field($model, 'FONO_T') ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

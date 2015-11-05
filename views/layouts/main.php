@@ -59,7 +59,7 @@ AppAsset::register($this);
         
 
         <div class="container">
-            <div class="sidebar" style="float: left; width: 15%;">
+            <div class="sidebar">
             <?php
             echo SideNav::widget([
                 'type' => $type,
@@ -91,7 +91,7 @@ AppAsset::register($this);
             ]);
             ?>
             </div>
-            <div class="main" style="width: 80%; float: right;">
+            <div class="main">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>

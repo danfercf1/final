@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'MATERNO',
             'NOMBRE',
             'CURSO',
-            'RUDE',
+            //'RUDE',
             // 'GENERO',
             // 'CI',
             /*[

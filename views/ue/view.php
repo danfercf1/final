@@ -7,23 +7,24 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Ue */
 
 $this->title = $model->NOMBRE_UE;
-$this->params['breadcrumbs'][] = ['label' => 'Ues', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Unidades Educativas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php 
+
+if (isset($_GET["id_estudiante"])) {?>
+    <div class="back">
+        <a href="<?php Yii::$app->homeUrl;?>/estudiantes/view?id=<?php echo $_GET["id_estudiante"] ?> ">Volver a estudiante...</a>
+    </div>
+<?php }else{
+    // Fallback behaviour goes here
+}
+?>
+
 <div class="ue-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => (string)$model->_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <h1>Unidad Educativa: <?= Html::encode($this->title) ?></h1>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -38,5 +39,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'PROVINCIA',
         ],
     ]) ?>
+    
+    <p>
+        <?= Html::a('Editar', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Eliminar', ['delete', 'id' => (string)$model->_id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Esta seguro de que quiere eliminar este elemento?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
 
 </div>

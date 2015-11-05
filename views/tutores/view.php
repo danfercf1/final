@@ -10,20 +10,22 @@ $this->title = $model->nombreCompleto();
 $this->params['breadcrumbs'][] = ['label' => 'Tutores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php 
+
+if (isset($_GET["id_estudiante"])) {?>
+    <div class="back">
+        <a href="<?php Yii::$app->homeUrl;?>/estudiantes/view?id=<?php echo $_GET["id_estudiante"] ?> ">Volver a estudiante...</a>
+    </div>
+<?php }else{
+    // Fallback behaviour goes here
+}
+?>
+ 
 <div class="tutor-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Tutor(a): <?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => (string)$model->_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -38,5 +40,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'FONO_T',
         ],
     ]) ?>
+    
+    <p>
+        <?= Html::a('Editar', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Eliminar', ['delete', 'id' => (string)$model->_id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Esta seguro de que quiere eliminar este elemento?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
 
 </div>
+

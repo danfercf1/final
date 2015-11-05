@@ -26,10 +26,10 @@ $test1 = GridView::widget([
                                 ['class' => 'yii\grid\SerialColumn'],
                     
                                 //'_id',
-                                'DISTRITO_EDUCATIVO',
+                                'DISTRITO',
                                 //'CURSO',
-                                'Ap_PATERNO',
-                                'Ap_MATERNO',
+                                'PATERNO',
+                                'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
                                 
@@ -47,8 +47,8 @@ $test2 = GridView::widget([
                                 //'_id',
                                 'CURSO',
                                 //'CURSO',
-                                'Ap_PATERNO',
-                                'Ap_MATERNO',
+                                'PATERNO',
+                                'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
                                 
@@ -104,8 +104,8 @@ $test5 = GridView::widget([
                                 //'_id',
                                 'GENERO',
                                 //'CURSO',
-                                'Ap_PATERNO',
-                                'Ap_MATERNO',
+                                'PATERNO',
+                                'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
                                 
@@ -123,8 +123,8 @@ $test6 = GridView::widget([
                                 //'_id',
                                 'EDAD',
                                 //'CURSO',
-                                'Ap_PATERNO',
-                                'Ap_MATERNO',
+                                'PATERNO',
+                                'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
                                 
@@ -142,8 +142,8 @@ $test7 = GridView::widget([
                                 //'_id',
                                 'EDAD',
                                 //'CURSO',
-                                'Ap_PATERNO',
-                                'Ap_MATERNO',
+                                'PATERNO',
+                                'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
                                 

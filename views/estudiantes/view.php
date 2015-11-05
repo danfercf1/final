@@ -7,25 +7,13 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Estudiantes */
 
 $this->title = $model->nombreCompleto();
-$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['datos']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="estudiantes-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => (string)$model->_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]);
-        ?>
-    </p>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -44,9 +32,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'EDAD',
             'CORREO',
             'FONO',
-            ['label'=>'TUTOR', 'format'=>'raw', 'value'=>Html::a($model->tutor->NOMBRE_T." ".$model->tutor->PATERNO_T." ".$model->tutor->MATERNO_T, ['tutores/view', 'id' => $model->TUTOR->{'$id'}])],
-            ['label'=>'UNIDAD EDUCATIVA', 'format'=>'raw', 'value'=>Html::a($model->uE->NOMBRE_UE, ['ue/view', 'id' => $model->UNIDAD_EDUCATIVA->{'$id'}])],
+            ['label'=>'TUTOR', 'format'=>'raw', 'value'=>Html::a($model->tutor->nombreCompleto(), ['tutores/view', 'id' => $model->TUTOR->{'$id'}, 'id_estudiante'=>(string)$model->_id])],
+            ['label'=>'UNIDAD EDUCATIVA', 'format'=>'raw', 'value'=>Html::a($model->uE->NOMBRE_UE, ['ue/view', 'id' => $model->UNIDAD_EDUCATIVA->{'$id'}, 'id_estudiante'=>(string)$model->_id])],
         ],
     ]) ?>
+    
+    <p>
+        <?= Html::a('Editar', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Eliminar', ['delete', 'id' => (string)$model->_id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Esta seguro de que quiere eliminar este elemento?',
+                'method' => 'post',
+            ],
+        ]);
+        ?>
+    </p>
 
 </div>

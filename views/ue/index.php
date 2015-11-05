@@ -27,10 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'_id',
             'NOMBRE_UE',
-            'COD_SIE',
+            //'COD_SIE',
             'DEPENDENCIA',
             'AREA',
-            // 'PROVINCIA',
+            'PROVINCIA',
             // 'LOCALIDAD',
 
             ['class' => 'yii\grid\ActionColumn'],

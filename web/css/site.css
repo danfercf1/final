@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    font-size: 13px;
     
 }
 
@@ -116,6 +117,17 @@ a.desc:after {
     text-decoration: none;
 }
 
+/**/
+.sidebar{
+    float: left;
+    width: 14%;
+}
+
+.main{
+    width: 85%; 
+    float: right;
+}
+
 
 /* Clasificacion */
 .clasificacion h2 {
@@ -136,14 +148,12 @@ a.desc:after {
     content: " ";
 }
 
-
 /*alinear breadcrumb*/
 .breadcrumb > li{
     display: inline;
 }
 
 /*ultimo breadcrumb*/
-
 .breadcrumb > li + li::before {
     padding: 0;
 }
@@ -152,7 +162,6 @@ a.desc:after {
     padding-left: 35px;
     padding-right: 15px;
 }
-
 
 /*breadcrumb*/
 .breadcrumb {
@@ -175,6 +184,7 @@ a.desc:after {
 	
 	position: relative;
 }
+
 /*since the first link does not have a triangle before it we can reduce the left padding to make it look consistent with other links*/
 .breadcrumb a:first-child {
 	padding-left: 35px;
@@ -219,5 +229,8 @@ a.desc:after {
 	content: none;
 }*/
 
-
+.back a{
+    text-decoration: none;
+    padding: 0 30px;
+}
 

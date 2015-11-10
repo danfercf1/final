@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
     
 <?php 
 
+//var_dump($urbano);
+
 $test1 = GridView::widget([
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
@@ -31,9 +33,7 @@ $test1 = GridView::widget([
                                 'PATERNO',
                                 'MATERNO',
                                 'NOMBRE',
-                                'NOTA',
-                                
-                               
+                                'NOTA',      
                             ],  
                             
                         ]);
@@ -51,31 +51,47 @@ $test2 = GridView::widget([
                                 'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
-                                
-                               
                             ],  
                             
                         ]);
-                        
-/*$test3 = GridView::widget([
+                       
+                       
+$test3a = GridView::widget([
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
                             'columns' => [
-                                ['class' => 'yii\grid\SerialColumn'],
-                    
+                                ['class' => 'yii\grid\SerialColumn'],                    
+                                
                                 //'_id',
-                                'AREA',
+                                ['label'=>'Area Rural', 'format'=>'raw','value'=>function($model){return $model->uE->AREA;}],
                                 //'CURSO',
-                                'Ap_PATERNO',
-                                'Ap_MATERNO',
+                                'PATERNO',
+                                'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
-                                
-                               
+                                //'UNIDAD_EDUCATIVA',  
                             ],  
                             
                         ]);
                         
+$test3b = GridView::widget([
+                            'dataProvider' => $dataProvider,
+                            'filterModel' => $searchModel,
+                            'columns' => [
+                                ['class' => 'yii\grid\SerialColumn'],                    
+                                
+                                //'_id',
+                                ['label'=>'Area Urbana', 'format'=>'raw','value'=>function($model){return $model->uE->AREA;}],
+                                //'CURSO',
+                                'PATERNO',
+                                'MATERNO',
+                                'NOMBRE',
+                                'NOTA',
+                                //'UNIDAD_EDUCATIVA', 
+                            ],  
+                            
+                        ]);
+                    
 $test4 = GridView::widget([
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
@@ -83,17 +99,16 @@ $test4 = GridView::widget([
                                 ['class' => 'yii\grid\SerialColumn'],
                     
                                 //'_id',
-                                'DEPENDENCIA',
+                                //'DEPENDENCIA',
+                                ['label'=>'DEPENDENCIA', 'format'=>'raw','value'=>function($model){return $model->uE->DEPENDENCIA;}],
                                 //'CURSO',
-                                'Ap_PATERNO',
-                                'Ap_MATERNO',
+                                'PATERNO',
+                                'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
-                                
-                               
                             ],  
                             
-                        ]);*/
+                        ]);
 
 $test5 = GridView::widget([
                             'dataProvider' => $dataProvider,
@@ -108,8 +123,6 @@ $test5 = GridView::widget([
                                 'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
-                                
-                               
                             ],  
                             
                         ]);
@@ -127,8 +140,6 @@ $test6 = GridView::widget([
                                 'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
-                                
-                               
                             ],  
                             
                         ]);
@@ -146,15 +157,12 @@ $test7 = GridView::widget([
                                 'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
-                                
-                               
                             ],  
                             
                         ]);
                         
                         
-
-
+                        
 echo Tabs::widget([
     'items' => [
         [
@@ -168,7 +176,17 @@ echo Tabs::widget([
         ],
         [
          'label' => 'Area Regional',
-         'content' => '<div>'.$test3.'</div>',  
+         //'content' => '<div>'.$test3.'</div>',  
+         'items' => [
+                    [
+                        'label' => 'Rural',
+                        'content' => '<div>'.$test3a.'</div>',
+                    ],
+                    [
+                        'label' => 'Urbana',
+                        'content' => '<div>'.$test3b.'</div>',
+                    ],
+               ],
         ],
         [
          'label' => 'Dependencia',

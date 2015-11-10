@@ -17,7 +17,7 @@ $this->title = 'Mejores notas';
 $this->params['breadcrumbs'][] = ['label' => 'clasificacion', 'url' => ['clasificados']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="clasificacion">
+<div class="estudiantes-form">
 
     <p class="lead">Mejores notas</p> 
      
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     ?>        
     <?php   
-        echo '<label class="control-label">Armar tabla</label>';
+        echo '<label class="control-label">Generar tabla</label>';
         echo Select2::widget([
         'name' => 'state_10',
         'size' => Select2::SMALL,

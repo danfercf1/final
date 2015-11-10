@@ -28,7 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'RUDE',
             'GENERO',
             'CI',
-            'FECHA_NACIMIENTO',
+            //'FECHA_NACIMIENTO',
+            ['label'=>'FECHA_NACIMIENTO', 'value'=>$model->getFechaNaC()],
             'EDAD',
             'CORREO',
             'FONO',
@@ -38,8 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
     
     <p>
-        <?= Html::a('Editar', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Eliminar', ['delete', 'id' => (string)$model->_id], [
+        <?= Html::a('Editar', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?> ,
+        
+    </p>
+    <p> <?= Html::a('Eliminar', ['delete', 'id' => (string)$model->_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Esta seguro de que quiere eliminar este elemento?',

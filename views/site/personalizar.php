@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     input('number', ['min'=>1, 'max'=> 100, 'placeholder'=>'Ingrese un numero entre 1-100...']) ->label('Cantidad'); ?>
     
 
-    <?= $form->field($model, 'atributo')->dropDownList(array("a1"=>"Distrito", "a2"=>"Curso", "a3"=>"Area", "a4"=>"Dependencia", "a5"=>"Genero", "a6"=>"Edad sub-15", "a7"=>"Edad sub-17",), ['prompt'=>'Seleccionar Variable...']) ?>
+    <?= $form->field($model, 'atributo')->dropDownList(array("a1"=>"Distrito", "a2"=>"Curso", "a3"=>"Area Regional", "a4"=>"Dependencia", "a5"=>"Genero", "a6"=>"Edad sub-15", "a7"=>"Edad sub-17",), ['prompt'=>'Seleccionar Variable...']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('generar', ['class' => 'btn btn-success']) ?>

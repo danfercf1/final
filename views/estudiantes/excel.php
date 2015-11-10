@@ -12,10 +12,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="estudiantes-form">
 
+    <h1><?= Html::encode($this->title) ?></h1>
+
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($model, 'file')->fileInput() ?>
+    
+    <?= $form->field($model, 'nombre')->textInput()->hint('Asignar nombre de olimpiada') ?>
 
     <?= $form->field($model, 'gestion')->dropDownList($gestiones, ['prompt'=>'Seleccionar Gestion...']) ?>
 

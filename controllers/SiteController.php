@@ -139,12 +139,24 @@ class SiteController extends Controller
         $dataProvider = new ActiveDataProvider([
                 'query' => Estudiantes::find(),
             ]);
-        
+            
         return $this->render('r_general',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    /*public function actionAreas($area)
+    {
+        var_dump( $_GET['area']);
+        $estudiantes = new Estudiantes();
+        
+        $alumnos = $estudiantes->getAlumnos(0, $area,10);
+        return $this->render('areas',[
+            'model' => $alumnos,
+        ]);
+    }*/
+    
     public function actionPersonalizar()
     {
         $model_custom = new CustomForm();

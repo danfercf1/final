@@ -1,13 +1,15 @@
-/*Estilos /estudiantes/cargarexcel */
-
+/*Estilos forms */
 .form-group {
     margin-top: 30px;
+    /*padding: 0 20px;*/
 }
-.form-group button {
+.form-group button, .btn-danger, .btn-primary {
     color: #000000;
     font-size: 10px;
     font-weight: bold;
     text-transform: uppercase;
+    float: right;
+    padding: 4px 12px;
 }
 
 /*Estilo /images */
@@ -24,10 +26,18 @@
     background-color: #00001F;
 }
 
+/*Estilos estudiantes-form*/
+.estudiantes-form{
+    padding: 5px 20px;
+    font-size: 12px;
+    width: 55%;
+}
+
+
 /* Estilos campos de texto */
 .form-control {
     display: block;
-    width: 35%;
+    width: 90%;
     height: 25px;
     padding: 5px 10px;
     font-size: 12px;
@@ -80,26 +90,23 @@ table.table-striped  tr th, table.table-striped  tr td{
     float: right;
 }
 
-.btn-primary, .btn-danger{
-    font-size: 12px;
-    padding: 3px 15px;
-}
-
 .detail-view tbody th{
     width: 30%;
     text-align: left;
 }
 
+/*Estilos Update
 .estudiantes-update, .tutor-update, .ue-update, .usuarios-update{
     font-size: 12px;
     padding: 0 30px;
     width: 55%;
-}
+}*/
 
 .estudiantes-update h1, .tutor-update h1, .ue-update h1, .usuarios-update h1{
     font-size: 14px;
     text-transform: uppercase;
     font-weight: bold;
+    padding: 0 20px;
 }
 
 .estudiantes-update .control-label, .tutor-update .control-label, .ue-update .control-label, .usuarios-update .control-label{
@@ -111,9 +118,7 @@ table.table-striped  tr th, table.table-striped  tr td{
     display: inline;
 }
 
-.estudiantes-update .form-group .btn-primary, .tutor-update .form-group .btn-primary, .ue-update .form-group .btn-primary, .usuarios-update .form-group .btn-primary{
-    float:  right;
-}
+
 
 
 

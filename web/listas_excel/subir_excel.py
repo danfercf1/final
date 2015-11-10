@@ -59,7 +59,7 @@ for i in range(1, sheet.nrows):
             #UE
             elif (j>=22 and j<=28):
                 dataUE[titulo] = celda
-
+                dataEstudiante[titulo] = celda
 
 
         #TUTOR
@@ -114,6 +114,9 @@ for i in range(1, sheet.nrows):
 
         #NOTA
         #dataEstudiante['NOTA'] = random.randint(0, 100)
+
+        #ETAPAS
+        dataEstudiante['ETAPAS'] = etapas
 
         estudiante = db.estudiante.insert_one(dataEstudiante)
         cont = cont+1

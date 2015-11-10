@@ -27,6 +27,15 @@ use Yii;
  * @property mixed $DISCAPACIDAD
  * @property mixed $NACIONALIDAD
  * @property mixed $EDAD
+ * @property mixed $ETAPAS
+ * @property mixed $GESTION
+ * @property mixed $COD_SIE
+ * @property mixed $NOMBRE_UE
+ * @property mixed $SECCION
+ * @property mixed $CANTON
+ * @property mixed $PROVINCIA
+ * @property mixed $AREA
+ * @property mixed $DEPENDENCIA
  */
 class Estudiantes extends \yii\mongodb\ActiveRecord
 {
@@ -35,6 +44,17 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
      */
     public $rango = 12;
     public $notaMin = 51;
+    public $NOTA_ETAPA1;
+    public $NOTA_ETAPA2;
+    public $NOTA_ETAPA3;
+    public $NOTA_ETAPA4;
+    public $NOTA_ETAPA5;
+    public $NOTA_ETAPA6;
+    public $NOTA_ETAPA7;
+    public $NOTA_ETAPA8;
+    public $NOTA_ETAPA9;
+    public $NOTA_ETAPA10;
+
     public static function collectionName()
     {
         return ['datos', 'estudiante'];
@@ -65,7 +85,15 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'CORREO',
             'DISCAPACIDAD',
             'NACIONALIDAD',
-            'EDAD'
+            'EDAD',
+            'ETAPAS',
+            'COD_SIE',
+            'NOMBRE_UE',
+            'SECCION',
+            'CANTON',
+            'PROVINCIA',
+            'AREA',
+            'DEPENDENCIA',
         ];
     }
 
@@ -75,7 +103,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD'], 'safe']
+            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION','COD_SIE', 'NOMBRE_UE', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA'], 'safe']
         ];
     }
 
@@ -103,7 +131,8 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'CORREO' => 'Correo',
             'DISCAPACIDAD'=>'Discapacidad',
             'NACIONALIDAD'=>'Nacionalidad',
-            'EDAD'=>'Edad'
+            'EDAD'=>'Edad',
+            'GESTION'=>'Gestión',
         ];
     }
 
@@ -156,5 +185,20 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function nombreCompleto()
     {
         return $this->NOMBRE.' '.$this->PATERNO.' '.$this->MATERNO;
+    }
+
+    public function obtenerEtapas($gestion){
+
+        $atributos = [];
+
+        $estudiante = Estudiantes::find()->where(['GESTION'=>(string)$gestion])->one();
+
+        $etapas = $estudiante->ETAPAS;
+
+        for($i=1; $i <= $etapas; $i++){
+            array_push($atributos, "NOTA_ETAPA".$i);
+        }
+
+        return implode(",", $atributos);
     }
 }

@@ -79,4 +79,12 @@ class Ue extends \yii\mongodb\ActiveRecord
     /*public function afterSave(){
         $this->last_id = $this->_id;
     }*/
+    
+    public function getNombreUE($id){
+        //$id2='563183ea5e273a19642e9efe';
+        $uenombre = Ue::find()->where(['_id'=>$id])->one();
+        return $uenombre->AREA;
+        //return $id;
+    }
+    
 }

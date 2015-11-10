@@ -15,6 +15,7 @@ class UploadForm extends Model
      * @var UploadedFile file attribute
      */
     public $file;
+    public $nombre;
     public $gestion;
     public $etapas;
 
@@ -26,6 +27,7 @@ class UploadForm extends Model
         return [
             //[['file'], 'file', 'extensions' => 'xlsx'],
             /*[['gestion'], 'required'],*/
+            [['nombre'], 'string'],
             [['gestion'], 'number'],
             [['etapas'], 'number'],
         ];

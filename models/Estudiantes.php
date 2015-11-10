@@ -132,10 +132,10 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
      * Retornar Alumnos segun unidad educativa RURAL o URBANA
     */
 
-    public function getAlumnos($limite=5, $area='u', $nota= 51){
+    public function getAlumnos($limite=0, $area='u', $nota = 0){
         $notaSelec = [];
         $cont = 0;
-        $notas = Estudiantes::find()->with('uE')->where(['NOTA'=>['$gte'=>$nota]])->orderBy(['NOTA' => SORT_DESC])->all();
+        $notas = Estudiantes::find()->with('uE')->all();
 
         if($limite == 0){
             $limite = count($notas);
@@ -150,7 +150,9 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
         }
         return $notaSelec;
     }
-
+    
+      
+    
     public function nombreCompleto()
     {
         return $this->NOMBRE.' '.$this->PATERNO.' '.$this->MATERNO;

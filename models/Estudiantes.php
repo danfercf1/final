@@ -44,7 +44,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
      */
     public $rango = 12;
     public $notaMin = 51;
-    public $NOTA_ETAPA1;
+   /* public $NOTA_ETAPA1;
     public $NOTA_ETAPA2;
     public $NOTA_ETAPA3;
     public $NOTA_ETAPA4;
@@ -53,7 +53,8 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public $NOTA_ETAPA7;
     public $NOTA_ETAPA8;
     public $NOTA_ETAPA9;
-    public $NOTA_ETAPA10;
+    public $NOTA_ETAPA10;*/
+    public $status = true;
 
     public static function collectionName()
     {
@@ -87,6 +88,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'NACIONALIDAD',
             'EDAD',
             'ETAPAS',
+            'GESTION',
             'COD_SIE',
             'NOMBRE_UE',
             'SECCION',
@@ -94,6 +96,9 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'PROVINCIA',
             'AREA',
             'DEPENDENCIA',
+            'NOTA_ETAPA1',
+            'NOTA_ETAPA2',
+            'NOTA_ETAPA3',
         ];
     }
 
@@ -103,7 +108,8 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION','COD_SIE', 'NOMBRE_UE', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA'], 'safe']
+            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION', 'COD_SIE', 'NOMBRE_UE', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA'], 'safe'],
+            [['NOTA_ETAPA1', 'NOTA_ETAPA2','NOTA_ETAPA3'], 'number', 'min'=>0, 'max'=>100],
         ];
     }
 
@@ -199,4 +205,5 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
 
         return implode(",", $atributos);
     }
+
 }

@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'RUDE',
             'GENERO',
             'CI',
-            'FECHA_NACIMIENTO',
+            ['label'=>"Unidad", "value"=>$model->getFechaNaC()],
             'EDAD',
             'CORREO',
             'FONO',

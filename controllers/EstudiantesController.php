@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\UploadForm;
 use yii\web\UploadedFile;
+use yii\helpers\Json;
 
 /**
  * EstudiantesController implements the CRUD actions for Estudiantes model.
@@ -67,14 +68,89 @@ class EstudiantesController extends Controller
         ]);
     }
     
-    public function actionDatos()
+    public function actionDatos($gestion)
     {
         $searchModel = new EstudiantesBusqueda();
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
+        /*$atributos = [
+            ['class' => 'yii\grid\SerialColumn'],
+            'DISTRITO',
+            'PATERNO',
+            'MATERNO',
+            'NOMBRE',
+            'CURSO',
+            'RUDE'
+        ];
+
+        $gestion = (string) $gestion;
+
+        $estudiante = Estudiantes::find()->where(['GESTION'=>$gestion])->one();
+
+        $etapas = $estudiante->ETAPAS;
+
+
+        for($i=1; $i <= $etapas; $i++){
+            array_push($atributos, ["label"=>"NOTA_ETAPA".$i, "format"=>"raw", "value"=>0]);
+        }
+
+        array_push($atributos, ['class' => 'yii\grid\ActionColumn']);*/
+
+        if (Yii::$app->request->post('hasEditable')) {
+            // instantiate your book model for saving
+            $bookId = Yii::$app->request->post('editableKey');
+
+            $model = $this->findModel(unserialize($bookId));
+
+
+            // store a default json response as desired by editable
+            $out = Json::encode(['output'=>'', 'message'=>'']);
+
+            // fetch the first entry in posted data (there should
+            // only be one entry anyway in this array for an
+            // editable submission)
+            // - $posted is the posted data for Book without any indexes
+            // - $post is the converted array for single model validation
+            $post = [];
+            $posted = current($_POST['Estudiantes']);
+            $post['Estudiantes'] = $posted;
+
+            // load model like any single model validation
+            if ($post) {
+
+                // custom output to return to be displayed as the editable grid cell
+                // data. Normally this is empty - whereby whatever value is edited by
+                // in the input by user is updated automatically.
+                $output = '';
+
+                // specific use case where you need to validate a specific
+                // editable column posted when you have more than one
+                // EditableColumn in the grid view. We evaluate here a
+                // check to see if buy_amount was posted for the Book model
+                if (isset($posted['NOTA_ETAPA1'])) {
+                    $output =  Yii::$app->formatter->asInteger($model->NOTA_ETAPA1);
+                    $model->NOTA_ETAPA1 = (int) $posted['NOTA_ETAPA1'];
+                }
+
+                $model->save();
+
+
+                // similarly you can check if the name attribute was posted as well
+                // if (isset($posted['name'])) {
+                //   $output =  ''; // process as you need
+                // }
+                $out = Json::encode(['output'=>$output, 'message'=>'']);
+            }
+            // return ajax json encoded response and exit
+            echo $out;
+            return;
+        }
+
         return $this->render('datos',[
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            //'columns'=>$atributos
         ]);
     }
 

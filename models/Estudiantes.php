@@ -103,7 +103,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION','COD_SIE', 'NOMBRE_UE', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA'], 'safe']
+            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION','COD_SIE', 'NOMBRE_UE', 'AREA', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA'], 'safe']
         ];
     }
 
@@ -133,6 +133,8 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'NACIONALIDAD'=>'Nacionalidad',
             'EDAD'=>'Edad',
             'GESTION'=>'Gestión',
+            'AREA' => 'Area',
+            'DEPENDENCIA' => 'Dependencia',
         ];
     }
 
@@ -201,4 +203,5 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
 
         return implode(",", $atributos);
     }
+    
 }

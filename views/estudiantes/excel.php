@@ -3,14 +3,14 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Cargar lista';
+$this->title = 'Cargar Datos';
 $this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
 
-<div class="estudiantes-form">
+<div class="upload-form">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

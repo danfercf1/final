@@ -35,14 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php   
         echo '<label class="control-label">Generar tabla</label>';
         echo Select2::widget([
-        'name' => 'state_10',
-        'size' => Select2::SMALL,
-        'data' => $data,
-        'options' => ['placeholder' => 'Seleccionar variables ...', 'multiple' => true],
-        'pluginOptions' => [
-        'tags' => true,
-        'maximumInputLength' => 10
-        ],
+            'name' => 'state_10',
+            'size' => Select2::SMALL,
+            'data' => $data,
+            'options' => ['placeholder' => 'Seleccionar variables ...', 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
         ]);
     ?>
 

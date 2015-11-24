@@ -70,7 +70,8 @@ class EstudiantesBusqueda extends Estudiantes
             ->andFilterWhere(['like', 'UE', $this->UNIDAD_EDUCATIVA])
             ->andFilterWhere(['like', 'TUTOR', $this->TUTOR])
             ->andFilterWhere(['like', 'AREA', $this->AREA])
-            ->andFilterWhere(['like', 'DEPENDENCIA', $this->DEPENDENCIA]);
+            ->andFilterWhere(['like', 'DEPENDENCIA', $this->DEPENDENCIA])
+            ->andFilterWhere(['like', 'EDAD', $this->EDAD]);
 
         return $dataProvider;
     }

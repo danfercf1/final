@@ -17,7 +17,7 @@ $this->title = 'Mejores notas';
 $this->params['breadcrumbs'][] = ['label' => 'clasificacion', 'url' => ['clasificados']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="estudiantes-form">
+<div class="notas-form">
 
     <p class="lead">Mejores notas</p> 
      

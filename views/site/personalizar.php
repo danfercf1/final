@@ -12,7 +12,7 @@ $this->title = 'personalizar';
 $this->params['breadcrumbs'][] = ['label' => 'clasificacion', 'url' => ['clasificados']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="estudiantes-form">
+<div class="ranking-form">
 
     <p class="lead">Personalizar ranking</p>
     

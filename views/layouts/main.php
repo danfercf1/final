@@ -49,7 +49,10 @@ AppAsset::register($this);
                         ['label' => 'Logout (' . Yii::$app->user->identity->nombre . ')',
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
-                ],
+                            
+                            
+                
+                 ],
             ]);
             NavBar::end();
               

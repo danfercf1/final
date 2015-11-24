@@ -234,18 +234,20 @@ $masculino = GridView::widget([
                                 'MATERNO',
                                 'NOMBRE',
                                 'NOTA',
+                                'AREA',
                             ],  
                         ]);
 
 
 $sub15 = GridView::widget([
-                            'dataProvider' => $dataProvider,
+                            'dataProvider' => $dataProviderS15,
                             'filterModel' => $searchModel,
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
                     
                                 //'_id',
-                                'EDAD',
+                                //'EDAD',
+                                ['label'=>'EDAD', 'value'=>$model->estudiantes->getEdad($model->getFechaNaC())],
                                 'PATERNO',
                                 'MATERNO',
                                 'NOMBRE',
@@ -268,7 +270,7 @@ $sub17 = GridView::widget([
                             ],   
                         ]);
                         
-                        
+echo $fechaLimite;                        
                         
 echo Tabs::widget([
     'items' => [

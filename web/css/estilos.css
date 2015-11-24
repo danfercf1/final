@@ -12,7 +12,7 @@
     padding: 4px 12px;
 }
 
-.upload-form, .site-login{
+.upload-form, .site-login, .ranking-form, .notas-form{
     font-size: 12px;
     padding: 0 30px;
     width: 55%

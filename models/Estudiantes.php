@@ -36,6 +36,7 @@ use Yii;
  * @property mixed $PROVINCIA
  * @property mixed $AREA
  * @property mixed $DEPENDENCIA
+ * @property mixed $NOMBRE_EVENTO
  */
 class Estudiantes extends \yii\mongodb\ActiveRecord
 {
@@ -90,6 +91,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'PROVINCIA',
             'AREA',
             'DEPENDENCIA',
+            'NOMBRE_EVENTO',
         ];
     }
 
@@ -99,7 +101,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION','COD_SIE', 'NOMBRE_UE', 'AREA', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA'], 'safe']
+            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION','COD_SIE', 'NOMBRE_UE', 'AREA', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO'], 'safe']
         ];
     }
 
@@ -131,6 +133,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'GESTION'=>'Gestión',
             'AREA' => 'Area',
             'DEPENDENCIA' => 'Dependencia',
+            'NOMBRE_EVENTO' => 'Evento',
         ];
     }
 

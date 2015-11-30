@@ -6,17 +6,27 @@ import re
 import random
 import json
 import numbers
+import dateutil.relativedelta
+import dateutil.parser
 
 __author__ = 'daniel candia'
 client = MongoClient()
 db = client.datos
-print("1. Cargando Archivo")
+print("1. Cargando Archivo de configuracion")
 with open('configuracion.json') as data_file:
     data = json.load(data_file)
 
+if data["archivo"] is None:
+    exit("Necesita generar el archivo de configuracion nuevamente")
+
 archivo_subir = "archivos/"+data["archivo"]
+
+if "archivo" not in data or "gestion" not in data or "etapas" not in data or "nombre" not in data:
+    exit("Necesita generar el archivo de configuracion nuevamente")
+
 gestion = data["gestion"]
 etapas = data["etapas"]
+nombre = data["nombre"]
 
 book = xlrd.open_workbook(archivo_subir)
 
@@ -104,6 +114,21 @@ for i in range(1, sheet.nrows):
         #UE
         dataEstudiante['UNIDAD_EDUCATIVA'] = ObjectId(ue_id)
 
+        #EDAD
+
+        fecha_nac = str(dataEstudiante['FECHA_NACIMIENTO'])
+
+        if fecha_nac is not None and fecha_nac != "0000-00-00" and fecha_nac != "null":
+            timestamp = dateutil.parser.parse(fecha_nac)
+            dif = dateutil.relativedelta.relativedelta(datetime.now(), timestamp)
+            dataEstudiante['EDAD'] = int(dif.years)
+        else:
+            dataEstudiante['EDAD'] = "NO FECHA"
+
+        #NOMBRE_EVENTO
+
+        dataEstudiante["NOMBRE_EVENTO"] = nombre
+
         #GESTION
 
         dataEstudiante["GESTION"] = gestion
@@ -118,8 +143,11 @@ for i in range(1, sheet.nrows):
         #ETAPAS
         dataEstudiante['ETAPAS'] = etapas
 
-        estudiante = db.estudiante.insert_one(dataEstudiante)
-        cont = cont+1
+        cursor_es = db.estudiante.find_one({"RUDE": dataEstudiante['RUDE'], "GESTION": gestion, "NOMBRE_EVENTO": nombre})
+
+        if cursor_es is None:
+            estudiante = db.estudiante.insert_one(dataEstudiante)
+            cont = cont+1
 
 if(cont >= 1):
     print("3. Se agregaron: "+str(cont)+" datos")

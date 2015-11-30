@@ -49,11 +49,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public $NOTA_ETAPA3;
     public $NOTA_ETAPA4;
     public $NOTA_ETAPA5;
-    public $NOTA_ETAPA6;
-    public $NOTA_ETAPA7;
-    public $NOTA_ETAPA8;
-    public $NOTA_ETAPA9;
-    public $NOTA_ETAPA10;
+
 
     public static function collectionName()
     {
@@ -197,9 +193,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
         }
         return $notaSelec;
     }
-    
-      
-    
+
     public function nombreCompleto()
     {
         return $this->NOMBRE.' '.$this->PATERNO.' '.$this->MATERNO;
@@ -219,5 +213,5 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
 
         return implode(",", $atributos);
     }
-    
+
 }

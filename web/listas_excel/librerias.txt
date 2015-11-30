@@ -5,3 +5,4 @@ Instalar Python
  Instalar easy_install
  Instalar pymongo
  Instalar xlrd
+ Instalar python-dateutil

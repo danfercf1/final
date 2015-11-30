@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'GENERO',
             'CI',
             ['label'=>"Unidad", "value"=>$model->getFechaNaC()],
+            ['label'=>'FECHA_NACIMIENTO', 'value'=>$model->getFechaNaC()],
             'EDAD',
             'CORREO',
             'FONO',
@@ -39,7 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <p>
         <?= Html::a('Editar', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Eliminar', ['delete', 'id' => (string)$model->_id], [
+        &nbsp;
+    </p>
+    
+    <p> <?= Html::a('Eliminar', ['delete', 'id' => (string)$model->_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Esta seguro de que quiere eliminar este elemento?',

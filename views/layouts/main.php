@@ -49,7 +49,10 @@ AppAsset::register($this);
                         ['label' => 'Logout (' . Yii::$app->user->identity->nombre . ')',
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
-                ],
+                            
+                            
+                
+                 ],
             ]);
             NavBar::end();
               
@@ -71,7 +74,7 @@ AppAsset::register($this);
                     ['label' => 'Inicio', 'icon' => 'home', 'url' => Url::to(['/site/index', 'type'=>$type]), 'active' => ($item == 'index')],
                     ['label' => 'Estudiantes', 'icon' => 'book', 'items' => [
                         ['label' => 'Nuevo registro', 'url' => Url::to(['/estudiantes/cargarexcel', 'type'=>$type]), 'active' => ($item == 'cargarexcel')],
-                        ['label' => 'Exploracion de datos', 'url' => Url::to(['/estudiantes/datos', 'type'=>$type]), 'active' => ($item == 'datos')],
+                        ['label' => 'Exploracion de datos', 'url' => Url::to(['/estudiantes/index', 'type'=>$type]), 'active' => ($item == 'datos')],
                         ['label' => 'Historial', 'icon' => 'user', 'items' => [
                             ['label' => 'Registro 1', 'url' => Url::to(['/site/online-1', 'type'=>$type]), 'active' => ($item == 'online-1')],
                             ['label' => 'Registro 2', 'url' => Url::to(['/site/online-2', 'type'=>$type]), 'active' => ($item == 'online-2')]

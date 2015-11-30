@@ -43,6 +43,9 @@ if (isset($_GET["id_estudiante"])) {?>
     
     <p>
         <?= Html::a('Editar', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?>
+        &nbsp;
+    </p>
+    <p> 
         <?= Html::a('Eliminar', ['delete', 'id' => (string)$model->_id], [
             'class' => 'btn btn-danger',
             'data' => [

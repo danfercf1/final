@@ -139,12 +139,96 @@ class SiteController extends Controller
         $dataProvider = new ActiveDataProvider([
                 'query' => Estudiantes::find(),
             ]);
+            
+        $dataProvider1S = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['CURSO'=>'1s']),
+            ]);
+            
+        $dataProvider2S = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['CURSO'=>'2s']),
+            ]);
+            
+        $dataProvider3S = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['CURSO'=>'3s']),
+            ]);
+            
+        $dataProvider4S = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['CURSO'=>'4s']),
+            ]);
+            
+        $dataProvider5S = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['CURSO'=>'5s']),
+            ]);
+            
+        $dataProvider6S = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['CURSO'=>'6s']),
+            ]);
+            
+        $dataProviderR = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['AREA'=>'r']),
+            ]);
+            
+        $dataProviderU = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['AREA'=>'u']),
+            ]);
+        
+        $dataProviderC = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['DEPENDENCIA'=>'convenio']),
+            ]);
+            
+        $dataProviderF = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['DEPENDENCIA'=>'fiscal o estatal']),
+            ]);
+            
+        $dataProviderP = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['DEPENDENCIA'=>'privada']),
+            ]);
+            
+        $dataProviderGF = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['GENERO'=>'f']),
+            ]);
+            
+        $dataProviderGM = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where(['GENERO'=>'m']),
+            ]);
+        //$fechaLimite = mktime(0, 0, 0, date("d"),   date("m"),   date("Y")-15); 
+        //$fechaLimite = strtotime ("23/03/2003");
+        $dataProviderS15 = new ActiveDataProvider([
+                'query' => Estudiantes::find()->where('EDAD'<=15),
+            ]);
         
         return $this->render('r_general',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'dataProviderR' => $dataProviderR,
+            'dataProviderU' => $dataProviderU,
+            'dataProviderC' => $dataProviderC,
+            'dataProviderF' => $dataProviderF,
+            'dataProviderP' => $dataProviderP,
+            'dataProviderGF' => $dataProviderGF,
+            'dataProviderGM' => $dataProviderGM,
+            'dataProvider1S' => $dataProvider1S,
+            'dataProvider2S' => $dataProvider2S,
+            'dataProvider3S' => $dataProvider3S,
+            'dataProvider4S' => $dataProvider4S,
+            'dataProvider5S' => $dataProvider5S,
+            'dataProvider6S' => $dataProvider6S,
+            'dataProviderS15' => $dataProviderS15,
+            //'fechaLimite' => $fechaLimite,
         ]);
     }
+    
+    /*public function actionAreas($area)
+    {
+        var_dump( $_GET['area']);
+        $estudiantes = new Estudiantes();
+        
+        $alumnos = $estudiantes->getAlumnos(0, $area,10);
+        return $this->render('areas',[
+            'model' => $alumnos,
+        ]);
+    }*/
+    
     public function actionPersonalizar()
     {
         $model_custom = new CustomForm();

@@ -10,10 +10,10 @@ $this->title = 'Estudiantes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lista">
-    <h1>Estudiantes</h1>
+    <h1>Exploracion de datos</h1>
     <ul>
-        <li><a href="/estudiantes/administracion">Administracion de Datos</a></li>
-        <li><a href="/estudiantes/datos">Exploracion de datos</a></li>
-        <li><a href="/estudiantes/prueba">Prueba</a></li>
+        <li><a href="/estudiantes/datos">Nombre Olimpiada 1 (plurinacional 2015)</a></li>
+        <li><a href="blank">Nombre Olimpiada 2</a></li>
+        <li><a href="blank">Nombre Olimpiada 3</a></li>
     </ul>
 </div>

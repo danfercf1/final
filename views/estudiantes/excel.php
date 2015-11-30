@@ -3,19 +3,23 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Cargar lista';
+$this->title = 'Cargar Datos';
 $this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
 
-<div class="estudiantes-form">
+<div class="upload-form">
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($model, 'file')->fileInput() ?>
+    
+    <?= $form->field($model, 'nombre')->textInput()->hint('Asignar nombre de olimpiada') ?>
 
     <?= $form->field($model, 'gestion')->dropDownList($gestiones, ['prompt'=>'Seleccionar Gestion...']) ?>
 

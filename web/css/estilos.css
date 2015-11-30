@@ -1,14 +1,42 @@
-/*Estilos /estudiantes/cargarexcel */
-
+/*Estilos forms */
 .form-group {
     margin-top: 30px;
+    /*padding: 0 20px;*/
 }
-.form-group button {
+.form-group button, .btn-danger, .btn-primary {
     color: #000000;
     font-size: 10px;
     font-weight: bold;
     text-transform: uppercase;
+    float: right;
+    padding: 4px 12px;
 }
+
+.upload-form, .site-login, .ranking-form, .notas-form{
+    font-size: 12px;
+    padding: 0 30px;
+    width: 55%
+}
+
+.upload-form h1, .site-login h1{
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.site-login .col-lg-1{
+    width: 25%;
+}
+.site-login .col-lg-3{
+    width: 60%;
+    display: inline;
+}
+.site-login .form-horizontal .checkbox{
+    padding: 0 140px;
+}
+/*.site-login .form-horizontal .field-loginform-rememberme{
+    padding: 0;
+}*/
 
 /*Estilo /images */
 .jumbotron .image{
@@ -27,7 +55,7 @@
 /* Estilos campos de texto */
 .form-control {
     display: block;
-    width: 35%;
+    width: 90%;
     height: 25px;
     padding: 5px 10px;
     font-size: 12px;
@@ -63,6 +91,11 @@ table.table-striped  tr th, table.table-striped  tr td{
     padding: 3px;
 }
 
+/*Estilos pestaña distrito*/
+.selector{
+    padding: 20px 20px;   
+}
+
 /*Estilos vista*/
 .estudiantes-view, .tutor-view, .ue-view, .usuarios-view{
     font-size: 12px;
@@ -80,16 +113,12 @@ table.table-striped  tr th, table.table-striped  tr td{
     float: right;
 }
 
-.btn-primary, .btn-danger{
-    font-size: 12px;
-    padding: 3px 15px;
-}
-
 .detail-view tbody th{
     width: 30%;
     text-align: left;
 }
 
+/*Estilos Update*/
 .estudiantes-update, .tutor-update, .ue-update, .usuarios-update{
     font-size: 12px;
     padding: 0 30px;
@@ -111,9 +140,7 @@ table.table-striped  tr th, table.table-striped  tr td{
     display: inline;
 }
 
-.estudiantes-update .form-group .btn-primary, .tutor-update .form-group .btn-primary, .ue-update .form-group .btn-primary, .usuarios-update .form-group .btn-primary{
-    float:  right;
-}
+
 
 
 

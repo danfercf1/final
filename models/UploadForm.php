@@ -15,6 +15,7 @@ class UploadForm extends Model
      * @var UploadedFile file attribute
      */
     public $file;
+    public $nombre;
     public $gestion;
     public $etapas;
 
@@ -24,17 +25,17 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            //[['file'], 'file', 'extensions' => 'xlsx'],
-            /*[['gestion'], 'required'],*/
+            [['file'], 'file', 'extensions' => 'xlsx'],
+            [['gestion', 'nombre', 'etapas'], 'required'],
+            [['nombre', 'etapas'], 'string'],
             [['gestion'], 'number'],
-            [['etapas'], 'number'],
         ];
     }
 
     public function gestiones(){
         $anio  = (int) date("Y");
         $gestion = array();
-        for($i=$anio; $i<=$anio+10;$i++){
+        for($i=$anio; $i<=$anio+5;$i++){
             $gestion[$i] = $i;
         }
         return $gestion;

@@ -41,7 +41,7 @@ $distrito = GridView::widget([
                         
 $curso1 = GridView::widget([
                             'dataProvider' => $dataProvider1S,
-                            'filterModel' => $searchModel,
+                            'filterModel' => $searchModel1s,
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
                     

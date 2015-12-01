@@ -136,13 +136,16 @@ class SiteController extends Controller
     public function actionR_general()
     {
         $searchModel = new EstudiantesBusqueda();
-        $dataProvider = new ActiveDataProvider([
-                'query' => Estudiantes::find(),
-            ]);
-            
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         $dataProvider1S = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['CURSO'=>'1s']),
+                'query' => Estudiantes::find()->where(['CURSO'=>'1s'])->limit(5)->orderBy(['NOTA_ETAPA1'=>SORT_DESC]),
+                'pagination' => [
+                     'pageSize' => 10,
+                ],
             ]);
+
+        $searchModel1s = new EstudiantesBusqueda();
             
         $dataProvider2S = new ActiveDataProvider([
                 'query' => Estudiantes::find()->where(['CURSO'=>'2s']),
@@ -154,6 +157,7 @@ class SiteController extends Controller
             
         $dataProvider4S = new ActiveDataProvider([
                 'query' => Estudiantes::find()->where(['CURSO'=>'4s']),
+
             ]);
             
         $dataProvider5S = new ActiveDataProvider([
@@ -192,7 +196,7 @@ class SiteController extends Controller
                 'query' => Estudiantes::find()->where(['GENERO'=>'m']),
             ]);
         
-                
+
         return $this->render('r_general',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -204,6 +208,7 @@ class SiteController extends Controller
             'dataProviderGF' => $dataProviderGF,
             'dataProviderGM' => $dataProviderGM,
             'dataProvider1S' => $dataProvider1S,
+            'searchModel1s' => $searchModel1s,
             'dataProvider2S' => $dataProvider2S,
             'dataProvider3S' => $dataProvider3S,
             'dataProvider4S' => $dataProvider4S,

@@ -90,6 +90,8 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'NOTA_ETAPA1',
             'NOTA_ETAPA2',
             'NOTA_ETAPA3',
+            'NOTA_ETAPA4',
+            'NOTA_ETAPA5',
             'NOMBRE_EVENTO',
 
         ];
@@ -103,7 +105,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
         return [
 
             [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION', 'COD_SIE', 'NOMBRE_UE', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO'], 'safe'],
-            [['NOTA_ETAPA1', 'NOTA_ETAPA2','NOTA_ETAPA3'], 'number', 'min'=>0, 'max'=>100],
+            [['NOTA_ETAPA1', 'NOTA_ETAPA2','NOTA_ETAPA3','NOTA_ETAPA4','NOTA_ETAPA5'], 'number', 'min'=>0, 'max'=>100],
         ];
     }
 

@@ -14,6 +14,7 @@ use yii\filters\AccessControl;
 use app\models\UploadForm;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
+use kartik\grid\GridView;
 
 /**
  * EstudiantesController implements the CRUD actions for Estudiantes model.
@@ -68,34 +69,56 @@ class EstudiantesController extends Controller
         ]);
     }
     
-    public function actionDatos($gestion)
+    public function actionDatos()
     {
+        $datos = Yii::$app->request->queryParams;
+
         $searchModel = new EstudiantesBusqueda();
 
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        /*$atributos = [
-            ['class' => 'yii\grid\SerialColumn'],
-            'DISTRITO',
-            'PATERNO',
-            'MATERNO',
-            'NOMBRE',
-            'CURSO',
-            'RUDE'
-        ];
-
-        $gestion = (string) $gestion;
+        $gestion = (isset($datos['EstudiantesBusqueda']['GESTION']) ? (string)$datos['EstudiantesBusqueda']['GESTION'] : date('YY'));
 
         $estudiante = Estudiantes::find()->where(['GESTION'=>$gestion])->one();
 
         $etapas = $estudiante->ETAPAS;
 
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $gridColumns = [
+            'DISTRITO',
+            'PATERNO',
+            'NOMBRE',
+            'CURSO',
+            'RUDE',
+
+        ];
 
         for($i=1; $i <= $etapas; $i++){
-            array_push($atributos, ["label"=>"NOTA_ETAPA".$i, "format"=>"raw", "value"=>0]);
+            array_push($gridColumns, [
+                'class' => 'kartik\grid\EditableColumn',
+                'attribute'=>'NOTA_ETAPA'.$i,
+                'readonly'=>function($model, $key, $index, $widget) {
+                    return (!$model->status); // do not allow editing of inactive records
+                },
+                'editableOptions' => [
+                    'header' => 'Nota Etapa '.$i,
+                    'inputType' => \kartik\editable\Editable::INPUT_SPIN,
+                    'options' => [
+                        'pluginOptions' => ['min'=>0, 'max'=>100]
+                    ]
+                ],
+                'hAlign'=>'right',
+                'vAlign'=>'middle',
+                'width'=>'100px',
+                'format'=>['integer', 1],
+                'pageSummary' => true,
+                'pageSummaryFunc'=>GridView::F_AVG,
+                'refreshGrid'=> true
+            ]);
         }
 
-        array_push($atributos, ['class' => 'yii\grid\ActionColumn']);*/
+        array_push($gridColumns, [
+            'class' => '\kartik\grid\ActionColumn',
+            'deleteOptions' => ['label' => '<i class="glyphicon glyphicon-remove"></i>']
+        ]);
 
         if (Yii::$app->request->post('hasEditable')) {
             // instantiate your book model for saving
@@ -133,6 +156,25 @@ class EstudiantesController extends Controller
                     $model->NOTA_ETAPA1 = (int) $posted['NOTA_ETAPA1'];
                 }
 
+                if (isset($posted['NOTA_ETAPA2'])) {
+                    $output =  Yii::$app->formatter->asInteger($model->NOTA_ETAPA2);
+                    $model->NOTA_ETAPA2 = (int) $posted['NOTA_ETAPA2'];
+                }
+                if (isset($posted['NOTA_ETAPA3'])) {
+                    $output =  Yii::$app->formatter->asInteger($model->NOTA_ETAPA3);
+                    $model->NOTA_ETAPA3 = (int) $posted['NOTA_ETAPA3'];
+                }
+
+                if (isset($posted['NOTA_ETAPA4'])) {
+                    $output =  Yii::$app->formatter->asInteger($model->NOTA_ETAPA4);
+                    $model->NOTA_ETAPA4 = (int) $posted['NOTA_ETAPA4'];
+                }
+
+                if (isset($posted['NOTA_ETAPA5'])) {
+                    $output =  Yii::$app->formatter->asInteger($model->NOTA_ETAPA5);
+                    $model->NOTA_ETAPA5 = (int) $posted['NOTA_ETAPA5'];
+                }
+
                 $model->save();
 
 
@@ -150,7 +192,7 @@ class EstudiantesController extends Controller
         return $this->render('datos',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            //'columns'=>$atributos
+            'gridColumns'=>$gridColumns
         ]);
     }
 

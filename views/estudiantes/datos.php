@@ -23,53 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
 
-    $gridColumns = [
-        'DISTRITO',
-        'PATERNO',
-        'NOMBRE',
-        'CURSO',
-        'RUDE',
-        [
-            'class' => 'kartik\grid\EditableColumn',
-            'attribute'=>'NOTA_ETAPA1',
-            'readonly'=>function($model, $key, $index, $widget) {
-                return (!$model->status); // do not allow editing of inactive records
-            },
-            'editableOptions' => [
-                'header' => 'Nota Etapa 1',
-                'inputType' => \kartik\editable\Editable::INPUT_SPIN,
-                'options' => [
-                    'pluginOptions' => ['min'=>0, 'max'=>100]
-                ]
-            ],
-            'hAlign'=>'right',
-            'vAlign'=>'middle',
-            'width'=>'100px',
-            'format'=>['integer', 1],
-            'pageSummary' => true,
-            'refreshGrid'=> true
-        ],
-        [
-            'class' => 'kartik\grid\EditableColumn',
-            'attribute'=>'NOTA_ETAPA2',
-            'readonly'=>function($model, $key, $index, $widget) {
-                return (!$model->status); // do not allow editing of inactive records
-            },
-            'editableOptions' => [
-                'header' => 'NOTA_ETAPA1',
-                'inputType' => \kartik\editable\Editable::INPUT_SPIN,
-                'options' => [
-                    'pluginOptions' => ['min'=>0, 'max'=>100]
-                ]
-            ],
-            'hAlign'=>'right',
-            'vAlign'=>'middle',
-            'width'=>'100px',
-            'format'=>['integer', 1],
-            'pageSummary' => true
-        ],
-    ];
-
     echo GridView::widget([
         'dataProvider'=>$dataProvider,
         'filterModel'=>$searchModel,
@@ -100,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'striped'=>true,
         'condensed'=>true,
         'responsive'=>true,
-        'hover'=>true,
+        //'hover'=>true,
         'showPageSummary'=>true,
         'panel'=>[
             'type'=>GridView::TYPE_PRIMARY,

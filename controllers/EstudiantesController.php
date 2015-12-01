@@ -15,6 +15,7 @@ use app\models\UploadForm;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
 use kartik\grid\GridView;
+use yii\helpers\Html;
 
 /**
  * EstudiantesController implements the CRUD actions for Estudiantes model.
@@ -86,7 +87,10 @@ class EstudiantesController extends Controller
             'DISTRITO',
             'PATERNO',
             'NOMBRE',
-            'CURSO',
+            [
+                'attribute'=>'CURSO',
+                'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->cursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
+            ],
             'RUDE',
 
         ];

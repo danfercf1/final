@@ -42,6 +42,6 @@ var availableTags = [
       "Vinto"
     ];
 //jQuery('h1').css('color','green');
-$( "input[name^='EstudiantesBusqueda']" ).autocomplete({
+$( "input[name^='EstudiantesBusqueda[DISTRITO]" ).autocomplete({
     source: availableTags
 });

@@ -1,15 +1,11 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Estudiantes */
-
 $this->title = $model->nombreCompleto();
 $this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['datos']];
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <div class="estudiantes-view">
 
@@ -38,12 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label'=>'UNIDAD EDUCATIVA', 'format'=>'raw', 'value'=>Html::a($model->uE->NOMBRE_UE, ['ue/view', 'id' => $model->UNIDAD_EDUCATIVA->{'$id'}, 'id_estudiante'=>(string)$model->_id])],
         ],
     ]) ?>
-    
+
     <p>
         <?= Html::a('Editar', ['update', 'id' => (string)$model->_id], ['class' => 'btn btn-primary']) ?>
         &nbsp;
     </p>
-    
+
     <p> <?= Html::a('Eliminar', ['delete', 'id' => (string)$model->_id], [
             'class' => 'btn btn-danger',
             'data' => [

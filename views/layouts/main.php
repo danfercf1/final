@@ -20,7 +20,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <?php $this->registerJsFile(Yii::$app->request->baseUrl . '/jsjoy/autoc.js', array('position' => $this::POS_END), 'autoc'); ?>
+    <?php //$this->registerJsFile(Yii::$app->request->baseUrl . '/jsjoy/autoc.js', array('position' => $this::POS_END), 'autoc'); ?>
     <?php $this->head() ?>
 </head>
 <body>

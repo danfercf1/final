@@ -45,12 +45,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
      */
     public $rango = 12;
     public $notaMin = 51;
-    public $NOTA_ETAPA1;
-    public $NOTA_ETAPA2;
-    public $NOTA_ETAPA3;
-    public $NOTA_ETAPA4;
-    public $NOTA_ETAPA5;
-
+    public $status = true;
 
     public static function collectionName()
     {
@@ -84,6 +79,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'NACIONALIDAD',
             'EDAD',
             'ETAPAS',
+            'GESTION',
             'COD_SIE',
             'NOMBRE_UE',
             'SECCION',
@@ -91,7 +87,13 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'PROVINCIA',
             'AREA',
             'DEPENDENCIA',
+            'NOTA_ETAPA1',
+            'NOTA_ETAPA2',
+            'NOTA_ETAPA3',
+            'NOTA_ETAPA4',
+            'NOTA_ETAPA5',
             'NOMBRE_EVENTO',
+
         ];
     }
 
@@ -101,7 +103,9 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION','COD_SIE', 'NOMBRE_UE', 'AREA', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO'], 'safe']
+
+            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION', 'COD_SIE', 'NOMBRE_UE', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO'], 'safe'],
+            [['NOTA_ETAPA1', 'NOTA_ETAPA2','NOTA_ETAPA3','NOTA_ETAPA4','NOTA_ETAPA5'], 'number', 'min'=>0, 'max'=>100],
         ];
     }
 
@@ -217,4 +221,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
         return implode(",", $atributos);
     }
 
+    public function obtenercursos(){
+        return ['1s'=>'1ro Sec','2s'=>'2do Sec', '3s'=>'3ro Sec','4s'=>'4to Sec', '5s'=>'5to Sec', '6s'=>'6to Sec'];
+    }
 }

@@ -36,6 +36,7 @@ use Yii;
  * @property mixed $PROVINCIA
  * @property mixed $AREA
  * @property mixed $DEPENDENCIA
+ * @property mixed $NOMBRE_EVENTO
  */
 class Estudiantes extends \yii\mongodb\ActiveRecord
 {
@@ -49,11 +50,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public $NOTA_ETAPA3;
     public $NOTA_ETAPA4;
     public $NOTA_ETAPA5;
-    public $NOTA_ETAPA6;
-    public $NOTA_ETAPA7;
-    public $NOTA_ETAPA8;
-    public $NOTA_ETAPA9;
-    public $NOTA_ETAPA10;
+
 
     public static function collectionName()
     {
@@ -94,6 +91,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'PROVINCIA',
             'AREA',
             'DEPENDENCIA',
+            'NOMBRE_EVENTO',
         ];
     }
 
@@ -103,8 +101,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION','COD_SIE', 'NOMBRE_UE', 'AREA', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA'], 'safe']
-
+            [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION','COD_SIE', 'NOMBRE_UE', 'AREA', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO'], 'safe']
         ];
     }
 
@@ -136,6 +133,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'GESTION'=>'Gestión',
             'AREA' => 'Area',
             'DEPENDENCIA' => 'Dependencia',
+            'NOMBRE_EVENTO' => 'Evento',
         ];
     }
 
@@ -151,6 +149,14 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
         $dias = mktime(0,0,0, $dias[1], 0, $dias[2]);
         $edad = (int)((time()-$dias)/31556926);
         return $edad;
+        
+        /*list($dia,$mes,$ano) = explode("/",$fecha);
+    	$ano_diferencia  = date("Y") - $ano;
+    	$mes_diferencia = date("m") - $mes;
+    	$dia_diferencia   = date("d") - $dia;
+    	if ($dia_diferencia < 0 || $mes_diferencia < 0)
+    		$ano_diferencia--;
+    	return $ano_diferencia;*/
     }
 
     public static function getNotaAlta()
@@ -190,9 +196,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
         }
         return $notaSelec;
     }
-    
-      
-    
+
     public function nombreCompleto()
     {
         return $this->NOMBRE.' '.$this->PATERNO.' '.$this->MATERNO;
@@ -212,5 +216,5 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
 
         return implode(",", $atributos);
     }
-    
+
 }

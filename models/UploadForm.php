@@ -14,7 +14,7 @@ class UploadForm extends Model
     /**
      * @var UploadedFile file attribute
      */
-    public $file;
+    public $archivo;
     public $nombre;
     public $gestion;
     public $etapas;

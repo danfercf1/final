@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\FileInput;
 
 $this->title = 'Cargar Datos';
 $this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
-    <?= $form->field($model, 'file')->fileInput() ?>
+    <?= $form->field($model, 'archivo')->fileInput()?>
     
     <?= $form->field($model, 'nombre')->textInput()->hint('Asignar nombre de olimpiada') ?>
 

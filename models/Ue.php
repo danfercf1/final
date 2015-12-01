@@ -65,9 +65,9 @@ class Ue extends \yii\mongodb\ActiveRecord
             'PROVINCIA' => 'Provincia',
             'NOMBRE_UE' => 'Nombre',
             'AREA' => 'Area',
-            'COD_SIE' => 'Código SIE',
-            'SECCION' => 'Sección',
-            'CANTON' => 'Cantón',
+            'COD_SIE' => 'Codigo SIE',
+            'SECCION' => 'Seccion',
+            'CANTON' => 'Canton',
             'DEPENDENCIA' => 'Dependencia',
         ];
     }

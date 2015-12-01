@@ -22,9 +22,13 @@ class AppAsset extends AssetBundle
         'css/estilos.css'        
     ];
     public $js = [
+        'jsjoy/jquery-ui.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
+    public $jsOptions = array(
+    'position' => \yii\web\View::POS_HEAD
+    );
 }

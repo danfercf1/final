@@ -41,7 +41,7 @@ $distrito = GridView::widget([
                         
 $curso1 = GridView::widget([
                             'dataProvider' => $dataProvider1S,
-                            'filterModel' => $searchModel,
+                            'filterModel' => $searchModel1s,
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
                     
@@ -240,14 +240,13 @@ $masculino = GridView::widget([
 
 
 $sub15 = GridView::widget([
-                            'dataProvider' => $dataProviderS15,
+                            'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
                     
                                 //'_id',
-                                //'EDAD',
-                                ['label'=>'EDAD', 'value'=>$model->estudiantes->getEdad($model->getFechaNaC())],
+                                'EDAD',
                                 'PATERNO',
                                 'MATERNO',
                                 'NOMBRE',

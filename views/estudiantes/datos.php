@@ -72,7 +72,5 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 </div>
-<?php 
-$this->registerJsFile('@web/jsjoy/autoc.js');
-?>
+
 

@@ -34,6 +34,7 @@ sheet = book.sheet_by_index(0)
 dataEstudiante = {}
 dataTutor = {}
 dataUE = {}
+dataDISTRITO = {}
 cont = 0
 cell = sheet.cell(0, 1)
 
@@ -107,6 +108,18 @@ for i in range(1, sheet.nrows):
             db.ue.insert_one(dataUE)
         else:
             ue_id = cursor_ue['_id']
+
+
+        #DISTRITO
+
+        cursor_distrito = db.distrito.find_one({"NOMBRE": dataEstudiante['DISTRITO']})
+
+        if cursor_distrito is None:
+            ue_id = ObjectId()
+            dataDISTRITO['_id'] = ue_id
+            dataDISTRITO['NOMBRE'] = dataEstudiante['DISTRITO']
+            db.distrito.insert_one(dataDISTRITO)
+
 
         dataEstudiante['_id'] = ObjectId()
         #Tutor

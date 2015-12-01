@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Distrito;
 use app\models\Tutor;
 use app\models\Ue;
 use Yii;
@@ -82,14 +83,33 @@ class EstudiantesController extends Controller
 
         $etapas = $estudiante->ETAPAS;
 
+        $distritos = new Distrito();
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         $gridColumns = [
-            'DISTRITO',
+            [
+                'class' => '\kartik\grid\DataColumn',
+                'attribute'=>'DISTRITO',
+                'width'=>'100px',
+                'filterType'=>GridView::FILTER_TYPEAHEAD,
+                'filterWidgetOptions'=>[
+                    'name' => 'DISTRITO',
+                    'options' => ['placeholder' => 'Escoger Distrito...'],
+                    'pluginOptions' => ['highlight'=>true],
+                    'dataset' => [
+                        [
+                            'local' => $distritos->obtenerNombres(),
+                            'limit' => 10
+                        ]
+                    ]
+                ],
+            ],
             'PATERNO',
             'NOMBRE',
             [
                 'attribute'=>'CURSO',
-                'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->cursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
+                'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->obtenercursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
             ],
             'RUDE',
 
@@ -253,18 +273,18 @@ class EstudiantesController extends Controller
 
             $model_file->load(Yii::$app->request->post());
 
-            $model_file->file = UploadedFile::getInstance($model_file, 'file');
+            $model_file->archivo = UploadedFile::getInstance($model_file, 'archivo');
 
             if ($model_file->validate()) {
 
-                $model_file->file->saveAs($model_file->ubicacion.$model_file->file->baseName . '.' . $model_file->file->extension);
+                $model_file->archivo->saveAs($model_file->ubicacion.$model_file->archivo->baseName . '.' . $model_file->archivo->extension);
 
                 $gestion = $_POST["UploadForm"]["gestion"];
                 $etapas = (int)$_POST["UploadForm"]["etapas"];
-                $archivo = $model_file->file->baseName;
+                $archivo = $model_file->archivo->baseName;
                 $nombre = $_POST["UploadForm"]["nombre"];
 
-                $json = ["archivo"=>$archivo. '.' . $model_file->file->extension, "gestion"=>$gestion, "etapas"=>$etapas, "nombre"=>$nombre];
+                $json = ["archivo"=>$archivo. '.' . $model_file->archivo->extension, "gestion"=>$gestion, "etapas"=>$etapas, "nombre"=>$nombre];
 
                 $fp = fopen("listas_excel/configuracion.json", "w");
 

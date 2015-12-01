@@ -25,8 +25,8 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['file'], 'file', 'extensions' => 'xlsx'],
-            [['gestion', 'nombre', 'etapas'], 'required'],
+            [['archivo'], 'file', 'extensions' => 'xlsx'],
+            [['gestion', 'nombre', 'etapas', 'archivo'], 'required'],
             [['nombre', 'etapas'], 'string'],
             [['gestion'], 'number'],
         ];

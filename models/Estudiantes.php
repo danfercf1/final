@@ -221,8 +221,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
         return implode(",", $atributos);
     }
 
-    public function cursos(){
+    public function obtenercursos(){
         return ['1s'=>'1ro Sec','2s'=>'2do Sec', '3s'=>'3ro Sec','4s'=>'4to Sec', '5s'=>'5to Sec', '6s'=>'6to Sec'];
     }
-
 }

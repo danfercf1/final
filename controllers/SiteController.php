@@ -191,12 +191,8 @@ class SiteController extends Controller
         $dataProviderGM = new ActiveDataProvider([
                 'query' => Estudiantes::find()->where(['GENERO'=>'m']),
             ]);
-        //$fechaLimite = mktime(0, 0, 0, date("d"),   date("m"),   date("Y")-15); 
-        //$fechaLimite = strtotime ("23/03/2003");
-        $dataProviderS15 = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where('EDAD'<=15),
-            ]);
         
+                
         return $this->render('r_general',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -214,21 +210,10 @@ class SiteController extends Controller
             'dataProvider5S' => $dataProvider5S,
             'dataProvider6S' => $dataProvider6S,
             'dataProviderS15' => $dataProviderS15,
-            //'fechaLimite' => $fechaLimite,
         ]);
     }
     
-    /*public function actionAreas($area)
-    {
-        var_dump( $_GET['area']);
-        $estudiantes = new Estudiantes();
         
-        $alumnos = $estudiantes->getAlumnos(0, $area,10);
-        return $this->render('areas',[
-            'model' => $alumnos,
-        ]);
-    }*/
-    
     public function actionPersonalizar()
     {
         $model_custom = new CustomForm();

@@ -240,14 +240,13 @@ $masculino = GridView::widget([
 
 
 $sub15 = GridView::widget([
-                            'dataProvider' => $dataProviderS15,
+                            'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
                     
                                 //'_id',
-                                //'EDAD',
-                                ['label'=>'EDAD', 'value'=>$model->estudiantes->getEdad($model->getFechaNaC())],
+                                'EDAD',
                                 'PATERNO',
                                 'MATERNO',
                                 'NOMBRE',

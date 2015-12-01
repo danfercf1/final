@@ -24,6 +24,12 @@
     font-weight: bold;
 }
 
+#uploadform-archivo{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 90%;
+}
+
 .site-login .col-lg-1{
     width: 25%;
 }
@@ -82,13 +88,20 @@ thead tr.filters td{
 
 thead tr.filters .form-control{
     width: 50%;
-    text-align: center;
+    text-align: left;
 }
 
-table.table-striped  tr th, table.table-striped  tr td{
-/*.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {*/
-    
+table .table-striped .table-bordered{
+    text-transform: uppercase;
+}
+
+table.table-striped  tr th{
     padding: 3px;
+}
+
+table.table-striped  tr td{  
+    padding: 3px;
+    text-transform: uppercase;
 }
 
 /*Estilos pestaña distrito*/
@@ -97,6 +110,12 @@ table.table-striped  tr th, table.table-striped  tr td{
 }
 
 /*Estilos vista*/
+
+.estudiantes-view .well h1{
+    text-transform: lowercase;
+    
+}
+
 .estudiantes-view, .tutor-view, .ue-view, .usuarios-view{
     font-size: 12px;
     padding: 0 30px;
@@ -140,6 +159,22 @@ table.table-striped  tr th, table.table-striped  tr td{
     display: inline;
 }
 
+#ui-id-1 {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    list-style-type: none;   
+    width: 26%;
+}
+
+#ui-id-1:focus{
+    
+}
+
+
+.ui-autocomplete{
+    
+}
 
 
 

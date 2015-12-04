@@ -3,9 +3,14 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
+use yii\mongodb\Query;
+use yii\mongodb\Collection;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Estudiantes;
@@ -13,9 +18,9 @@ use app\models\EstudiantesBusqueda;
 use app\models\Ue;
 use app\models\CustomForm;
 use app\models\UeBusqueda;
-use yii\data\ActiveDataProvider;
-use yii\mongodb\Query;
-use yii\mongodb\Collection;
+use app\models\Distrito;
+use kartik\grid\GridView;
+
 
 
 class SiteController extends Controller
@@ -137,84 +142,97 @@ class SiteController extends Controller
     {
         $searchModel = new EstudiantesBusqueda();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $dataProvider1S = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['CURSO'=>'1s'])->limit(5)->orderBy(['NOTA_ETAPA1'=>SORT_DESC]),
-                'pagination' => [
-                     'pageSize' => 10,
+        
+        $distritos = new Distrito();
+      
+        
+        $gridColumnsDistrito = [
+            [
+                'class' => '\kartik\grid\DataColumn',
+                'attribute'=>'DISTRITO',
+                'width'=>'200px',
+                'filterType'=>GridView::FILTER_TYPEAHEAD,
+                'filterWidgetOptions'=>[
+                    'name' => 'DISTRITO',
+                    'options' => ['placeholder' => 'Escoger Distrito...'],
+                    'pluginOptions' => ['highlight'=>true],
+                    'dataset' => [
+                        [
+                            'local' => $distritos->obtenerNombres(),
+                            'limit' => 10
+                        ]
+                    ]
                 ],
-            ]);
-
-        $searchModel1s = new EstudiantesBusqueda();
-            
-        $dataProvider2S = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['CURSO'=>'2s']),
-            ]);
-            
-        $dataProvider3S = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['CURSO'=>'3s']),
-            ]);
-            
-        $dataProvider4S = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['CURSO'=>'4s']),
-
-            ]);
-            
-        $dataProvider5S = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['CURSO'=>'5s']),
-            ]);
-            
-        $dataProvider6S = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['CURSO'=>'6s']),
-            ]);
-            
-        $dataProviderR = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['AREA'=>'r']),
-            ]);
-            
-        $dataProviderU = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['AREA'=>'u']),
-            ]);
+            ],
+            'PATERNO',
+            'NOMBRE',
+            'RUDE',
+            'NOTA',
+        ];
         
-        $dataProviderC = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['DEPENDENCIA'=>'convenio']),
-            ]);
-            
-        $dataProviderF = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['DEPENDENCIA'=>'fiscal o estatal']),
-            ]);
-            
-        $dataProviderP = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['DEPENDENCIA'=>'privada']),
-            ]);
-            
-        $dataProviderGF = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['GENERO'=>'f']),
-            ]);
-            
-        $dataProviderGM = new ActiveDataProvider([
-                'query' => Estudiantes::find()->where(['GENERO'=>'m']),
-            ]);
+        $gridColumnsCurso = [
+            [
+                'attribute'=>'CURSO',
+                'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->obtenercursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
+            ],
+            'PATERNO',
+            'NOMBRE',
+            'RUDE',
+            'NOTA',
+        ];
         
+        $gridColumnsArea = [
+            [
+                'attribute'=>'AREA',
+                'filter' => Html::activeDropDownList($searchModel, 'AREA', $searchModel->obtenerArea(),['class'=>'form-control','prompt' => 'Selecionar Area'])
+            ],
+            'PATERNO',
+            'NOMBRE',
+            'RUDE',
+            'NOTA',
+        ];
+        $gridColumnsDependencia = [
+            [
+                'attribute'=>'DEPENDENCIA',
+                'filter' => Html::activeDropDownList($searchModel, 'DEPENDENCIA', $searchModel->obtenerDependencia(),['class'=>'form-control','prompt' => 'Selecionar nivel de dependencia'])
+            ],
+            'PATERNO',
+            'NOMBRE',
+            'RUDE',
+            'NOTA',
+        ];
+        $gridColumnsGenero = [
+            [
+                'attribute'=>'GENERO',
+                'filter' => Html::activeDropDownList($searchModel, 'GENERO', $searchModel->obtenerGenero(),['class'=>'form-control','prompt' => 'Selecionar genero'])
+            ],
+            'PATERNO',
+            'NOMBRE',
+            'RUDE',
+            'NOTA',
+        ];
+        
+        $gridColumnsEdad = [
+            [
+                'attribute'=>'EDAD',
+                'filter' => Html::activeDropDownList($searchModel, 'EDAD', $searchModel->obtenerEdad(),['class'=>'form-control','prompt' => 'Selecionar edad'])
+            ],
+            'PATERNO',
+            'NOMBRE',
+            'RUDE',
+            'NOTA',
+        ];
 
         return $this->render('r_general',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'dataProviderR' => $dataProviderR,
-            'dataProviderU' => $dataProviderU,
-            'dataProviderC' => $dataProviderC,
-            'dataProviderF' => $dataProviderF,
-            'dataProviderP' => $dataProviderP,
-            'dataProviderGF' => $dataProviderGF,
-            'dataProviderGM' => $dataProviderGM,
-            'dataProvider1S' => $dataProvider1S,
-            'searchModel1s' => $searchModel1s,
-            'dataProvider2S' => $dataProvider2S,
-            'dataProvider3S' => $dataProvider3S,
-            'dataProvider4S' => $dataProvider4S,
-            'dataProvider5S' => $dataProvider5S,
-            'dataProvider6S' => $dataProvider6S,
-            'dataProviderS15' => $dataProviderS15,
+            
+            'gridColumnsDistrito'=>$gridColumnsDistrito,
+            'gridColumnsCurso'=>$gridColumnsCurso,
+            'gridColumnsArea'=>$gridColumnsArea,
+            'gridColumnsDependencia'=>$gridColumnsDependencia,
+            'gridColumnsGenero'=>$gridColumnsGenero,
+            'gridColumnsEdad'=>$gridColumnsEdad,
         ]);
     }
     

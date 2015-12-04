@@ -65,7 +65,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'persistResize'=>true,
         //'exportConfig'=>$exportConfig,
-    ]);?>
+    ]);
+    
+    ?>
 
 </div>
 

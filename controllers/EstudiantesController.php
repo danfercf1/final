@@ -16,6 +16,7 @@ use app\models\UploadForm;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
 use kartik\grid\GridView;
+//use kartik\widgets\Typeahead;
 use yii\helpers\Html;
 
 /**
@@ -91,7 +92,7 @@ class EstudiantesController extends Controller
             [
                 'class' => '\kartik\grid\DataColumn',
                 'attribute'=>'DISTRITO',
-                'width'=>'100px',
+                'width'=>'200px',
                 'filterType'=>GridView::FILTER_TYPEAHEAD,
                 'filterWidgetOptions'=>[
                     'name' => 'DISTRITO',

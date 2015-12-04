@@ -104,11 +104,6 @@ table.table-striped  tr td{
     text-transform: uppercase;
 }
 
-/*Estilos pestaña distrito*/
-.selector{
-    padding: 20px 20px;   
-}
-
 /*Estilos vista*/
 
 .estudiantes-view .well h1{
@@ -159,21 +154,10 @@ table.table-striped  tr td{
     display: inline;
 }
 
-#ui-id-1 {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    list-style-type: none;   
-    width: 26%;
-}
-
-#ui-id-1:focus{
-    
-}
-
-
-.ui-autocomplete{
-    
+/*Autocomplete*/
+.tt-menu{
+    width: 400px;
+    text-transform: lowercase;
 }
 
 

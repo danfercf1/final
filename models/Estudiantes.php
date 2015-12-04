@@ -224,4 +224,26 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function obtenercursos(){
         return ['1s'=>'1ro Sec','2s'=>'2do Sec', '3s'=>'3ro Sec','4s'=>'4to Sec', '5s'=>'5to Sec', '6s'=>'6to Sec'];
     }
+    
+    public function obtenerArea(){
+        return ['r'=>'Rural','u'=>'Urbano'];
+    }
+    
+    public function obtenerDependencia(){
+        return ['convenio'=>'Convenio','fiscal o estatal'=>'Fiscal o estatal', 'privada'=>'Privada'];
+    }
+    
+    public function obtenerGenero(){
+        return ['f'=>'Femenino','m'=>'Masculino'];
+    }
+    
+    public function obtenerEdad(){
+        
+        $sub15= array([12,13,14,15]);
+        $sub17= array([16,17]);
+        //$sub15 = Estudiantes::find()->where(['EDAD'=>['$lte'=>15]])->one();
+        //$sub17 = Estudiantes::find()->where(['EDAD'=>['$gt'=>15, '$lte'=>17]])->one();
+        
+        return ['$sub15'=>'Sub-15', '$sub17'=>'Sub-17'];
+    }
 }

@@ -70,8 +70,16 @@ class EstudiantesBusqueda extends Estudiantes
             ->andFilterWhere(['like', 'UE', $this->UNIDAD_EDUCATIVA])
             ->andFilterWhere(['like', 'TUTOR', $this->TUTOR])
             ->andFilterWhere(['like', 'AREA', $this->AREA])
-            ->andFilterWhere(['like', 'DEPENDENCIA', $this->DEPENDENCIA])
-            ->andFilterWhere(['like', 'EDAD', $this->EDAD]);
+            ->andFilterWhere(['like', 'DEPENDENCIA', $this->DEPENDENCIA]);
+            
+        if((int)$this->EDAD == 15){
+            $query->andFilterWhere(['<=', 'EDAD', (int)$this->EDAD]);
+        }
+        else if((int)$this->EDAD == 17){
+             $query->andFilterWhere(['>', 'EDAD', 15]); 
+             $query->andFilterWhere(['<=', 'EDAD', (int)$this->EDAD]);  
+        }
+            
 
         return $dataProvider;
     }

@@ -238,12 +238,6 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     }
     
     public function obtenerEdad(){
-        
-        $sub15= array([12,13,14,15]);
-        $sub17= array([16,17]);
-        //$sub15 = Estudiantes::find()->where(['EDAD'=>['$lte'=>15]])->one();
-        //$sub17 = Estudiantes::find()->where(['EDAD'=>['$gt'=>15, '$lte'=>17]])->one();
-        
-        return ['$sub15'=>'Sub-15', '$sub17'=>'Sub-17'];
+        return ['15'=>'Sub15', '17'=>'Sub17'];
     }
 }

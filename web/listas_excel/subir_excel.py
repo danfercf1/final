@@ -27,6 +27,7 @@ if "archivo" not in data or "gestion" not in data or "etapas" not in data or "no
 gestion = data["gestion"]
 etapas = data["etapas"]
 nombre = data["nombre"]
+usuario = data["usuario"]
 
 book = xlrd.open_workbook(archivo_subir)
 
@@ -35,6 +36,7 @@ dataEstudiante = {}
 dataTutor = {}
 dataUE = {}
 dataDISTRITO = {}
+dataEVENTO = {}
 cont = 0
 cell = sheet.cell(0, 1)
 
@@ -155,6 +157,24 @@ for i in range(1, sheet.nrows):
 
         #ETAPAS
         dataEstudiante['ETAPAS'] = etapas
+
+
+        #EVENTO
+
+        cursor_evento = db.evento.find_one({"NOMBRE_EVENTO": nombre})
+
+        if cursor_evento is None:
+            evento_id = ObjectId()
+            dataEVENTO['_id'] = evento_id
+            dataEVENTO['NOMBRE_EVENTO'] = nombre
+            dataEVENTO['GESTION'] = dataEstudiante["GESTION"]
+            dataEVENTO['ETAPAS'] = dataEstudiante['ETAPAS']
+            dataEVENTO['USUARIO'] = ObjectId(usuario)
+            db.evento.insert_one(dataEVENTO)
+        else:
+            evento_id = cursor_evento['_id']
+
+        dataEstudiante['NOMBRE_EVENTO'] = ObjectId(evento_id)
 
         cursor_es = db.estudiante.find_one({"RUDE": dataEstudiante['RUDE'], "GESTION": gestion, "NOMBRE_EVENTO": nombre})
 

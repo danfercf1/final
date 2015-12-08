@@ -3,17 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Distrito;
-use app\models\DistritoSearch;
+use app\models\Evento;
+use app\models\EventoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * DistritoController implements the CRUD actions for Distrito model.
+ * EventoController implements the CRUD actions for Evento model.
  */
-class DistritoController extends Controller
+class EventoController extends Controller
 {
     public function behaviors()
     {
@@ -39,12 +39,12 @@ class DistritoController extends Controller
     }
 
     /**
-     * Lists all Distrito models.
+     * Lists all Evento models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DistritoSearch();
+        $searchModel = new EventoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -54,7 +54,7 @@ class DistritoController extends Controller
     }
 
     /**
-     * Displays a single Distrito model.
+     * Displays a single Evento model.
      * @param integer $_id
      * @return mixed
      */
@@ -66,13 +66,13 @@ class DistritoController extends Controller
     }
 
     /**
-     * Creates a new Distrito model.
+     * Creates a new Evento model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Distrito();
+        $model = new Evento();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => (string)$model->_id]);
@@ -84,7 +84,7 @@ class DistritoController extends Controller
     }
 
     /**
-     * Updates an existing Distrito model.
+     * Updates an existing Evento model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $_id
      * @return mixed
@@ -103,7 +103,7 @@ class DistritoController extends Controller
     }
 
     /**
-     * Deletes an existing Distrito model.
+     * Deletes an existing Evento model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $_id
      * @return mixed
@@ -116,15 +116,15 @@ class DistritoController extends Controller
     }
 
     /**
-     * Finds the Distrito model based on its primary key value.
+     * Finds the Evento model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $_id
-     * @return Distrito the loaded model
+     * @return Evento the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Distrito::findOne($id)) !== null) {
+        if (($model = Evento::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

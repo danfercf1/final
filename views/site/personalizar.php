@@ -8,8 +8,8 @@ use yii\widgets\ActiveField;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'personalizar';
-$this->params['breadcrumbs'][] = ['label' => 'clasificacion', 'url' => ['clasificados']];
+$this->title = 'Personalizar';
+$this->params['breadcrumbs'][] = ['label' => 'Clasificacion', 'url' => ['clasificados']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ranking-form">
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     input('number', ['min'=>1, 'max'=> 100, 'placeholder'=>'Ingrese un numero entre 1-100...']) ->label('Cantidad'); ?>
     
 
-    <?= $form->field($model, 'atributo')->dropDownList(array("a1"=>"Distrito", "a2"=>"Curso", "a3"=>"Area Regional", "a4"=>"Dependencia", "a5"=>"Genero", "a6"=>"Edad sub-15", "a7"=>"Edad sub-17",), ['prompt'=>'Seleccionar Variable...']) ?>
+    <?= $form->field($model, 'atributo')->dropDownList(array("a1"=>"Distrito", "a2"=>"Curso", "a3"=>"Area Regional", "a4"=>"Dependencia", "a5"=>"Genero", "a6"=>"Edad",), ['prompt'=>'Seleccionar Variable...']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('generar', ['class' => 'btn btn-success']) ?>

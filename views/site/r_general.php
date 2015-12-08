@@ -18,8 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="clasificacion">
 
-    <p class="lead">Ranking general de mejores notas</p>
+    <p class="lead">Mejores notas</p>
 
+   <?php 
+        $heading = 'Ranking general';
+   ?>
     
 <?php 
 
@@ -58,7 +61,7 @@ $distrito = GridView::widget([
         'showPageSummary'=>true,
         'panel'=>[
             'type'=>GridView::TYPE_PRIMARY,
-            //'heading'=>$heading,
+            'heading'=>$heading,
         ],
         'persistResize'=>true,
         //'exportConfig'=>$exportConfig,

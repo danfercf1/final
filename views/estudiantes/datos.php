@@ -17,13 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="estudiantes-index">
 
-    <h1>Datos Estudiantes</h1>
-
-    <?php /* echo $this->render('_search', ['model' => $searchModel]);*/ ?>
-
-    <p>
-        <?php /* Html::a('Create Estudiantes', ['create'], ['class' => 'btn btn-success']) */?>
-    </p>
+    <?php 
+        $heading = 'Datos Estudiantes';
+    ?>
 
     <?php
 
@@ -61,7 +57,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'showPageSummary'=>true,
         'panel'=>[
             'type'=>GridView::TYPE_PRIMARY,
-            //'heading'=>$heading,
+            'heading'=>$heading,
+            //'heading'=>'Datos estudiantes',
         ],
         'persistResize'=>true,
         //'exportConfig'=>$exportConfig,

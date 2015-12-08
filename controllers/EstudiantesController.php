@@ -53,15 +53,34 @@ class EstudiantesController extends Controller
      */
     public function actionIndex()
     {
-        /*$searchModel = new EstudiantesBusqueda();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
-
-        /*return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);*/
-        return $this->render('index');
+        $searchModel = new EstudiantesBusqueda();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
+        $gridColumnsEvento = [
+            ['class'=>'kartik\grid\SerialColumn'],
+        [
+            'attribute' => 'NOMBRE_EVENTO',
+            'value'=>function ($model, $key, $index, $widget){
+                return $model->NOMBRE_EVENTO;
+            },
+            'group'=>true,
+        ],
+            //'NOMBRE_EVENTO',
+            //'GESTION',
+        [
+            'attribute' => 'GESTION',
+            'value'=>function ($model, $key, $index, $widget){
+                return $model->GESTION;
+            },
+            'group'=>true,
+        ],
+        ];
+         
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,   
+            'gridColumnsEvento'=>$gridColumnsEvento,
+        ]);  
     }
     
     public function actionAdministracion()
@@ -479,5 +498,18 @@ class EstudiantesController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionHistorial()
+    {
+        $model_file = new UploadForm();
+        $gestiones = $model_file->gestiones();
+        
+        return $this->render('historial', 
+                            [
+                            'model' => $model_file,
+                            'gestiones'=>$gestiones
+                            ]
+        );
     }
 }

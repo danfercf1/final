@@ -246,6 +246,4 @@ class SiteController extends Controller
     {
         return $this->render('mejor_nota');
     }
-    
-    
 }

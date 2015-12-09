@@ -289,6 +289,8 @@ class EstudiantesController extends Controller
 
         $gestiones = $model_file->gestiones();
 
+        $user = Yii::$app->user->id;
+
         if (Yii::$app->request->post()) {
 
             $model_file->load(Yii::$app->request->post());
@@ -303,8 +305,9 @@ class EstudiantesController extends Controller
                 $etapas = (int)$_POST["UploadForm"]["etapas"];
                 $archivo = $model_file->archivo->baseName;
                 $nombre = $_POST["UploadForm"]["nombre"];
+                $usuario = $user;
 
-                $json = ["archivo"=>$archivo. '.' . $model_file->archivo->extension, "gestion"=>$gestion, "etapas"=>$etapas, "nombre"=>$nombre];
+                $json = ["archivo"=>$archivo. '.' . $model_file->archivo->extension, "gestion"=>$gestion, "etapas"=>$etapas, "nombre"=>$nombre, "usuario"=>$usuario];
 
                 $fp = fopen("listas_excel/configuracion.json", "w");
 

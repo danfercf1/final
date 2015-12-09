@@ -27,3 +27,4 @@ phpunit.phar
 /phpunit.xml
 /config/web.php
 vendor/bower/bootstrap/bower.json
+web/listas_excel/configuracion.json

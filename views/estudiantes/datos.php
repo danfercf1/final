@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
-use kartik\widgets\Typeahead;
+use yii\web\View;
 
 
 /* @var $this yii\web\View */
@@ -13,6 +13,11 @@ use kartik\widgets\Typeahead;
 $this->title = 'Exploracion de Datos';
 $this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJs("$('#grid_reset').click(function(e){
+    e.preventDefault();
+    $.pjax.reload({container:'#grid_datos'});
+});", View::POS_END, 'grid_reset');
 ?>
 
 <div class="estudiantes-index">
@@ -24,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
 
     echo GridView::widget([
+        'id'=>'grid_datos',
         'dataProvider'=>$dataProvider,
         'filterModel'=>$searchModel,
         'columns'=>$gridColumns,
@@ -38,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
         // set your toolbar
         'toolbar'=> [
             ['content'=>
-                Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>"Add Book", 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
-                Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['grid-demo'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>"Reset Grid"])
+                //Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>"Add Book", 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
+                Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['#'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>"Refrescar Tabla", 'id'=>'grid_reset'])
             ],
             '{export}',
             '{toggleData}',
@@ -52,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'bordered'=>true,
         'striped'=>true,
         'condensed'=>true,
-        'responsive'=>true,
+        'responsive'=>false,
         //'hover'=>true,
         'showPageSummary'=>true,
         'panel'=>[

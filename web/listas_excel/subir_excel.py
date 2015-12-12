@@ -146,7 +146,7 @@ for i in range(1, sheet.nrows):
 
         #GESTION
 
-        dataEstudiante["GESTION"] = gestion
+        dataEstudiante["GESTION"] = int(gestion)
 
         #ETAPAS
         for n in range(1, etapas+1):

@@ -54,24 +54,23 @@ class EstudiantesController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {      
-         $searchModel  = new EventoSearch();
-         $dataProvider = $searchModel->search( Yii::$app->request->queryParams );
-         
+    {
+        $searchModel = new EventoSearch();
+
+        $eventos = new Evento();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         return $this->render('index',[
-            
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        
-        ]);  
+            'eventos' => $eventos,
+        ]);
     }
     
     public function actionAdministracion()
     {
 
-        return $this->render('administracion',[
-            'dataProvider' => $dataProvider
-        ]);
     }
     
     public function actionDatos()
@@ -80,11 +79,11 @@ class EstudiantesController extends Controller
 
         $searchModel = new EstudiantesBusqueda();
 
-        $gestion = (isset($datos['EstudiantesBusqueda']['GESTION']) ? (string)$datos['EstudiantesBusqueda']['GESTION'] : date('YY'));
+        $evento = (isset($datos['EstudiantesBusqueda']['NOMBRE_EVENTO']) ? $datos['EstudiantesBusqueda']['NOMBRE_EVENTO'] : '');
 
-        $estudiante = Estudiantes::find()->where(['GESTION'=>$gestion])->one();
+        $evento_model = Evento::find()->where(['_id'=>new \MongoId($evento)])->one();
 
-        $etapas = $estudiante->ETAPAS;
+        $etapas = $evento_model->ETAPAS;
 
         $distritos = new Distrito();
 
@@ -231,7 +230,7 @@ class EstudiantesController extends Controller
         
         $searchModel = new EstudiantesBusqueda();
 
-        
+
         $estudiante = Estudiantes::find()->where(['NOMBRE_EVENTO'=>$nombre])->one();
         //$estudiante = Estudiantes::find()->where(['NOMBRE_EVENTO'=>'5667807e5e273a1840e6d390'])->one();
 
@@ -435,7 +434,7 @@ class EstudiantesController extends Controller
 
                 $model_file->archivo->saveAs($model_file->ubicacion.$model_file->archivo->baseName . '.' . $model_file->archivo->extension);
 
-                $gestion = $_POST["UploadForm"]["gestion"];
+                $gestion = (int) $_POST["UploadForm"]["gestion"];
                 $etapas = (int)$_POST["UploadForm"]["etapas"];
                 $archivo = $model_file->archivo->baseName;
                 $nombre = $_POST["UploadForm"]["nombre"];

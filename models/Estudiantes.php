@@ -210,7 +210,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
 
         $atributos = [];
 
-        $estudiante = Estudiantes::find()->where(['GESTION'=>(string)$gestion])->one();
+        $estudiante = Estudiantes::find()->where(['GESTION'=>(int)$gestion])->one();
 
         $etapas = $estudiante->ETAPAS;
 

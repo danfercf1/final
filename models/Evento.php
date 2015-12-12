@@ -80,4 +80,13 @@ class Evento extends \yii\mongodb\ActiveRecord
         }
         return $gestion;
     }
+
+    public function obtenerNombres(){
+        $model =  $this::find()->asArray()->all();
+        $datos = [];
+        foreach($model as $v){
+            array_push($datos, $v['NOMBRE_EVENTO']);
+        }
+        return $datos;
+    }
 }

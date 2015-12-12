@@ -54,8 +54,7 @@ class EstudiantesBusqueda extends Estudiantes
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', '_id', $this->_id])
-            ->andFilterWhere(['like', 'DISTRITO', $this->DISTRITO])
+        $query->andFilterWhere(['like', 'DISTRITO', $this->DISTRITO])
             ->andFilterWhere(['like', 'MATERIA', $this->MATERIA])
             ->andFilterWhere(['like', 'CURSO', $this->CURSO])
             ->andFilterWhere(['like', 'NOMBRE', $this->NOMBRE])
@@ -71,8 +70,8 @@ class EstudiantesBusqueda extends Estudiantes
             ->andFilterWhere(['like', 'TUTOR', $this->TUTOR])
             ->andFilterWhere(['like', 'AREA', $this->AREA])
             ->andFilterWhere(['like', 'DEPENDENCIA', $this->DEPENDENCIA])
-            ->andFilterWhere(['like', 'NOMBRE_EVENTO', $this->NOMBRE_EVENTO]);
-            
+            ->andFilterWhere(['=', 'NOMBRE_EVENTO', new \MongoId($this->NOMBRE_EVENTO)]);
+
         if((int)$this->EDAD == 15){
             $query->andFilterWhere(['<=', 'EDAD', (int)$this->EDAD]);
         }

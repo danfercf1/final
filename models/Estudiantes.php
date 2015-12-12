@@ -137,7 +137,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'GESTION'=>'Gestión',
             'AREA' => 'Area',
             'DEPENDENCIA' => 'Dependencia',
-            'NOMBRE_EVENTO' => 'Evento',
+            'NOMBRE_EVENTO' => 'Nombre Evento',
         ];
     }
 
@@ -177,7 +177,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     {
         return $this->hasOne(Tutor::className(),['_id'=>'TUTOR']);
     }
-
+    
     /*
      * Retornar Alumnos segun unidad educativa RURAL o URBANA
     */

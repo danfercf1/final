@@ -1,8 +1,11 @@
 <?php
 
 use yii\helpers\Html;
+//use kartik\grid\GridView;
 
-use kartik\grid\GridView;
+use yii\grid\GridView;
+//use yii\widgets\ListView;
+use model\models\Evento;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EstudiantesBusqueda */
@@ -14,55 +17,30 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="lista">
     <h1>Exploracion de datos</h1>
     <ul>
-        <li><a href="/estudiantes/datos?EstudiantesBusqueda[GESTION]=2015">Olimpiadas Plurinacional 2015</a></li>
-        <li><a href="blank">Nombre Olimpiada 2</a></li>
+        <li><a href="/estudiantes/datos?EstudiantesBusqueda[GESTION]=2015"> Olimpiadas 2015 </a></li>
+        <li><a href="/estudiantes/datosevento?nombre=5667807E5E273A1840E6D390">Nombre Olimpiada 2</a></li>
         <li><a href="blank">Nombre Olimpiada 3</a></li>
     </ul>
     
-<?php
+<?php 
+    /*echo ListView::widget( [
+        'dataProvider' => $dataProvider,  
+    ] );*/
 
-    /*echo GridView::widget([
-        'dataProvider'=>$dataProvider,
-        'filterModel'=>$searchModel,
-        'columns'=>$gridColumnsEvento,
-        'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
-        'headerRowOptions'=>['class'=>'kartik-sheet-style'],
-        'filterRowOptions'=>['class'=>'kartik-sheet-style'],
-        'pjax'=>true,
-        'pjaxSettings'=>[
-            'neverTimeout'=>true,
-            'id'=>'pajax-1',
-        ],
-        // set your toolbar
-        'toolbar'=> [
-            ['content'=>
-                Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>"Add Book", 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
-                Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['grid-demo'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>"Reset Grid"])
-            ],
-            '{export}',
-            '{toggleData}',
-        ],
-        // set export properties
-        'export'=>[
-            'fontAwesome'=>true
-        ],
-        // parameters from the demo form
-        'bordered'=>true,
-        'striped'=>true,
-        'condensed'=>true,
-        'responsive'=>true,
-        //'hover'=>true,
-        'showPageSummary'=>true,
-        'panel'=>[
-            'type'=>GridView::TYPE_PRIMARY,
-            //'heading'=>$heading,
-            'heading'=>'Exploracion de Datos',
-        ],
-        'persistResize'=>true,
-        //'exportConfig'=>$exportConfig,
-    ]);*/
-    
-    ?>
+    echo GridView::widget([
+        'dataProvider' => $dataProvider,
+        //'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'_id',
+            ['label'=>'Evento', 'format'=>'raw', 'value'=>function ($model) { 
+                     return Html::a(Html::encode($model->NOMBRE_EVENTO),'datosevento?nombre='.$model->_id);
+             }],
+            'GESTION',
+        ]
+    ]);
+?>
 
 
 </div>

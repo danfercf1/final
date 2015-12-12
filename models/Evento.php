@@ -67,5 +67,17 @@ class Evento extends \yii\mongodb\ActiveRecord
     public function getEvento()
     {
         return $this->hasOne(EVENTO::className(),['_id'=>'NOMBRE_EVENTO']);
+        //return $this->hasOne(Evento::className(),['_id'=>'NOMBRE_EVENTO']);
+    }
+    
+    public function getGestionEvento()
+    {   
+        $anio  = (int) date("Y");
+        $gestionEvento = 'GESTION';
+        $gestion = array();
+        for($i=$gestionEvento; $i<=$anio;$i++){
+            $gestion[$i] = $i;
+        }
+        return $gestion;
     }
 }

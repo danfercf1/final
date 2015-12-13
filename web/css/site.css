@@ -142,93 +142,19 @@ a.desc:after {
     text-decoration: none;
 }
 
-
-/*para quitar los slash del breadcrumb */
-.breadcrumb > li + li::before {
-    content: " ";
-}
-
-/*alinear breadcrumb*/
-.breadcrumb > li{
-    display: inline;
-}
-
-/*ultimo breadcrumb*/
-.breadcrumb > li + li::before {
-    padding: 0;
-}
-.breadcrumb > .active {
-    font-size: 12px;
-    padding-left: 35px;
-    padding-right: 15px;
-}
-
 /*breadcrumb*/
 .breadcrumb {
     display: inline-block;
-	overflow: hidden;
-	padding: 0;
+	/*overflow: hidden;*/
+	padding: 2px 15px;
     border: 1px solid #ddd;
 }
 
 .breadcrumb a {
 	text-decoration: none;
-	outline: none;
-	display: block;
-	float: left;
-	font-size: 12px;
-	line-height: 23px;
-
-	/*need more margin on the left of links to accomodate the numbers*/
-	padding: 0 10px 0 45px;
-	
-	position: relative;
 }
 
-/*since the first link does not have a triangle before it we can reduce the left padding to make it look consistent with other links*/
-.breadcrumb a:first-child {
-	padding-left: 35px;
-	border-radius: 5px 0 0 5px; /*to match with the parent's radius*/
-}
-
-.breadcrumb a:last-child {
-	padding-right: 15px;
-}
-
-/*hover/active styles*/
-.breadcrumb a.active, .breadcrumb a:hover{
-	background: #eee;
-}
-.breadcrumb a.active:after, .breadcrumb a:hover:after {
-	background: #eee;
-}
-
-/*adding the arrows for the breadcrumbs using rotated pseudo elements*/
-.breadcrumb a:after {
-	content: '';
-	position: absolute;
-	/*posicion del cuadrado como flecha*/
-	top: -1px; 
-    right: -13px;
-	/*tamaño de lados del cuadrado como flecha*/
-	width: 25px; 
-	height: 25px;
-	/*rota el cuadrado generado a 45 grados*/
-	transform: scale(0.757) rotate(45deg);
-	/*para prevenir que las flechas se oculten al aprecer el siguiente link*/
-	z-index: 1;
-	/*box shadow flecha*/
-	box-shadow: 
-		2px -2px 0 0 rgba(0, 0, 0, 0.1), 
-		1px -1px 0 0.5px rgba(255, 255, 255, 0.1);
-	/*curvatura de la flecha*/
-	border-radius: 0;
-}
-/*we dont need an arrow after the last link
-.breadcrumb a:last-child:after {
-	content: none;
-}*/
-
+/****/
 .back a{
     text-decoration: none;
     padding: 0 30px;

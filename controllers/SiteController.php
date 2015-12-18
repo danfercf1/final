@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Evento;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -15,11 +16,13 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Estudiantes;
 use app\models\EstudiantesBusqueda;
+use app\models\EstudiantesBusquedaRanking;
 use app\models\Ue;
 use app\models\CustomForm;
 use app\models\UeBusqueda;
 use app\models\Distrito;
 use kartik\grid\GridView;
+use yii\web\Session;
 
 
 
@@ -89,6 +92,16 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+            $session = Yii::$app->session;
+
+            $session->open();
+
+            $model = new Evento();
+            $evento = $model->find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->orderBy(['FECHA_CREACION'=>SORT_DESC])->all();
+
+            $session['LastEvent'] = (!empty($evento[0]->_id) ? (string) $evento[0]->_id: '');
+
             return $this->goBack();
         } else {
             return $this->render('login', [
@@ -140,12 +153,20 @@ class SiteController extends Controller
     
     public function actionR_general()
     {
-        $searchModel = new EstudiantesBusqueda();
+        $searchModel = new EstudiantesBusquedaRanking();
+
+        Yii::$app->session->open();
+
+        $id_evento = $_SESSION['LastEvent'];
+
+        $model_evento = Evento::findOne($id_evento);
+
+        $etapas = $model_evento->ETAPAS;
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         $distritos = new Distrito();
-      
-        
+
         $gridColumnsDistrito = [
             [
                 'class' => '\kartik\grid\DataColumn',
@@ -167,7 +188,7 @@ class SiteController extends Controller
             'PATERNO',
             'NOMBRE',
             'RUDE',
-            'NOTA',
+            'NOTA_ETAPA'.$etapas,
         ];
         
         $gridColumnsCurso = [
@@ -178,7 +199,7 @@ class SiteController extends Controller
             'PATERNO',
             'NOMBRE',
             'RUDE',
-            'NOTA',
+            'NOTA_ETAPA'.$etapas,
         ];
         
         $gridColumnsArea = [
@@ -189,7 +210,7 @@ class SiteController extends Controller
             'PATERNO',
             'NOMBRE',
             'RUDE',
-            'NOTA',
+            'NOTA_ETAPA'.$etapas,
         ];
         $gridColumnsDependencia = [
             [
@@ -199,7 +220,7 @@ class SiteController extends Controller
             'PATERNO',
             'NOMBRE',
             'RUDE',
-            'NOTA',
+            'NOTA_ETAPA'.$etapas,
         ];
         $gridColumnsGenero = [
             [
@@ -209,7 +230,7 @@ class SiteController extends Controller
             'PATERNO',
             'NOMBRE',
             'RUDE',
-            'NOTA',
+            'NOTA_ETAPA'.$etapas,
         ];
         
         $gridColumnsEdad = [
@@ -220,7 +241,7 @@ class SiteController extends Controller
             'PATERNO',
             'NOMBRE',
             'RUDE',
-            'NOTA',
+            'NOTA_ETAPA'.$etapas,
         ];
 
         return $this->render('r_general',[

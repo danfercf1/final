@@ -14,11 +14,11 @@ print("1. Cargando Excel")
 
 archivo_subir = "archivos/clasificados 3ra etapa-actualizado.xlsx"
 
-etapa = 1
+etapa = 2
 
 gestion = 2015
 
-id_evento = '566cdd355e273a17701369f0'
+id_evento = '56735e1a99b36c498012748b'
 
 #FIN PARAMETROS
 

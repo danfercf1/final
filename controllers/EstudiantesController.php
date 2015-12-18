@@ -638,15 +638,16 @@ class EstudiantesController extends Controller
     
     public function actionHistorial()
     {
-        $model_file = new UploadForm();
-        $gestiones = $model_file->gestiones();
-        //$gestiones = $model_file->getGestionEvento();
-        
-        return $this->render('historial', 
-                            [
-                            'model' => $model_file,
-                            'gestiones'=>$gestiones
-                            ]
-        );
+        $searchModel = new EventoSearch();
+
+        $eventos = new Evento();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('historial',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'eventos' => $eventos,
+        ]);
     }
 }

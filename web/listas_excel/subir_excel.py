@@ -170,6 +170,7 @@ for i in range(1, sheet.nrows):
             dataEVENTO['GESTION'] = dataEstudiante["GESTION"]
             dataEVENTO['ETAPAS'] = dataEstudiante['ETAPAS']
             dataEVENTO['USUARIO'] = ObjectId(usuario)
+            dataEVENTO['FECHA_CREACION'] = datetime.now()
             db.evento.insert_one(dataEVENTO)
         else:
             evento_id = cursor_evento['_id']

@@ -133,23 +133,23 @@ table.table-striped  tr td{
 }
 
 /*Estilos Update*/
-.estudiantes-update, .tutor-update, .ue-update, .usuarios-update{
+.estudiantes-update, .tutor-update, .ue-update, .usuarios-update, .usuarios-create{
     font-size: 12px;
     padding: 0 30px;
     width: 55%;
 }
 
-.estudiantes-update h1, .tutor-update h1, .ue-update h1, .usuarios-update h1{
+.estudiantes-update h1, .tutor-update h1, .ue-update h1, .usuarios-update h1, .usuarios-create h1{
     font-size: 14px;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-.estudiantes-update .control-label, .tutor-update .control-label, .ue-update .control-label, .usuarios-update .control-label{
+.estudiantes-update .control-label, .tutor-update .control-label, .ue-update .control-label, .usuarios-update .control-label, .usuarios-create .control-label{
     width: 25%;
 }
 
-.estudiantes-update input, .tutor-update input, .ue-update input, .usuarios-update input{
+.estudiantes-update input, .tutor-update input, .ue-update input, .usuarios-update input, .usuarios-create input{
     width: 60%;
     display: inline;
 }

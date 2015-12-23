@@ -37,6 +37,11 @@ use Yii;
  * @property mixed $AREA
  * @property mixed $DEPENDENCIA
  * @property mixed $NOMBRE_EVENTO
+ * @property mixed $SELECC_ETAPA1
+ * @property mixed $SELECC_ETAPA2
+ * @property mixed $SELECC_ETAPA3
+ * @property mixed $SELECC_ETAPA4
+ * @property mixed $SELECC_ETAPA5
  */
 class Estudiantes extends \yii\mongodb\ActiveRecord
 {
@@ -46,6 +51,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public $rango = 12;
     public $notaMin = 51;
     public $status = true;
+    public $NRO_ETAPA;
 
     public static function collectionName()
     {
@@ -92,6 +98,11 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'NOTA_ETAPA3',
             'NOTA_ETAPA4',
             'NOTA_ETAPA5',
+            'SELECC_ETAPA1',
+            'SELECC_ETAPA2',
+            'SELECC_ETAPA3',
+            'SELECC_ETAPA4',
+            'SELECC_ETAPA5',
             'NOMBRE_EVENTO',
 
         ];
@@ -106,6 +117,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
 
             [['PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD', 'EDAD', 'GESTION', 'COD_SIE', 'NOMBRE_UE', 'SECCION', 'CANTON', 'PROVINCIA', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO'], 'safe'],
             [['NOTA_ETAPA1', 'NOTA_ETAPA2','NOTA_ETAPA3','NOTA_ETAPA4','NOTA_ETAPA5'], 'number', 'min'=>0, 'max'=>100],
+            [['SELECC_ETAPA1', 'SELECC_ETAPA2','SELECC_ETAPA3','SELECC_ETAPA4','SELECC_ETAPA5'], 'number'],
         ];
     }
 

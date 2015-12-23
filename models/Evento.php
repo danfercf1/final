@@ -89,4 +89,31 @@ class Evento extends \yii\mongodb\ActiveRecord
         }
         return $datos;
     }
+
+    public  function obtenerEtapasEvento($list=false){
+
+        $cant_etapas = $this->ETAPAS;
+
+        $etapas = [];
+        $etapasT = '';
+
+        if($list){
+            for ($i=1; $i <= $cant_etapas; $i++){
+
+                if($i == 1){
+                    $selecc = "";
+                }else{
+                    $selecc = "&EstudiantesBusqueda[SELECC_ETAPA".($i-1)."]=1";
+                }
+                $etapasT .= '<a class="link_etapas" href="datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$this->_id.'&EstudiantesBusqueda[NRO_ETAPA]='.$i.$selecc.'" id="etapa_'.$i.'"><span>'.$i.'</span></a>';
+            }
+            return $etapasT;
+        }else{
+            for ($i=1; $i <= $cant_etapas; $i++){
+                $etapas[$i] = 'ETAPA'.$i;
+            }
+            return $etapas;
+        }
+
+    }
 }

@@ -18,7 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
     
     <?php
-    
+    Yii::$app->session->open();
+
+    $evento = \app\models\Evento::findOne(Yii::$app->session->get('LastEvent'));
+
+
     $gridColumns = [
         [
             'class' => '\kartik\grid\DataColumn',
@@ -37,16 +41,39 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             'value'=>function ($model) {
-                return Html::a(Html::encode($model->NOMBRE_EVENTO), 'datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id);
+                return Html::encode($model->NOMBRE_EVENTO);
             },
             'format'=>'raw'
         ],
         'GESTION',
+        [
+            'class' => '\kartik\grid\DataColumn',
+            'attribute'=>'ETAPAS',
+            'value'=>function ($model) {
+                return $model->obtenerEtapasEvento(true);
+            },
+            'options' => ['id' => 'etapa_evento'],
+            'format'=>'raw',
+        ]
     ];
+
+    /*for($i=1; $i <= $evento->ETAPAS; $i++){
+
+        array_push($gridColumns,
+            [
+                'class' => '\kartik\grid\DataColumn',
+                'attribute'=>'ETAPA'.$i,
+                'value'=>function ($model, $i) {
+                    return Html::a('ETAPA'.$i ,'datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id);
+                },
+                'format'=>'raw'
+            ]
+        );
+    }*/
     
     
      echo GridView::widget([
-            'id'=>'grid_datos',
+            'id'=>'grid_eventos',
             'dataProvider'=>$dataProvider,
             'filterModel'=>$searchModel,
             'columns'=>$gridColumns,

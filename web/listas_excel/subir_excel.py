@@ -8,6 +8,7 @@ import json
 import numbers
 import dateutil.relativedelta
 import dateutil.parser
+from calendar import monthrange
 
 __author__ = 'daniel candia'
 client = MongoClient()
@@ -135,7 +136,8 @@ for i in range(1, sheet.nrows):
 
         if fecha_nac is not None and fecha_nac != "0000-00-00" and fecha_nac != "null":
             timestamp = dateutil.parser.parse(fecha_nac)
-            dif = dateutil.relativedelta.relativedelta(datetime.now(), timestamp)
+            anio_final = monthrange(int(gestion), 12)
+            dif = dateutil.relativedelta.relativedelta(datetime(int(gestion),12,int(anio_final[1]),0,0,0), timestamp)
             dataEstudiante['EDAD'] = int(dif.years)
         else:
             dataEstudiante['EDAD'] = "NO FECHA"
@@ -151,6 +153,7 @@ for i in range(1, sheet.nrows):
         #ETAPAS
         for n in range(1, etapas+1):
             dataEstudiante["NOTA_ETAPA"+str(n)] = 0
+            dataEstudiante["SELECC_ETAPA"+str(n)] = 0
 
         #NOTA
         #dataEstudiante['NOTA'] = random.randint(0, 100)

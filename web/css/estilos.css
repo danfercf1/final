@@ -160,6 +160,23 @@ table.table-striped  tr td{
     text-transform: lowercase;
 }
 
+.link_etapas{
+    background: url("../images/circulo_azul.png") no-repeat scroll 0 0 transparent;
+    width: 20px;
+    height: 20px;
+    display: block;
+    float: left;
+    padding-top: 2px;
+    margin-right: 5px;
+}
+
+.link_etapas span{
+    color: #ffffff;
+    margin: 6px 6px 0;
+}
+
+
+
 
 
 

@@ -18,7 +18,7 @@ class EstudiantesBusqueda extends Estudiantes
     public function rules()
     {
         return [
-            [['_id', 'PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD','EDAD', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO'], 'safe'],
+            [['_id', 'PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD','EDAD', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO', 'SELECC_ETAPA1'], 'safe'],
         ];
     }
 
@@ -71,6 +71,18 @@ class EstudiantesBusqueda extends Estudiantes
             ->andFilterWhere(['like', 'AREA', $this->AREA])
             ->andFilterWhere(['like', 'DEPENDENCIA', $this->DEPENDENCIA])
             ->andFilterWhere(['=', 'NOMBRE_EVENTO', new \MongoId($this->NOMBRE_EVENTO)]);
+
+            if(isset($this->SELECC_ETAPA1)){
+                $query->andFilterWhere(['=', 'SELECC_ETAPA1', (int)$this->SELECC_ETAPA1]);
+            }else if(isset($this->SELECC_ETAPA2)){
+                $query->andFilterWhere(['=', 'SELECC_ETAPA2', (int)$this->SELECC_ETAPA2]);
+            }else if(isset($this->SELECC_ETAPA3)){
+                $query->andFilterWhere(['=', 'SELECC_ETAPA3', (int)$this->SELECC_ETAPA3]);
+            }else if(isset($this->SELECC_ETAPA4)){
+                $query->andFilterWhere(['=', 'SELECC_ETAPA4', (int)$this->SELECC_ETAPA4]);
+            }else if(isset($this->SELECC_ETAPA5)){
+                $query->andFilterWhere(['=', 'SELECC_ETAPA5', (int)$this->SELECC_ETAPA5]);
+            }
 
         if((int)$this->EDAD == 15){
             $query->andFilterWhere(['<=', 'EDAD', (int)$this->EDAD]);

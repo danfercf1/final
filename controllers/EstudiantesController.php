@@ -18,7 +18,6 @@ use app\models\UploadForm;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
 use kartik\grid\GridView;
-//use kartik\widgets\Typeahead;
 use yii\helpers\Html;
 
 /**
@@ -31,10 +30,10 @@ class EstudiantesController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete', 'cargarexcel'],
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'cargarexcel', 'updateajax'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'view', 'update', 'delete', 'cargarexcel', 'cargarnotas', 'vernotas', 'cargarfinal'],
+                        'actions' => ['logout', 'index', 'view', 'update', 'delete', 'cargarexcel', 'cargarnotas', 'vernotas', 'cargarfinal', 'updateajax'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -89,6 +88,11 @@ class EstudiantesController extends Controller
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $etapa_seleccionada = 'NRO_ETAPA'.(isset($datos['EstudiantesBusqueda']['NRO_ETAPA']) ? $datos['EstudiantesBusqueda']['NRO_ETAPA'] : '1');
+
+        $etapa_selecc_nro = isset($datos['EstudiantesBusqueda']['NRO_ETAPA']) ? $datos['EstudiantesBusqueda']['NRO_ETAPA'] : '1';
+
+
         $gridColumns = [
             [
                 'class' => '\kartik\grid\DataColumn',
@@ -114,10 +118,49 @@ class EstudiantesController extends Controller
                 'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->obtenercursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
             ],
             'RUDE',
+            [
+                'class' => 'kartik\grid\EditableColumn',
+                'attribute'=>'NOTA_ETAPA'.(isset($datos['EstudiantesBusqueda']['NRO_ETAPA']) ? $datos['EstudiantesBusqueda']['NRO_ETAPA'] : '1'),
+                'readonly'=>function($model, $key, $index, $widget) {
+                    return (!$model->status); // do not allow editing of inactive records
+                },
+                'editableOptions' => [
+                    'header' => 'Nota Etapa '.(isset($datos['EstudiantesBusqueda']['NRO_ETAPA']) ? $datos['EstudiantesBusqueda']['NRO_ETAPA'] : '1'),
+                    'inputType' => \kartik\editable\Editable::INPUT_SPIN,
+                    'options' => [
+                        'pluginOptions' => ['min'=>0, 'max'=>100]
+                    ]
+                ],
+                'hAlign'=>'right',
+                'vAlign'=>'middle',
+                'width'=>'100px',
+                'format'=>['integer', 1],
+                'pageSummary' => true,
+                'pageSummaryFunc'=>GridView::F_AVG,
+                'refreshGrid'=> true
+            ],
+            [
+                'class'=>'kartik\grid\CheckboxColumn',
+                'name'=>$etapa_seleccionada,
+                'header'=>'Ganadores',
+                'headerOptions'=>['class'=>'kartik-sheet-style'],
+                'checkboxOptions' => function($model, $key, $index, $column) use ($etapa_selecc_nro){
+                    $etapa_selecc = 'SELECC_ETAPA'.$etapa_selecc_nro;
+                    $nota_selecc = 'NOTA_ETAPA'.$etapa_selecc_nro;
+                    $check_etapas =  (($model->$etapa_selecc == 1)) ? true : false;
+
+                    return ['class'=>'check_ganador',
+                        'disabled'=>($model->$nota_selecc > 0) ? false : true,
+                        'checked'=>$check_etapas,
+                        'data_selecc'=>$etapa_selecc_nro,
+                        'value'=>$key
+                    ];
+                }
+            ],
 
         ];
 
-        for($i=1; $i <= $etapas; $i++){
+        /*for($i=1; $i <= $etapas; $i++){
             array_push($gridColumns, [
                 'class' => 'kartik\grid\EditableColumn',
                 'attribute'=>'NOTA_ETAPA'.$i,
@@ -139,7 +182,7 @@ class EstudiantesController extends Controller
                 'pageSummaryFunc'=>GridView::F_AVG,
                 'refreshGrid'=> true
             ]);
-        }
+        }*/
 
         array_push($gridColumns, [
             'class' => '\kartik\grid\ActionColumn',
@@ -604,6 +647,26 @@ class EstudiantesController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
+        }
+    }
+
+    public function actionUpdateajax()
+    {
+
+        $model = $this->findModel($_POST['id']);
+
+        //Yii::$app->response->format = 'json';
+
+        $selecc_etapa = 'SELECC_ETAPA'.$_POST['nro_etapa'];
+
+        $model->$selecc_etapa = (int)$_POST['etapa_selecc'];
+
+        if(Yii::$app->request->isAjax){
+            if ($model->save()) {
+                return Json::encode(['response'=>'true']);
+            } else {
+                return Json::encode(['response'=>'false']);
+            }
         }
     }
 

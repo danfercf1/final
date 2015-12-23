@@ -14,11 +14,13 @@ print("1. Cargando Excel")
 
 archivo_subir = "archivos/clasificados 3ra etapa-actualizado.xlsx"
 
-etapa = 2
+
+etapa = 1
 
 gestion = 2015
 
-id_evento = '56735e1a99b36c498012748b'
+id_evento = '5678dc3d99b36c2440372361'
+
 
 #FIN PARAMETROS
 
@@ -39,6 +41,8 @@ for i in range(1, sheet.nrows):
     if cell.value == 'matematica':
 
         dataEstudiante['NOTA_ETAPA'+str(etapa)] = int(cell_nota.value)
+
+        dataEstudiante['SELECC_ETAPA'+str(etapa)] = int(1)
 
         cursor_es = db.estudiante.find_one({"RUDE": re.compile(str(cell_rude.value), re.IGNORECASE), "GESTION": gestion, "NOMBRE_EVENTO": bson.objectid.ObjectId(id_evento)})
 

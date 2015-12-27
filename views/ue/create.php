@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Ue */
 
-$this->title = 'Create Ue';
-$this->params['breadcrumbs'][] = ['label' => 'Ues', 'url' => ['index']];
+$this->title = 'Crear Unid. Educativa';
+$this->params['breadcrumbs'][] = ['label' => 'Unidades educativas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ue-create">

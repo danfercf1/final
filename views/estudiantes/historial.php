@@ -9,7 +9,7 @@ use kartik\grid\GridView;
 
 $this->title = 'Historial';
 $this->params['breadcrumbs'][] = ['label' => 'Historial', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Gestiones anteriores...';
+$this->params['breadcrumbs'][] = 'Eventos anteriores...';
 ?>
 
 <div class="historial-eventos">

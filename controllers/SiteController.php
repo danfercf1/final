@@ -167,11 +167,11 @@ class SiteController extends Controller
         
         $distritos = new Distrito();
 
-        $gridColumnsDistrito = [
+        $gridColumns = [
             [
                 'class' => '\kartik\grid\DataColumn',
                 'attribute'=>'DISTRITO',
-                'width'=>'200px',
+                'width'=>'150px',
                 'filterType'=>GridView::FILTER_TYPEAHEAD,
                 'filterWidgetOptions'=>[
                     'name' => 'DISTRITO',
@@ -185,62 +185,30 @@ class SiteController extends Controller
                     ]
                 ],
             ],
-            'PATERNO',
-            'NOMBRE',
-            'RUDE',
-            'NOTA_ETAPA'.$etapas,
-        ];
-        
-        $gridColumnsCurso = [
             [
                 'attribute'=>'CURSO',
                 'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->obtenercursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
             ],
-            'PATERNO',
-            'NOMBRE',
-            'RUDE',
-            'NOTA_ETAPA'.$etapas,
-        ];
-        
-        $gridColumnsArea = [
             [
                 'attribute'=>'AREA',
                 'filter' => Html::activeDropDownList($searchModel, 'AREA', $searchModel->obtenerArea(),['class'=>'form-control','prompt' => 'Selecionar Area'])
             ],
-            'PATERNO',
-            'NOMBRE',
-            'RUDE',
-            'NOTA_ETAPA'.$etapas,
-        ];
-        $gridColumnsDependencia = [
+            [
+                'attribute'=>'EDAD',
+                'filter' => Html::activeDropDownList($searchModel, 'EDAD', $searchModel->obtenerEdad(),['class'=>'form-control','prompt' => 'Selecionar edad'])
+            ],
             [
                 'attribute'=>'DEPENDENCIA',
                 'filter' => Html::activeDropDownList($searchModel, 'DEPENDENCIA', $searchModel->obtenerDependencia(),['class'=>'form-control','prompt' => 'Selecionar nivel de dependencia'])
             ],
-            'PATERNO',
-            'NOMBRE',
-            'RUDE',
-            'NOTA_ETAPA'.$etapas,
-        ];
-        $gridColumnsGenero = [
             [
                 'attribute'=>'GENERO',
                 'filter' => Html::activeDropDownList($searchModel, 'GENERO', $searchModel->obtenerGenero(),['class'=>'form-control','prompt' => 'Selecionar genero'])
             ],
             'PATERNO',
+            'MATERNO',
             'NOMBRE',
-            'RUDE',
-            'NOTA_ETAPA'.$etapas,
-        ];
-        
-        $gridColumnsEdad = [
-            [
-                'attribute'=>'EDAD',
-                'filter' => Html::activeDropDownList($searchModel, 'EDAD', $searchModel->obtenerEdad(),['class'=>'form-control','prompt' => 'Selecionar edad'])
-            ],
-            'PATERNO',
-            'NOMBRE',
-            'RUDE',
+            //'RUDE',
             'NOTA_ETAPA'.$etapas,
         ];
 
@@ -248,12 +216,7 @@ class SiteController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             
-            'gridColumnsDistrito'=>$gridColumnsDistrito,
-            'gridColumnsCurso'=>$gridColumnsCurso,
-            'gridColumnsArea'=>$gridColumnsArea,
-            'gridColumnsDependencia'=>$gridColumnsDependencia,
-            'gridColumnsGenero'=>$gridColumnsGenero,
-            'gridColumnsEdad'=>$gridColumnsEdad,
+            'gridColumns'=>$gridColumns,
         ]);
     }
     

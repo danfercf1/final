@@ -31,14 +31,16 @@ $('.check_ganador').click(function(e){
         $.post('/estudiantes/updateajax',{'id':valor, 'nro_etapa': etapa, etapa_selecc: 1, '_csrf': token},function(data){
             var respuesta = $.parseJSON(data);
             if(respuesta.response == 'true'){
-                $.pjax.reload({container:'#grid_datos'});
+                //$.pjax.reload({container:'#grid_datos'});
+                location.reload();
             }
         });
     }else{
         $.post('/estudiantes/updateajax',{'id':valor, 'nro_etapa': etapa, 'etapa_selecc': 0, '_csrf': token},function(data){
             var respuesta = $.parseJSON(data);
             if(respuesta.response == 'true'){
-                $.pjax.reload({container:'#grid_datos'});
+                //$.pjax.reload({container:'#grid_datos'});
+                location.reload();
             }
         });
     }
@@ -64,7 +66,7 @@ JS
         'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
         'headerRowOptions'=>['class'=>'kartik-sheet-style'],
         'filterRowOptions'=>['class'=>'kartik-sheet-style'],
-        'pjax'=>true,
+        'pjax'=>false,
         'pjaxSettings'=>[
             'neverTimeout'=>true,
             'id'=>'pajax-1',

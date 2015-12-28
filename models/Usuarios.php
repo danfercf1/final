@@ -83,4 +83,8 @@ class Usuarios extends \yii\mongodb\ActiveRecord
     {
         return $this->nombre.' '.$this->apellido;
     }
+
+    public function getEventos(){
+        return $this->hasMany(Evento::className(), ['USUARIO'=>'_id']);
+    }
 }

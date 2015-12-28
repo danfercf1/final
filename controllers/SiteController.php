@@ -24,6 +24,7 @@ use app\models\UeBusqueda;
 use app\models\Distrito;
 use kartik\grid\GridView;
 use yii\web\Session;
+use app\models\EventoSearch;
 
 
 
@@ -94,15 +95,6 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
-            $session = Yii::$app->session;
-
-            $session->open();
-
-            $model = new Evento();
-            $evento = $model->find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->orderBy(['FECHA_CREACION'=>SORT_DESC])->all();
-
-            $session['LastEvent'] = (!empty($evento[0]->_id) ? (string) $evento[0]->_id: '');
-
             return $this->goBack();
         } else {
             return $this->render('login', [
@@ -154,18 +146,12 @@ class SiteController extends Controller
     
     public function actionR_general()
     {
-        $searchModel = new EstudiantesBusquedaRanking();
-
-        Yii::$app->session->open();
-
-        $id_evento = $_SESSION['LastEvent'];
-
-        $model_evento = Evento::findOne($id_evento);
-
-        $etapas = $model_evento->ETAPAS;
+        $searchModel = new EstudiantesBusqueda();
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
+        $get = Yii::$app->request->queryParams;
+
         $distritos = new Distrito();
 
         $gridColumns = [
@@ -210,7 +196,7 @@ class SiteController extends Controller
             'MATERNO',
             'NOMBRE',
             //'RUDE',
-            'NOTA_ETAPA'.$etapas,
+            'NOTA_ETAPA'.$get['EstudiantesBusqueda']['NRO_ETAPA'],
         ];
 
         return $this->render('r_general',[
@@ -220,8 +206,21 @@ class SiteController extends Controller
             'gridColumns'=>$gridColumns,
         ]);
     }
-    
-        
+
+    public function actionRanking(){
+        $searchModel = new EventoSearch();
+
+        $eventos = new Evento();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('ranking',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'eventos' => $eventos,
+        ]);
+    }
+
     public function actionPersonalizar()
     {
         $model_custom = new CustomForm();

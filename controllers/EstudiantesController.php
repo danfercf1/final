@@ -7,6 +7,7 @@ use app\models\Tutor;
 use app\models\Ue;
 use app\models\Evento;
 use app\models\EventoSearch;
+use app\models\Usuarios;
 use Yii;
 use app\models\Estudiantes;
 use app\models\EstudiantesBusqueda;
@@ -66,21 +67,40 @@ class EstudiantesController extends Controller
             'eventos' => $eventos,
         ]);
     }
-    
-    public function actionAdministracion()
-    {
 
+    public function armarURL($url)
+    {
+        $url_final = '';
+
+        if(!empty($url['EstudiantesBusqueda'])){
+            foreach($url['EstudiantesBusqueda'] as $k=>$v){
+                $url_final .= 'EstudiantesBusqueda['.$k.']='.$v.'&';
+            }
+            return $url_final;
+        }else{
+            return false;
+        }
     }
-    
+
     public function actionDatos()
     {
         $datos = Yii::$app->request->queryParams;
+
+        Yii::$app->session->open();
+
+        $url = $this->armarURL($datos);
+
+        Yii::$app->session->set('urlDatos', $url);
 
         $searchModel = new EstudiantesBusqueda();
 
         $evento = (isset($datos['EstudiantesBusqueda']['NOMBRE_EVENTO']) ? $datos['EstudiantesBusqueda']['NOMBRE_EVENTO'] : '');
 
-        $evento_model = Evento::find()->where(['_id'=>new \MongoId($evento)])->one();
+        try {
+            $evento_model = Evento::find()->where(['_id'=>new \MongoId($evento)])->one();
+        } catch (\MongoException $ex) {
+            $this->redirect('/estudiantes/index');
+        }
 
         $etapas = $evento_model->ETAPAS;
 
@@ -119,55 +139,21 @@ class EstudiantesController extends Controller
             'MATERNO',
             'NOMBRE',
             //'RUDE',
-            [
-                'class' => 'kartik\grid\EditableColumn',
-                'attribute'=>'NOTA_ETAPA'.(isset($datos['EstudiantesBusqueda']['NRO_ETAPA']) ? $datos['EstudiantesBusqueda']['NRO_ETAPA'] : '1'),
-                'readonly'=>function($model, $key, $index, $widget) {
-                    return (!$model->status); // do not allow editing of inactive records
-                },
-                'editableOptions' => [
-                    'header' => 'Nota Etapa '.(isset($datos['EstudiantesBusqueda']['NRO_ETAPA']) ? $datos['EstudiantesBusqueda']['NRO_ETAPA'] : '1'),
-                    'inputType' => \kartik\editable\Editable::INPUT_SPIN,
-                    'options' => [
-                        'pluginOptions' => ['min'=>0, 'max'=>100]
-                    ]
-                ],
-                'hAlign'=>'right',
-                'vAlign'=>'middle',
-                'width'=>'100px',
-                'format'=>['integer', 1],
-                'pageSummary' => true,
-                'pageSummaryFunc'=>GridView::F_AVG,
-                'refreshGrid'=> true
-            ],
-            [
-                'class'=>'kartik\grid\CheckboxColumn',
-                'name'=>$etapa_seleccionada,
-                'header'=>'Ganadores',
-                'headerOptions'=>['class'=>'kartik-sheet-style'],
-                'checkboxOptions' => function($model, $key, $index, $column) use ($etapa_selecc_nro){
-                    $etapa_selecc = 'SELECC_ETAPA'.$etapa_selecc_nro;
-                    $nota_selecc = 'NOTA_ETAPA'.$etapa_selecc_nro;
-                    $check_etapas =  (($model->$etapa_selecc == 1)) ? true : false;
-
-                    return ['class'=>'check_ganador',
-                        'disabled'=>($model->$nota_selecc > 0) ? false : true,
-                        'checked'=>$check_etapas,
-                        'data_selecc'=>$etapa_selecc_nro,
-                        'value'=>$key
-                    ];
-                }
-            ],
-
         ];
 
-        /*for($i=1; $i <= $etapas; $i++){
+        for($i=1; $i <= (int) $etapa_selecc_nro; $i++){
+
+            if((int) $etapa_selecc_nro != $i){
+                $readonly = true;
+            }else{
+                $readonly = function($model, $key, $index, $widget) {
+                    return (!$model->status); // do not allow editing of inactive records
+                };
+            }
             array_push($gridColumns, [
                 'class' => 'kartik\grid\EditableColumn',
                 'attribute'=>'NOTA_ETAPA'.$i,
-                'readonly'=>function($model, $key, $index, $widget) {
-                    return (!$model->status); // do not allow editing of inactive records
-                },
+                'readonly'=>$readonly,
                 'editableOptions' => [
                     'header' => 'Nota Etapa '.$i,
                     'inputType' => \kartik\editable\Editable::INPUT_SPIN,
@@ -183,7 +169,26 @@ class EstudiantesController extends Controller
                 'pageSummaryFunc'=>GridView::F_AVG,
                 'refreshGrid'=> true
             ]);
-        }*/
+        }
+
+        array_push($gridColumns, [
+            'class'=>'kartik\grid\CheckboxColumn',
+            'name'=>$etapa_seleccionada,
+            'header'=>'Ganadores',
+            'headerOptions'=>['class'=>'kartik-sheet-style'],
+            'checkboxOptions' => function($model, $key, $index, $column) use ($etapa_selecc_nro){
+                $etapa_selecc = 'SELECC_ETAPA'.$etapa_selecc_nro;
+                $nota_selecc = 'NOTA_ETAPA'.$etapa_selecc_nro;
+                $check_etapas =  (($model->$etapa_selecc == 1)) ? true : false;
+
+                return ['class'=>'check_ganador',
+                    'disabled'=>($model->$nota_selecc > 0) ? false : true,
+                    'checked'=>$check_etapas,
+                    'data_selecc'=>$etapa_selecc_nro,
+                    'value'=>$key
+                ];
+            }
+        ]);
 
         array_push($gridColumns, [
             'class' => '\kartik\grid\ActionColumn',
@@ -269,9 +274,9 @@ class EstudiantesController extends Controller
     /**Prueba**/
     public function actionDatosevento()
     {
-        
+
         $nombre = Yii::$app->request->get('nombre');
-        
+
         $searchModel = new EstudiantesBusqueda();
 
 
@@ -419,7 +424,7 @@ class EstudiantesController extends Controller
     }
     /*Fin Prueba*/
 
-    
+
     /**
      * Displays a single Estudiantes model.
      * @param integer $_id
@@ -428,10 +433,11 @@ class EstudiantesController extends Controller
     public function actionView($id)
     {
         $model = Estudiantes::find()->with('tutor')->where(['_id'=>$id])->one();
-
+        Yii::$app->session->open();
+        $url = Yii::$app->session->get('urlDatos');
         if ($model !== null) {
             return $this->render('view', [
-                'model' => $model,'idEstudiante' => $id
+                'model' => $model,'idEstudiante' => $id, 'url'=>$url
             ]);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -641,12 +647,14 @@ class EstudiantesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        Yii::$app->session->open();
+        $url = Yii::$app->session->get('urlDatos');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => (string)$model->_id]);
+            return $this->redirect(['view', 'id' => (string)$model->_id, 'url'=>$url]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model' => $model, 'url'=>$url
             ]);
         }
     }
@@ -699,7 +707,7 @@ class EstudiantesController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+
     public function actionHistorial()
     {
         $searchModel = new EventoSearch();

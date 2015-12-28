@@ -82,7 +82,7 @@ AppAsset::register($this);
                         ]],
                     ]],
                     ['label' => 'Clasificacion', 'icon' => 'tags', 'items' => [
-                        ['label' => 'Ranking general', 'url' => Url::to(['/site/r_general/?EstudiantesBusquedaRanking[NOMBRE_EVENTO]='.Yii::$app->session->get('LastEvent'), 'type'=>$type]), 'active' => ($item == 'r_general')],
+                        ['label' => 'Ranking general', 'url' => Url::to(['/site/ranking/', 'type'=>$type]), 'active' => ($item == 'r_general')],
                         ['label' => 'Personalizar ranking', 'url' => Url::to(['/site/personalizar', 'type'=>$type]), 'active' => ($item == 'personalizar')],
                         
                         ['label' => 'Boletin informativo', 'icon' => 'bullhorn', 'items' => [

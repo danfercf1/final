@@ -4,7 +4,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Estudiantes */
 $this->title = $model->nombreCompleto();
-$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['datos']];
+$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['datos?'.$url]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="estudiantes-view">

@@ -139,14 +139,23 @@ class EstudiantesController extends Controller
             'MATERNO',
             'NOMBRE',
             //'RUDE',
-            [
-                'class' => 'kartik\grid\EditableColumn',
-                'attribute'=>'NOTA_ETAPA'.(isset($datos['EstudiantesBusqueda']['NRO_ETAPA']) ? $datos['EstudiantesBusqueda']['NRO_ETAPA'] : '1'),
-                'readonly'=>function($model, $key, $index, $widget) {
+        ];
+
+        for($i=1; $i <= (int) $etapa_selecc_nro; $i++){
+
+            if((int) $etapa_selecc_nro != $i){
+                $readonly = true;
+            }else{
+                $readonly = function($model, $key, $index, $widget) {
                     return (!$model->status); // do not allow editing of inactive records
-                },
+                };
+            }
+            array_push($gridColumns, [
+                'class' => 'kartik\grid\EditableColumn',
+                'attribute'=>'NOTA_ETAPA'.$i,
+                'readonly'=>$readonly,
                 'editableOptions' => [
-                    'header' => 'Nota Etapa '.(isset($datos['EstudiantesBusqueda']['NRO_ETAPA']) ? $datos['EstudiantesBusqueda']['NRO_ETAPA'] : '1'),
+                    'header' => 'Nota Etapa '.$i,
                     'inputType' => \kartik\editable\Editable::INPUT_SPIN,
                     'options' => [
                         'pluginOptions' => ['min'=>0, 'max'=>100]
@@ -159,27 +168,27 @@ class EstudiantesController extends Controller
                 'pageSummary' => true,
                 'pageSummaryFunc'=>GridView::F_AVG,
                 'refreshGrid'=> true
-            ],
-            [
-                'class'=>'kartik\grid\CheckboxColumn',
-                'name'=>$etapa_seleccionada,
-                'header'=>'Ganadores',
-                'headerOptions'=>['class'=>'kartik-sheet-style'],
-                'checkboxOptions' => function($model, $key, $index, $column) use ($etapa_selecc_nro){
-                    $etapa_selecc = 'SELECC_ETAPA'.$etapa_selecc_nro;
-                    $nota_selecc = 'NOTA_ETAPA'.$etapa_selecc_nro;
-                    $check_etapas =  (($model->$etapa_selecc == 1)) ? true : false;
+            ]);
+        }
 
-                    return ['class'=>'check_ganador',
-                        'disabled'=>($model->$nota_selecc > 0) ? false : true,
-                        'checked'=>$check_etapas,
-                        'data_selecc'=>$etapa_selecc_nro,
-                        'value'=>$key
-                    ];
-                }
-            ],
+        array_push($gridColumns, [
+            'class'=>'kartik\grid\CheckboxColumn',
+            'name'=>$etapa_seleccionada,
+            'header'=>'Ganadores',
+            'headerOptions'=>['class'=>'kartik-sheet-style'],
+            'checkboxOptions' => function($model, $key, $index, $column) use ($etapa_selecc_nro){
+                $etapa_selecc = 'SELECC_ETAPA'.$etapa_selecc_nro;
+                $nota_selecc = 'NOTA_ETAPA'.$etapa_selecc_nro;
+                $check_etapas =  (($model->$etapa_selecc == 1)) ? true : false;
 
-        ];
+                return ['class'=>'check_ganador',
+                    'disabled'=>($model->$nota_selecc > 0) ? false : true,
+                    'checked'=>$check_etapas,
+                    'data_selecc'=>$etapa_selecc_nro,
+                    'value'=>$key
+                ];
+            }
+        ]);
 
         array_push($gridColumns, [
             'class' => '\kartik\grid\ActionColumn',

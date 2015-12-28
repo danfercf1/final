@@ -82,15 +82,20 @@ class Evento extends \yii\mongodb\ActiveRecord
     }
 
     public function obtenerNombres(){
-        $model =  $this::find()->asArray()->all();
+
+        $usuarios_model = new Usuarios();
+
+        $usuario = $usuarios_model->find()->where(['_id'=>Yii::$app->user->identity->getId()])->with('eventos')->one();
+
         $datos = [];
-        foreach($model as $v){
+
+        foreach($usuario->eventos as $v){
             array_push($datos, $v['NOMBRE_EVENTO']);
         }
         return $datos;
     }
 
-    public  function obtenerEtapasEvento($list=false){
+    public  function obtenerEtapasEvento($list=false, $action='/estudiantes/datos'){
 
         $cant_etapas = $this->ETAPAS;
 
@@ -100,12 +105,19 @@ class Evento extends \yii\mongodb\ActiveRecord
         if($list){
             for ($i=1; $i <= $cant_etapas; $i++){
 
-                if($i == 1){
-                    $selecc = "";
-                }else{
-                    $selecc = "&EstudiantesBusqueda[SELECC_ETAPA".($i-1)."]=1";
+                if($action == '/estudiantes/datos'){
+                    if($i == 1){
+                        $selecc = "";
+                    }else{
+                        $selecc = "&EstudiantesBusqueda[SELECC_ETAPA".($i-1)."]=1";
+                    }
+                    $etapasT .= '<a class="link_etapas" href="'.$action.'?EstudiantesBusqueda[NOMBRE_EVENTO]='.$this->_id.'&EstudiantesBusqueda[NRO_ETAPA]='.$i.$selecc.'" id="etapa_'.$i.'"><span>'.$i.'</span></a>';
+                }else if($action == '/site/r_general'){
+
+                    $selecc = "&EstudiantesBusqueda[SELECC_ETAPA".$i."]=1";
+
+                    $etapasT .= '<a class="link_etapas" href="'.$action.'?EstudiantesBusqueda[NOMBRE_EVENTO]='.$this->_id.'&EstudiantesBusqueda[NRO_ETAPA]='.$i.$selecc.'&sort=-NOTA_ETAPA'.$i.'" id="etapa_'.$i.'"><span>'.$i.'</span></a>';
                 }
-                $etapasT .= '<a class="link_etapas" href="/estudiantes/datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$this->_id.'&EstudiantesBusqueda[NRO_ETAPA]='.$i.$selecc.'" id="etapa_'.$i.'"><span>'.$i.'</span></a>';
             }
             return $etapasT;
         }else{

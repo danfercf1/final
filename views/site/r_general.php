@@ -13,7 +13,7 @@ use kartik\widgets\Typeahead;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Ranking general';
-$this->params['breadcrumbs'][] = ['label' => 'Clasificacion', 'url' => ['clasificados']];
+$this->params['breadcrumbs'][] = ['label' => 'Listado de Eventos', 'url' => ['ranking']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="clasificacion">

@@ -7,6 +7,7 @@ use app\models\Tutor;
 use app\models\Ue;
 use app\models\Evento;
 use app\models\EventoSearch;
+use app\models\Usuarios;
 use Yii;
 use app\models\Estudiantes;
 use app\models\EstudiantesBusqueda;
@@ -179,30 +180,6 @@ class EstudiantesController extends Controller
             ],
 
         ];
-
-        /*for($i=1; $i <= $etapas; $i++){
-            array_push($gridColumns, [
-                'class' => 'kartik\grid\EditableColumn',
-                'attribute'=>'NOTA_ETAPA'.$i,
-                'readonly'=>function($model, $key, $index, $widget) {
-                    return (!$model->status); // do not allow editing of inactive records
-                },
-                'editableOptions' => [
-                    'header' => 'Nota Etapa '.$i,
-                    'inputType' => \kartik\editable\Editable::INPUT_SPIN,
-                    'options' => [
-                        'pluginOptions' => ['min'=>0, 'max'=>100]
-                    ]
-                ],
-                'hAlign'=>'right',
-                'vAlign'=>'middle',
-                'width'=>'100px',
-                'format'=>['integer', 1],
-                'pageSummary' => true,
-                'pageSummaryFunc'=>GridView::F_AVG,
-                'refreshGrid'=> true
-            ]);
-        }*/
 
         array_push($gridColumns, [
             'class' => '\kartik\grid\ActionColumn',

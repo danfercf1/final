@@ -14,14 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="lista-eventos">
     <?php 
-        $heading = 'Exploracion Olimpiadas';
-    ?>
-    
-    <?php
+    $heading = 'Exploracion Olimpiadas';
+
     Yii::$app->session->open();
-
-    $evento = \app\models\Evento::findOne(Yii::$app->session->get('LastEvent'));
-
 
     $gridColumns = [
         [

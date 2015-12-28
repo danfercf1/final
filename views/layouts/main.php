@@ -46,8 +46,8 @@ AppAsset::register($this);
                     //['label' => 'Estudiantes', 'url' => ['/estudiantes/index']],
                     //['label' => 'Usuarios', 'url' => ['/usuarios/index']],
                     Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->nombre . ')',
+                        ['label' => 'Iniciar sesion', 'url' => ['/site/login']] :
+                        ['label' => 'Cerrar sesion (' . Yii::$app->user->identity->nombre . ')',
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
                             
@@ -77,14 +77,14 @@ AppAsset::register($this);
                         ['label' => 'Nuevo registro', 'url' => Url::to(['/estudiantes/cargarexcel', 'type'=>$type]), 'active' => ($item == 'cargarexcel')],
                         ['label' => 'Exploracion de datos', 'url' => Url::to(['/estudiantes/index', 'type'=>$type]), 'active' => ($item == 'datos')],
                         ['label' => 'Historial', 'icon' => 'user', 'items' => [
-                            ['label' => 'Gestiones anteriores', 'url' => Url::to(['/estudiantes/historial', 'type'=>$type]), 'active' => ($item == 'historial')],
-                            ['label' => 'Registro 2', 'url' => Url::to(['/site/online-2', 'type'=>$type]), 'active' => ($item == 'online-2')]
+                            ['label' => 'Eventos anteriores', 'url' => Url::to(['/estudiantes/historial', 'type'=>$type]), 'active' => ($item == 'historial')],
+                            //['label' => 'Registro 2', 'url' => Url::to(['/site/online-2', 'type'=>$type]), 'active' => ($item == 'online-2')]
                         ]],
                     ]],
                     ['label' => 'Clasificacion', 'icon' => 'tags', 'items' => [
                         ['label' => 'Ranking general', 'url' => Url::to(['/site/r_general/?EstudiantesBusquedaRanking[NOMBRE_EVENTO]='.Yii::$app->session->get('LastEvent'), 'type'=>$type]), 'active' => ($item == 'r_general')],
                         ['label' => 'Personalizar ranking', 'url' => Url::to(['/site/personalizar', 'type'=>$type]), 'active' => ($item == 'personalizar')],
-                        ['label' => 'Mejores notas', 'url' => Url::to(['/site/mejor_nota', 'type'=>$type]), 'active' => ($item == 'mejor_nota')],
+                        //['label' => 'Mejores notas', 'url' => Url::to(['/site/mejor_nota', 'type'=>$type]), 'active' => ($item == 'mejor_nota')],
                         ['label' => 'Boletin informativo', 'icon' => 'bullhorn', 'items' => [
                             ['label' => 'Estadisticas', 'url' => Url::to(['/site/estadisticas', 'type'=>$type]), 'active' => ($item == 'estadisticas')],
                             ['label' => 'Reportes', 'url' => Url::to(['/site/reportes', 'type'=>$type]), 'active' => ($item == 'reportes')]

@@ -130,13 +130,14 @@ class EstudiantesController extends Controller
                     ]
                 ],
             ],
-            'PATERNO',
-            'NOMBRE',
             [
                 'attribute'=>'CURSO',
                 'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->obtenercursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
             ],
-            'RUDE',
+            'PATERNO',
+            'MATERNO',
+            'NOMBRE',
+            //'RUDE',
             [
                 'class' => 'kartik\grid\EditableColumn',
                 'attribute'=>'NOTA_ETAPA'.(isset($datos['EstudiantesBusqueda']['NRO_ETAPA']) ? $datos['EstudiantesBusqueda']['NRO_ETAPA'] : '1'),

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 //use yii\grid\GridView;
 //use yii\bootstrap\Tabs;
 use kartik\grid\GridView;
+use yii\web\View;
 use kartik\widgets\Typeahead;
 
 //use kartik\widgets\Select2;
@@ -15,7 +16,9 @@ use kartik\widgets\Typeahead;
 $this->title = 'Ranking general';
 $this->params['breadcrumbs'][] = ['label' => 'Clasificacion', 'url' => ['clasificados']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
+
 <div class="clasificacion">
 
    <?php 

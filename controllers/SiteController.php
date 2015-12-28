@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Evento;
+use app\models\EventoSearch;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;

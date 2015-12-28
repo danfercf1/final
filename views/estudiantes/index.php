@@ -57,21 +57,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
     ];
 
-    /*for($i=1; $i <= $evento->ETAPAS; $i++){
-
-        array_push($gridColumns,
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'attribute'=>'ETAPA'.$i,
-                'value'=>function ($model, $i) {
-                    return Html::a('ETAPA'.$i ,'datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id);
-                },
-                'format'=>'raw'
-            ]
-        );
-    }*/
-    
-    
      echo GridView::widget([
             'id'=>'grid_eventos',
             'dataProvider'=>$dataProvider,
@@ -80,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
             'headerRowOptions'=>['class'=>'kartik-sheet-style'],
             'filterRowOptions'=>['class'=>'kartik-sheet-style'],
-            'pjax'=>true,
+            'pjax'=>false,
             'pjaxSettings'=>[
                 'neverTimeout'=>true,
                 'id'=>'pajax-1',
@@ -114,5 +99,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
     
     ?>
-
 </div>

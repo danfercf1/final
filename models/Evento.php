@@ -105,7 +105,7 @@ class Evento extends \yii\mongodb\ActiveRecord
                 }else{
                     $selecc = "&EstudiantesBusqueda[SELECC_ETAPA".($i-1)."]=1";
                 }
-                $etapasT .= '<a class="link_etapas" href="datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$this->_id.'&EstudiantesBusqueda[NRO_ETAPA]='.$i.$selecc.'" id="etapa_'.$i.'"><span>'.$i.'</span></a>';
+                $etapasT .= '<a class="link_etapas" href="/estudiantes/datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$this->_id.'&EstudiantesBusqueda[NRO_ETAPA]='.$i.$selecc.'" id="etapa_'.$i.'"><span>'.$i.'</span></a>';
             }
             return $etapasT;
         }else{

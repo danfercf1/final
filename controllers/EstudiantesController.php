@@ -66,21 +66,40 @@ class EstudiantesController extends Controller
             'eventos' => $eventos,
         ]);
     }
-    
-    public function actionAdministracion()
-    {
 
+    public function armarURL($url)
+    {
+        $url_final = '';
+
+        if(!empty($url['EstudiantesBusqueda'])){
+            foreach($url['EstudiantesBusqueda'] as $k=>$v){
+                $url_final .= 'EstudiantesBusqueda['.$k.']='.$v.'&';
+            }
+            return $url_final;
+        }else{
+            return false;
+        }
     }
-    
+
     public function actionDatos()
     {
         $datos = Yii::$app->request->queryParams;
+
+        Yii::$app->session->open();
+
+        $url = $this->armarURL($datos);
+
+        Yii::$app->session->set('urlDatos', $url);
 
         $searchModel = new EstudiantesBusqueda();
 
         $evento = (isset($datos['EstudiantesBusqueda']['NOMBRE_EVENTO']) ? $datos['EstudiantesBusqueda']['NOMBRE_EVENTO'] : '');
 
-        $evento_model = Evento::find()->where(['_id'=>new \MongoId($evento)])->one();
+        try {
+            $evento_model = Evento::find()->where(['_id'=>new \MongoId($evento)])->one();
+        } catch (\MongoException $ex) {
+            $this->redirect('/estudiantes/index');
+        }
 
         $etapas = $evento_model->ETAPAS;
 
@@ -268,9 +287,9 @@ class EstudiantesController extends Controller
     /**Prueba**/
     public function actionDatosevento()
     {
-        
+
         $nombre = Yii::$app->request->get('nombre');
-        
+
         $searchModel = new EstudiantesBusqueda();
 
 
@@ -418,7 +437,7 @@ class EstudiantesController extends Controller
     }
     /*Fin Prueba*/
 
-    
+
     /**
      * Displays a single Estudiantes model.
      * @param integer $_id
@@ -427,10 +446,11 @@ class EstudiantesController extends Controller
     public function actionView($id)
     {
         $model = Estudiantes::find()->with('tutor')->where(['_id'=>$id])->one();
-
+        Yii::$app->session->open();
+        $url = Yii::$app->session->get('urlDatos');
         if ($model !== null) {
             return $this->render('view', [
-                'model' => $model,'idEstudiante' => $id
+                'model' => $model,'idEstudiante' => $id, 'url'=>$url
             ]);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -640,12 +660,14 @@ class EstudiantesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        Yii::$app->session->open();
+        $url = Yii::$app->session->get('urlDatos');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => (string)$model->_id]);
+            return $this->redirect(['view', 'id' => (string)$model->_id, 'url'=>$url]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model' => $model, 'url'=>$url
             ]);
         }
     }
@@ -698,7 +720,7 @@ class EstudiantesController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+
     public function actionHistorial()
     {
         $searchModel = new EventoSearch();

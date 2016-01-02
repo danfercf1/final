@@ -24,8 +24,6 @@ use app\models\UeBusqueda;
 use app\models\Distrito;
 use kartik\grid\GridView;
 use yii\web\Session;
-use app\models\EventoSearch;
-
 
 
 class SiteController extends Controller
@@ -224,7 +222,18 @@ class SiteController extends Controller
     public function actionPersonalizar()
     {
         $model_custom = new CustomForm();
-        return $this->render('personalizar',['model'=>$model_custom]);
+        $gestiones = $model_custom->gestiones();
+        $searchModel = new EventoSearch();
+        $eventos = new Evento();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        return $this->render('personalizar',[
+            'model'=>$model_custom,
+            'gestiones'=>$gestiones,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'eventos' => $eventos,
+            ]);
     }
     public function actionMejor_nota()
     {

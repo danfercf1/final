@@ -4,6 +4,8 @@ use yii\helpers\Html;
 /*use yii\grid\GridView;*/
 use yii\widgets\ActiveForm;
 use yii\widgets\ActiveField;
+use kartik\widgets\Select2;
+
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -20,13 +22,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin(['method' => 'get']); ?>
     
     
+     <?= $form->field($model, 'evento')->dropDownList($eventos->obtenerNombres(), ['prompt'=>'Seleccionar evento...']) ?>
+     <?= $form->field($model, 'gestion')->dropDownList($gestiones, ['prompt'=>'Seleccionar Gestion...']) ?>
+     <?= $form->field($model, 'etapa')->dropDownList($eventos->obtenerEtapasEvento(), ['prompt'=>'Seleccionar Etapa...']) ?>
     
     <?= $form->field($model, 'cantidad')->
     input('number', ['min'=>1, 'max'=> 100, 'placeholder'=>'Ingrese un numero entre 1-100...']) ->label('Cantidad'); ?>
+
+    <?php 
+        $data = [1 => "Distrito", 
+        2 => "Curso", 
+        3 => "Area", 
+        4 => "Dependencia", 
+        5 => "Genero", 
+        6 => "Edad", 
+        ];
+    ?>    
+
+    <?php
+        echo '<label class="control-label">Atributo</label>';
+        
+        echo Select2::widget([
+            'name' => 'state_10',
+            'size' => Select2::SMALL,
+            'data' => $data,
+            'options' => ['placeholder' => 'Seleccionar variables ...', 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+        ]); ?>
     
-
-    <?= $form->field($model, 'atributo')->dropDownList(array("a1"=>"Distrito", "a2"=>"Curso", "a3"=>"Area Regional", "a4"=>"Dependencia", "a5"=>"Genero", "a6"=>"Edad",), ['prompt'=>'Seleccionar Variable...']) ?>
-
     <div class="form-group">
         <?= Html::submitButton('generar', ['class' => 'btn btn-success']) ?>
     </div>

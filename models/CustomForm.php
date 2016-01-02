@@ -9,6 +9,9 @@ class CustomForm extends Model
     /**
      * @var 
      */
+    public $evento;
+    public $gestion;
+    public $etapa; 
     public $cantidad;
     public $atributo;
 
@@ -18,7 +21,8 @@ class CustomForm extends Model
     public function rules()
     {
         return [
-        
+             [['etapa'], 'string'],
+             [['gestion'], 'number'],
              [['cantidad'], 'integer'],
              ['cantidad', 'compare', 'compareValue' => 0, 'operator' => '>'],
              ['cantidad', 'compare', 'compareValue' => 100, 'operator' => '<='],        
@@ -27,13 +31,13 @@ class CustomForm extends Model
         ];
     }
 
-    /*public function gestiones(){
+    public function gestiones(){
         $anio  = (int) date("Y");
         $gestion = array();
         for($i=$anio; $i<=$anio+10;$i++){
             $gestion[$i] = $i;
         }
         return $gestion;
-    }*/
+    }
     
 }

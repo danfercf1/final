@@ -134,7 +134,19 @@ class SiteController extends Controller
     
     public function actionEstadisticas()
     {
-        return $this->render('estadisticas');
+        $model_custom = new CustomForm();
+        $gestiones = $model_custom->gestiones();
+        $searchModel = new EventoSearch();
+        $eventos = new Evento();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        return $this->render('estadisticas',[
+            'model'=>$model_custom,
+            'gestiones'=>$gestiones,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'eventos' => $eventos,
+            ]);
     }
     
     public function actionReportes()
@@ -235,6 +247,7 @@ class SiteController extends Controller
             'eventos' => $eventos,
             ]);
     }
+    
     public function actionMejor_nota()
     {
         return $this->render('mejor_nota');

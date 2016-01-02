@@ -6,7 +6,7 @@ use kartik\widgets\FileInput;
 
 $this->title = 'Nuevo registro';
 $this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'Cargar excel...';
 
 ?>
 

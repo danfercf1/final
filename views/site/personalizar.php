@@ -32,10 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php 
         $data = [1 => "Distrito", 
         2 => "Curso", 
-        3 => "Area", 
-        4 => "Dependencia", 
-        5 => "Genero", 
-        6 => "Edad", 
+        3 => "Edad",
+        4 => "Area", 
+        5 => "Dependencia", 
+        6 => "Genero",  
         ];
     ?>    
 

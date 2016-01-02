@@ -74,7 +74,7 @@ AppAsset::register($this);
                     // not just as 'controller' even if default action is used.
                     ['label' => 'Inicio', 'icon' => 'home', 'url' => Url::to(['/site/index', 'type'=>$type]), 'active' => ($item == 'index')],
                     ['label' => 'Estudiantes', 'icon' => 'book', 'items' => [
-                        ['label' => 'Nuevo registro', 'url' => Url::to(['/estudiantes/cargarexcel', 'type'=>$type]), 'active' => ($item == 'cargarexcel')],
+                        ['label' => 'Cargar Excel', 'url' => Url::to(['/estudiantes/cargarexcel', 'type'=>$type]), 'active' => ($item == 'cargarexcel')],
                         ['label' => 'Exploracion de datos', 'url' => Url::to(['/estudiantes/index', 'type'=>$type]), 'active' => ($item == 'datos')],
                         ['label' => 'Historial', 'icon' => 'user', 'items' => [
                             ['label' => 'Eventos anteriores', 'url' => Url::to(['/estudiantes/historial', 'type'=>$type]), 'active' => ($item == 'historial')],

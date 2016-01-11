@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => '\kartik\grid\DataColumn',
             'attribute'=>'ETAPAS',
             'value'=>function ($model) {
-                return $model->obtenerEtapasEvento(true);
+                return $model->obtenerEtapasEvento();
             },
             'options' => ['id' => 'etapa_evento'],
             'format'=>'raw',

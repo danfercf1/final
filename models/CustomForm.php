@@ -32,12 +32,22 @@ class CustomForm extends Model
     }
 
     public function gestiones(){
-        $anio  = (int) date("Y");
+
+        $usuario = \Yii::$app->user->getId();
+
+        $anio_min = Evento::find()->where(['USUARIO'=> new \MongoId($usuario)])->min('GESTION');
+        $anio_max = Evento::find()->where(['USUARIO'=> new \MongoId($usuario)])->max('GESTION');
+
         $gestion = array();
-        for($i=$anio; $i<=$anio+10;$i++){
-            $gestion[$i] = $i;
+
+        if($anio_max > $anio_min){
+            for($i=$anio_min; $i<=$anio_max;$i++){
+                $gestion[$i] = $i;
+            }
+        }else{
+            $gestion[$anio_min] = $anio_min;
         }
+
         return $gestion;
     }
-    
 }

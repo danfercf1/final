@@ -81,18 +81,27 @@ class Evento extends \yii\mongodb\ActiveRecord
         return $gestion;
     }
 
-    public function obtenerNombres(){
-
+    public function obtenerNombres($list=false){
         $usuarios_model = new Usuarios();
 
         $usuario = $usuarios_model->find()->where(['_id'=>Yii::$app->user->identity->getId()])->with('eventos')->one();
 
         $datos = [];
 
-        foreach($usuario->eventos as $v){
-            array_push($datos, $v['NOMBRE_EVENTO']);
+        if(!$list){
+            foreach($usuario->eventos as $v){
+                array_push($datos, $v['NOMBRE_EVENTO']);
+            }
+            return $datos;
+        }else{
+            $eventos = $usuario->eventos;
+            //foreach($eventos as $v){
+                for($i=0;$i < count($eventos);$i++){
+                $id = new \MongoId($eventos[$i]['_id']);
+                $datos[$id->{'$id'}] = $eventos[$i]['NOMBRE_EVENTO'];
+            }
+            return $datos;
         }
-        return $datos;
     }
 
     public  function obtenerEtapasEvento($list=false, $action='/estudiantes/datos'){
@@ -102,7 +111,7 @@ class Evento extends \yii\mongodb\ActiveRecord
         $etapas = [];
         $etapasT = '';
 
-        if($list){
+        if(!$list){
             for ($i=1; $i <= $cant_etapas; $i++){
 
                 if($action == '/estudiantes/datos'){
@@ -122,8 +131,9 @@ class Evento extends \yii\mongodb\ActiveRecord
             return $etapasT;
         }else{
             for ($i=1; $i <= $cant_etapas; $i++){
-                $etapas[$i] = 'ETAPA'.$i;
+                $etapas[$i] = 'Etapa '.$i;
             }
+
             return $etapas;
         }
 

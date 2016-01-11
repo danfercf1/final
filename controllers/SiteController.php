@@ -137,7 +137,7 @@ class SiteController extends Controller
         $model_custom = new CustomForm();
         $gestiones = $model_custom->gestiones();
         $searchModel = new EventoSearch();
-        $eventos = new Evento();
+        $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         return $this->render('estadisticas',[
@@ -251,5 +251,101 @@ class SiteController extends Controller
     public function actionMejor_nota()
     {
         return $this->render('mejor_nota');
+    }
+
+    public function actionGraficas(){
+
+        $params = Yii::$app->request->queryParams;
+
+        $series = [];
+
+        $categories = [];
+
+        $categories_avg = [];
+
+        $categories_mod = [];
+
+        $data = [];
+
+        $data_avg = [];
+
+        $data_mod = [];
+
+        $collection = Yii::$app->mongodb->getCollection('estudiante');
+
+        //APROBADOS
+        $result = $collection->aggregate(
+            ['$match' =>
+                        [
+                        'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51],
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                        ]
+            ],
+            ['$group' => [
+                '_id' => [strtoupper($params['CustomForm']['atributo'])=>'$'.strtoupper($params['CustomForm']['atributo'])],
+                'number' => ['$sum' => 1]
+            ]]
+        );
+
+        foreach($result as $v){
+            array_push($categories, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
+            array_push($data, $v['number']);
+        }
+
+        //MEDIA
+        $result_avg = $collection->aggregate(
+            ['$match' =>
+                [
+                    'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>1],
+                    'GESTION'=>(int)$params['CustomForm']['gestion'],
+                    'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                ]
+            ],
+            ['$group' => [
+                '_id' => [strtoupper($params['CustomForm']['atributo'])=>'$'.strtoupper($params['CustomForm']['atributo'])],
+                'number' => ['$avg' => '$NOTA_ETAPA1']
+            ]]
+        );
+
+        foreach($result_avg as $v){
+            array_push($categories_avg, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
+            array_push($data_avg, $v['number']);
+        }
+
+        //MODA
+
+        $result_mod = $collection->aggregate(
+            ['$match' =>
+                [
+                    'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>1],
+                    'GESTION'=>(int)$params['CustomForm']['gestion'],
+                    'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                ]
+            ],
+            ['$group' => [
+                '_id' => [strtoupper($params['CustomForm']['atributo'])=>'$'.strtoupper($params['CustomForm']['atributo'])],
+                'number' => ['$push' => '$NOTA_ETAPA'.$params['CustomForm']['etapa']]
+            ]]
+        );
+
+        foreach($result_mod as $v){
+            array_push($categories_mod, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
+            $cont = array_count_values($v['number']);
+            arsort($cont);
+            $mod = array_keys($cont);
+            array_push($data_mod, $mod[0]);
+        }
+
+        return $this->render('graficas', [
+            'atributo'=>$params['CustomForm']['atributo'],
+            'series'=>$series,
+            'categories'=>$categories,
+            'data'=>$data,
+            'categories_avg'=>$categories_avg,
+            'data_avg'=>$data_avg,
+            'categories_mod'=>$categories_mod,
+            'data_mod'=>$data_mod
+        ]);
     }
 }

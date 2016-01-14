@@ -22,9 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin(['method' => 'get']); ?>
     
     
-     <?= $form->field($model, 'evento')->dropDownList($eventos->obtenerNombres(), ['prompt'=>'Seleccionar evento...']) ?>
+     <?= $form->field($model, 'evento')->dropDownList($eventos->obtenerNombres(true), ['prompt'=>'Seleccionar evento...']) ?>
      <?= $form->field($model, 'gestion')->dropDownList($gestiones, ['prompt'=>'Seleccionar Gestion...']) ?>
-     <?= $form->field($model, 'etapa')->dropDownList($eventos->obtenerEtapasEvento(), ['prompt'=>'Seleccionar Etapa...']) ?>
+     <?= $form->field($model, 'etapa')->dropDownList($eventos->obtenerEtapasEvento(true), ['prompt'=>'Seleccionar Etapa...']) ?>
     
     <?= $form->field($model, 'cantidad')->
     input('number', ['min'=>1, 'max'=> 100, 'placeholder'=>'Ingrese un numero entre 1-100...']) ->label('Cantidad'); ?>

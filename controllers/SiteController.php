@@ -265,15 +265,24 @@ class SiteController extends Controller
 
         $categories_mod = [];
 
+        $categories_maxmin = [];
+
         $data = [];
 
         $data_avg = [];
 
         $data_mod = [];
 
+        $data_max = [];
+
+        $data_min = [];
+
+        $desv_std = [];
+
         $collection = Yii::$app->mongodb->getCollection('estudiante');
 
         //APROBADOS
+
         $result = $collection->aggregate(
             ['$match' =>
                         [
@@ -285,32 +294,57 @@ class SiteController extends Controller
             ['$group' => [
                 '_id' => [strtoupper($params['CustomForm']['atributo'])=>'$'.strtoupper($params['CustomForm']['atributo'])],
                 'number' => ['$sum' => 1]
-            ]]
+            ]],
+            [
+                '$sort' => ['EDAD'=> 1]
+            ]
         );
 
-        foreach($result as $v){
-            array_push($categories, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-            array_push($data, $v['number']);
+        if(strtoupper($params['CustomForm']['atributo']) == 'EDAD'){
+            foreach($result as $v){
+                $edad[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
+            }
+            ksort($edad);
+            foreach($edad as $k=>$v){
+                array_push($categories, $k);
+                array_push($data, $v);
+            }
+        }else{
+            foreach($result as $v){
+                array_push($categories, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
+                array_push($data, $v['number']);
+            }
         }
 
         //MEDIA
         $result_avg = $collection->aggregate(
             ['$match' =>
                 [
-                    'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>1],
+                    'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gt'=>0],
                     'GESTION'=>(int)$params['CustomForm']['gestion'],
                     'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
                 ]
             ],
             ['$group' => [
                 '_id' => [strtoupper($params['CustomForm']['atributo'])=>'$'.strtoupper($params['CustomForm']['atributo'])],
-                'number' => ['$avg' => '$NOTA_ETAPA1']
+                'number' => ['$avg' => '$NOTA_ETAPA'.$params['CustomForm']['etapa']]
             ]]
         );
 
-        foreach($result_avg as $v){
-            array_push($categories_avg, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-            array_push($data_avg, $v['number']);
+        if(strtoupper($params['CustomForm']['atributo']) == 'EDAD'){
+            foreach($result_avg as $v){
+                $edad[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
+            }
+            ksort($edad);
+            foreach($edad as $k=>$v){
+                array_push($categories_avg, $k);
+                array_push($data_avg, $v);
+            }
+        }else{
+            foreach($result_avg as $v){
+                array_push($categories_avg, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
+                array_push($data_avg, $v['number']);
+            }
         }
 
         //MODA
@@ -318,7 +352,7 @@ class SiteController extends Controller
         $result_mod = $collection->aggregate(
             ['$match' =>
                 [
-                    'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>1],
+                    'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gt'=>0],
                     'GESTION'=>(int)$params['CustomForm']['gestion'],
                     'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
                 ]
@@ -329,13 +363,98 @@ class SiteController extends Controller
             ]]
         );
 
-        foreach($result_mod as $v){
-            array_push($categories_mod, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-            $cont = array_count_values($v['number']);
-            arsort($cont);
-            $mod = array_keys($cont);
-            array_push($data_mod, $mod[0]);
+        if(strtoupper($params['CustomForm']['atributo']) == 'EDAD'){
+            foreach($result_mod as $v){
+                $cont = array_count_values($v['number']);
+                arsort($cont);
+                $mod = array_keys($cont);
+                $edad[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $mod[0];
+
+            }
+            ksort($edad);
+            foreach($edad as $k=>$v){
+                array_push($categories_mod, $k);
+                array_push($data_mod, $v);
+            }
+        }else{
+            foreach($result_mod as $v){
+                array_push($categories_mod, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
+                $cont = array_count_values($v['number']);
+                arsort($cont);
+                $mod = array_keys($cont);
+                array_push($data_mod, $mod[0]);
+            }
         }
+
+        //MAX & MIN
+
+        $result_max = $collection->aggregate(
+            ['$match' =>
+                [
+                    'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gt'=>0],
+                    'GESTION'=>(int)$params['CustomForm']['gestion'],
+                    'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                ]
+            ],
+            ['$group' => [
+                '_id' => [strtoupper($params['CustomForm']['atributo'])=>'$'.strtoupper($params['CustomForm']['atributo'])],
+                'number' => ['$max' => '$NOTA_ETAPA'.$params['CustomForm']['etapa']]
+            ]]
+        );
+
+        $result_min = $collection->aggregate(
+            ['$match' =>
+                [
+                    'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gt'=>0],
+                    'GESTION'=>(int)$params['CustomForm']['gestion'],
+                    'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                ]
+            ],
+            ['$group' => [
+                '_id' => [strtoupper($params['CustomForm']['atributo'])=>'$'.strtoupper($params['CustomForm']['atributo'])],
+                'number' => ['$min' => '$NOTA_ETAPA'.$params['CustomForm']['etapa']]
+            ]]
+        );
+
+        if(strtoupper($params['CustomForm']['atributo']) == 'EDAD'){
+            foreach($result_max as $v){
+                $edadmax[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
+            }
+            ksort($edadmax);
+            foreach($edadmax as $k=>$v){
+                array_push($categories_maxmin, $k);
+                array_push($data_max, $v);
+            }
+
+            foreach($result_min as $v){
+                $edadmin[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
+            }
+            ksort($edadmin);
+            foreach($edadmin as $k=>$v){
+                array_push($data_min, $v);
+            }
+        }else{
+            foreach($result_max as $v){
+                array_push($categories_maxmin, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
+                array_push($data_max, $v['number']);
+            }
+
+            foreach($result_min as $v){
+                array_push($data_min, $v['number']);
+            }
+        }
+
+        //Desviacion Estandar
+
+        $model = Estudiantes::find()->where(['NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51]])->select(['NOTA_ETAPA'.$params['CustomForm']['etapa']])->asArray()->all();
+
+
+
+        foreach($model as $v){
+            array_push($desv_std, $v['NOTA_ETAPA'.$params['CustomForm']['etapa']]);
+        }
+
+        $dev_std = $this->sd($desv_std);
 
         return $this->render('graficas', [
             'atributo'=>$params['CustomForm']['atributo'],
@@ -345,7 +464,19 @@ class SiteController extends Controller
             'categories_avg'=>$categories_avg,
             'data_avg'=>$data_avg,
             'categories_mod'=>$categories_mod,
-            'data_mod'=>$data_mod
+            'data_mod'=>$data_mod,
+            'categories_maxmin'=>$categories_maxmin,
+            'data_max'=>$data_max,
+            'data_min'=>$data_min,
+            'dev_std'=>$dev_std
         ]);
+    }
+
+    public function sd_square($x, $mean) {
+        return pow($x - $mean,2);
+    }
+
+    public function sd($array) {
+        return sqrt(array_sum(array_map([$this, 'sd_square'], $array, array_fill(0,count($array), (array_sum($array) / count($array)) ) ) ) / (count($array)-1) );
     }
 }

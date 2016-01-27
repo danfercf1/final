@@ -114,6 +114,57 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]
     ]);
+
+    echo "<div class='division'></div>";
+    echo "<div>";
+    echo Highcharts::widget([
+        'scripts' => [
+            'modules/exporting',
+            'themes/sand-signika',
+        ],
+        'options' => [
+            'title' => ['text' => 'Nota Máxima y Mínima por '.$atributo],
+            'xAxis' => [
+                'categories' => $categories_mod
+            ],
+            'yAxis' => [
+                'title' => ['text' => 'Notas'],
+                'max'=>100,
+            ],
+            'series' => [
+                [
+                    'type' => 'column',
+                    'name' => 'Max',
+                    'data' => $data_max,
+                    'dataLabels' => [
+                        'enabled' => true,
+                        'rotation' => 360,
+                        //'color' => '#FFFFFF',
+                        //'format' => '{point.y:.1f}',
+                        'align' => 'center',
+                        'y' => '10',
+                    ],
+                ],[
+                    'type' => 'column',
+                    'name' => 'Min',
+                    'data' => $data_min,
+                    'dataLabels' => [
+                        'enabled' => true,
+                        'rotation' => 360,
+                        //'color' => '#FFFFFF',
+                        //'format' => '{point.y:.1f}',
+                        'align' => 'center',
+                        'y' => '10',
+                    ],
+                ],
+            ]
+        ]
+    ]);
     echo "</div>";
+
+    echo "<div class='division'></div>";
     ?>
+    <div>
+        <h4>Desviación Estándar: <?=$dev_std;?></h4>
+    </div>
 </div>

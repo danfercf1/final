@@ -138,7 +138,13 @@ class EstudiantesController extends Controller
             'PATERNO',
             'MATERNO',
             'NOMBRE',
-            //'RUDE',
+            'RUDE',
+            [
+                'label'=>'Fecha',
+                'value'=>function($model){
+                    return $model->getFechaNaC();
+                }
+            ],
         ];
 
         for($i=1; $i <= (int) $etapa_selecc_nro; $i++){

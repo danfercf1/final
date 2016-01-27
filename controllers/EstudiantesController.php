@@ -8,19 +8,20 @@ use app\models\Ue;
 use app\models\Evento;
 use app\models\EventoSearch;
 use app\models\Usuarios;
-use Yii;
 use app\models\Estudiantes;
 use app\models\EstudiantesBusqueda;
+use app\models\UploadForm;
+use app\models\CustomForm;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use app\models\UploadForm;
-use yii\web\UploadedFile;
+use yii\data\ActiveDataProvider;
+use yii\helpers\Html;
 use yii\helpers\Json;
 use kartik\grid\GridView;
-use yii\helpers\Html;
-
 /**
  * EstudiantesController implements the CRUD actions for Estudiantes model.
  */
@@ -270,159 +271,6 @@ class EstudiantesController extends Controller
             'gridColumns'=>$gridColumns
         ]);
     }
-
-    /**Prueba**/
-    public function actionDatosevento()
-    {
-
-        $nombre = Yii::$app->request->get('nombre');
-
-        $searchModel = new EstudiantesBusqueda();
-
-
-        $estudiante = Estudiantes::find()->where(['NOMBRE_EVENTO'=>$nombre])->one();
-        //$estudiante = Estudiantes::find()->where(['NOMBRE_EVENTO'=>'5667807e5e273a1840e6d390'])->one();
-
-        $etapas = $estudiante->ETAPAS;
-
-        $distritos = new Distrito();
-
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $gridColumns = [
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'attribute'=>'DISTRITO',
-                'width'=>'200px',
-                'filterType'=>GridView::FILTER_TYPEAHEAD,
-                'filterWidgetOptions'=>[
-                    'name' => 'DISTRITO',
-                    'options' => ['placeholder' => 'Escoger Distrito...'],
-                    'pluginOptions' => ['highlight'=>true],
-                    'dataset' => [
-                        [
-                            'local' => $distritos->obtenerNombres(),
-                            'limit' => 10
-                        ]
-                    ]
-                ],
-            ],
-            'PATERNO',
-            'NOMBRE',
-            [
-                'attribute'=>'CURSO',
-                'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->obtenercursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
-            ],
-            //'RUDE',
-            //'NOMBRE_EVENTO'
-
-        ];
-
-        for($i=1; $i <= $etapas; $i++){
-            array_push($gridColumns, [
-                'class' => 'kartik\grid\EditableColumn',
-                'attribute'=>'NOTA_ETAPA'.$i,
-                'readonly'=>function($model, $key, $index, $widget) {
-                    return (!$model->status); // do not allow editing of inactive records
-                },
-                'editableOptions' => [
-                    'header' => 'Nota Etapa '.$i,
-                    'inputType' => \kartik\editable\Editable::INPUT_SPIN,
-                    'options' => [
-                        'pluginOptions' => ['min'=>0, 'max'=>100]
-                    ]
-                ],
-                'hAlign'=>'right',
-                'vAlign'=>'middle',
-                'width'=>'100px',
-                'format'=>['integer', 1],
-                'pageSummary' => true,
-                'pageSummaryFunc'=>GridView::F_AVG,
-                'refreshGrid'=> true
-            ]);
-        }
-
-        array_push($gridColumns, [
-            'class' => '\kartik\grid\ActionColumn',
-            'deleteOptions' => ['label' => '<i class="glyphicon glyphicon-remove"></i>']
-        ]);
-
-        if (Yii::$app->request->post('hasEditable')) {
-            // instantiate your book model for saving
-            $bookId = Yii::$app->request->post('editableKey');
-
-            $model = $this->findModel(unserialize($bookId));
-
-
-            // store a default json response as desired by editable
-            $out = Json::encode(['output'=>'', 'message'=>'']);
-
-            // fetch the first entry in posted data (there should
-            // only be one entry anyway in this array for an
-            // editable submission)
-            // - $posted is the posted data for Book without any indexes
-            // - $post is the converted array for single model validation
-            $post = [];
-            $posted = current($_POST['Estudiantes']);
-            $post['Estudiantes'] = $posted;
-
-            // load model like any single model validation
-            if ($post) {
-
-                // custom output to return to be displayed as the editable grid cell
-                // data. Normally this is empty - whereby whatever value is edited by
-                // in the input by user is updated automatically.
-                $output = '';
-
-                // specific use case where you need to validate a specific
-                // editable column posted when you have more than one
-                // EditableColumn in the grid view. We evaluate here a
-                // check to see if buy_amount was posted for the Book model
-                if (isset($posted['NOTA_ETAPA1'])) {
-                    $output =  Yii::$app->formatter->asInteger($model->NOTA_ETAPA1);
-                    $model->NOTA_ETAPA1 = (int) $posted['NOTA_ETAPA1'];
-                }
-
-                if (isset($posted['NOTA_ETAPA2'])) {
-                    $output =  Yii::$app->formatter->asInteger($model->NOTA_ETAPA2);
-                    $model->NOTA_ETAPA2 = (int) $posted['NOTA_ETAPA2'];
-                }
-                if (isset($posted['NOTA_ETAPA3'])) {
-                    $output =  Yii::$app->formatter->asInteger($model->NOTA_ETAPA3);
-                    $model->NOTA_ETAPA3 = (int) $posted['NOTA_ETAPA3'];
-                }
-
-                if (isset($posted['NOTA_ETAPA4'])) {
-                    $output =  Yii::$app->formatter->asInteger($model->NOTA_ETAPA4);
-                    $model->NOTA_ETAPA4 = (int) $posted['NOTA_ETAPA4'];
-                }
-
-                if (isset($posted['NOTA_ETAPA5'])) {
-                    $output =  Yii::$app->formatter->asInteger($model->NOTA_ETAPA5);
-                    $model->NOTA_ETAPA5 = (int) $posted['NOTA_ETAPA5'];
-                }
-
-                $model->save();
-
-
-                // similarly you can check if the name attribute was posted as well
-                // if (isset($posted['name'])) {
-                //   $output =  ''; // process as you need
-                // }
-                $out = Json::encode(['output'=>$output, 'message'=>'']);
-            }
-            // return ajax json encoded response and exit
-            echo $out;
-            return;
-        }
-
-        return $this->render('datos',[
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'gridColumns'=>$gridColumns
-        ]);
-    }
-    /*Fin Prueba*/
 
 
     /**
@@ -708,6 +556,24 @@ class EstudiantesController extends Controller
         }
     }
 
+    public function actionGestionhistorial()
+    {
+        $model_custom = new CustomForm();
+        $gestiones = $model_custom->gestiones();
+        $searchModel = new EventoSearch();
+        //$eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        return $this->render('gestionHistorial',[
+            'model'=>$model_custom,
+            'gestiones'=>$gestiones,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            //'eventos' => $eventos,
+            ]);
+            
+    }
+    
     public function actionHistorial()
     {
         $searchModel = new EventoSearch();

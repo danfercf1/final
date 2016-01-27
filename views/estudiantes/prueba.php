@@ -9,13 +9,13 @@ use kartik\grid\GridView;
 
 $this->title = 'Reportes';
 $this->params['breadcrumbs'][] = ['label' => 'Reportes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Reportes gestion actual...';
+$this->params['breadcrumbs'][] = 'Eventos gestion actual...';
 ?>
 
 <div class="historial-eventos">
 
     <?php 
-        $heading = 'Reportes por olimpiada gestion actual';
+        $heading = 'Reportes gestion actual';
     ?>
 
 

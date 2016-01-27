@@ -77,7 +77,7 @@ AppAsset::register($this);
                         ['label' => 'Cargar Excel', 'url' => Url::to(['/estudiantes/cargarexcel', 'type'=>$type]), 'active' => ($item == 'cargarexcel')],
                         ['label' => 'Exploracion de datos', 'url' => Url::to(['/estudiantes/index', 'type'=>$type]), 'active' => ($item == 'datos')],
                         ['label' => 'Historial', 'icon' => 'user', 'items' => [
-                            ['label' => 'Eventos anteriores', 'url' => Url::to(['/estudiantes/historial', 'type'=>$type]), 'active' => ($item == 'historial')],
+                            ['label' => 'Eventos anteriores', 'url' => Url::to(['/estudiantes/gestionHistorial', 'type'=>$type]), 'active' => ($item == 'gestionHistorial')],
                             //['label' => 'Registro 2', 'url' => Url::to(['/site/online-2', 'type'=>$type]), 'active' => ($item == 'online-2')]
                         ]],
                     ]],

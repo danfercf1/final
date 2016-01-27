@@ -236,7 +236,7 @@ class SiteController extends Controller
         $model_custom = new CustomForm();
         $gestiones = $model_custom->gestiones();
         $searchModel = new EventoSearch();
-        $eventos = new Evento();
+        $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         return $this->render('personalizar',[

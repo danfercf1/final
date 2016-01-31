@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Historial';
-$this->params['breadcrumbs'][] = ['label' => 'Historial', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Historial', 'url' => ['gestionhistorial']];
 $this->params['breadcrumbs'][] = 'Eventos anteriores...';
 ?>
 

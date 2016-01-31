@@ -35,7 +35,7 @@ class EstudiantesController extends Controller
                 'only' => ['index', 'view', 'create', 'update', 'delete', 'cargarexcel', 'updateajax'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'view', 'update', 'delete', 'cargarexcel', 'cargarnotas', 'vernotas', 'cargarfinal', 'updateajax'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'cargarexcel', 'cargarnotas', 'vernotas', 'cargarfinal', 'updateajax'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -136,12 +136,20 @@ class EstudiantesController extends Controller
                 'attribute'=>'CURSO',
                 'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->obtenercursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
             ],
+            [
+                'attribute'=>'AREA',
+                'filter' => Html::activeDropDownList($searchModel, 'AREA', $searchModel->obtenerArea(),['class'=>'form-control','prompt' => 'Selecionar Area'])
+            ],
             'PATERNO',
             'MATERNO',
             'NOMBRE',
-            'RUDE',
+            //'RUDE',
             [
-                'label'=>'Fecha',
+                'attribute'=>'EDAD',
+                'filter' => Html::activeDropDownList($searchModel, 'EDAD', $searchModel->obtenerEdad(),['class'=>'form-control','prompt' => 'Selecionar edad'])
+            ],
+            [
+                'label'=>'Fecha Nac.',
                 'value'=>function($model){
                     return $model->getFechaNaC();
                 }
@@ -181,7 +189,7 @@ class EstudiantesController extends Controller
         array_push($gridColumns, [
             'class'=>'kartik\grid\CheckboxColumn',
             'name'=>$etapa_seleccionada,
-            'header'=>'Ganadores',
+            'header'=>'Clasificados',
             'headerOptions'=>['class'=>'kartik-sheet-style'],
             'checkboxOptions' => function($model, $key, $index, $column) use ($etapa_selecc_nro){
                 $etapa_selecc = 'SELECC_ETAPA'.$etapa_selecc_nro;
@@ -308,7 +316,8 @@ class EstudiantesController extends Controller
         $model = new Estudiantes();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => (string)$model->_id]);
+            //return $this->redirect(['view', 'id' => (string)$model->_id]);
+            return $this->redirect(['confirm']);
         } else {
             return $this->render('create', [
                 'model' => $model,

@@ -40,10 +40,17 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             'format'=>'raw'
         ],
-        'GESTION',
+        [
+            'class' => '\kartik\grid\DataColumn',
+            'attribute'=>'GESTION',
+            'filter'=>false,
+            'enableSorting' => false,
+        ],
         [
             'class' => '\kartik\grid\DataColumn',
             'attribute'=>'ETAPAS',
+            'filter'=>false,
+            'enableSorting' => false,
             'value'=>function ($model) {
                 return $model->obtenerEtapasEvento();
             },

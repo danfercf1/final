@@ -132,23 +132,23 @@ table.table-striped  tr td{
 }
 
 /*Estilos Update*/
-.estudiantes-update, .tutor-update, .ue-update, .evento-update, .distrito-update, .usuarios-update, .usuarios-create, .tutor-create, .ue-create{
+.estudiantes-update, .tutor-update, .ue-update, .evento-update, .distrito-update, .usuarios-update, .usuarios-create, .tutor-create, .ue-create, .estudiantes-create{
     font-size: 12px; 
     padding: 0 30px;
     width: 55%;
 }
 
-.estudiantes-update h1, .tutor-update h1, .ue-update h1, .evento-update h1, .distrito-update h1, .usuarios-update h1, .usuarios-create h1, .tutor-create h1, .ue-create h1{
+.estudiantes-update h1, .tutor-update h1, .ue-update h1, .evento-update h1, .distrito-update h1, .usuarios-update h1, .usuarios-create h1, .tutor-create h1, .ue-create h1, .estudiantes-create h1{
     font-size: 14px;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-.estudiantes-update .control-label, .tutor-update .control-label, .ue-update .control-label, .evento-update .control-label, .distrito-update .control-label, .usuarios-update .control-label, .usuarios-create .control-label, .tutor-create .control-label, .ue-create .control-label{
+.estudiantes-update .control-label, .tutor-update .control-label, .ue-update .control-label, .evento-update .control-label, .distrito-update .control-label, .usuarios-update .control-label, .usuarios-create .control-label, .tutor-create .control-label, .ue-create .control-label, .estudiantes-create .control-label{
     width: 25%;
 }
 
-.estudiantes-update input, .tutor-update input, .ue-update input, .evento-update input, .distrito-update input, .usuarios-update input, .usuarios-create input, .tutor-create input, .ue-create input{
+.estudiantes-update input, .tutor-update input, .ue-update input, .evento-update input, .distrito-update input, .usuarios-update input, .usuarios-create input, .tutor-create input, .ue-create input, .estudiantes-create .control-label{
     width: 60%;
     display: inline;
 }

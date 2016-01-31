@@ -10,8 +10,8 @@ use kartik\widgets\Select2;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Personalizar';
-$this->params['breadcrumbs'][] = ['label' => 'Clasificacion', 'url' => ['clasificados']];
+$this->title = 'Personalizar...';
+$this->params['breadcrumbs'][] = ['label' => 'Clasificacion', 'url' => ['personalizar']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ranking-form">
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
      <?= $form->field($model, 'etapa')->dropDownList($eventos->obtenerEtapasEvento(true), ['prompt'=>'Seleccionar Etapa...']) ?>
     
     <?= $form->field($model, 'cantidad')->
-    input('number', ['min'=>1, 'max'=> 100, 'placeholder'=>'Ingrese un numero entre 1-100...']) ->label('Cantidad'); ?>
+    input('number', ['min'=>1, 'max'=> 100, 'placeholder'=>'Ingrese un numero entre 1-100...'])->hint('El valor seleccionado mostrara esa cantidad de mejores notas.') ?>
 
     <?php 
         $data = [1 => "Distrito", 

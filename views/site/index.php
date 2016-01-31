@@ -25,7 +25,7 @@ $this->title = 'Departamento de Matemáticas - Inicio';
 
         <div class="row">
             <div class="col-lg-4">
-                <a href="/site/clasificados"><h2>Clasificaci&oacute;n</h2></a>
+                <a href="/site/ranking"><h2>Clasificaci&oacute;n</h2></a>
 
                 <p>Los participantes de las olimpiadas matem&aacute;ticas son seleccionados en cada etapa
                 correspondiente al certamen segun criterios de evaluacion establecidos por el comite organizador.</p>

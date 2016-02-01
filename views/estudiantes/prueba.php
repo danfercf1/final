@@ -7,17 +7,20 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Exploracion...';
-$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Reportes';
+$this->params['breadcrumbs'][] = ['label' => 'Reportes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Eventos gestion actual...';
 ?>
 
-<div class="lista-eventos">
+<div class="historial-eventos">
+
     <?php 
-    $heading = 'Exploracion Olimpiadas';
+        $heading = 'Reportes gestion actual';
+    ?>
 
-    Yii::$app->session->open();
 
+    <?php
+    
     $gridColumns = [
         [
             'class' => '\kartik\grid\DataColumn',
@@ -36,38 +39,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             'value'=>function ($model) {
-                return Html::encode($model->NOMBRE_EVENTO);
+                return Html::a(Html::encode($model->NOMBRE_EVENTO), 'datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id);
             },
             'format'=>'raw'
         ],
-        [
-            'class' => '\kartik\grid\DataColumn',
-            'attribute'=>'GESTION',
-            'filter'=>false,
-            'enableSorting' => false,
-        ],
-        [
-            'class' => '\kartik\grid\DataColumn',
-            'attribute'=>'ETAPAS',
-            'filter'=>false,
-            'enableSorting' => false,
-            'value'=>function ($model) {
-                return $model->obtenerEtapasEvento();
-            },
-            'options' => ['id' => 'etapa_evento'],
-            'format'=>'raw',
-        ]
+        'GESTION',
     ];
-
+    
+    
      echo GridView::widget([
-            'id'=>'grid_eventos',
+            'id'=>'grid_datos',
             'dataProvider'=>$dataProvider,
             'filterModel'=>$searchModel,
             'columns'=>$gridColumns,
             'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
             'headerRowOptions'=>['class'=>'kartik-sheet-style'],
             'filterRowOptions'=>['class'=>'kartik-sheet-style'],
-            'pjax'=>false,
+            'pjax'=>true,
             'pjaxSettings'=>[
                 'neverTimeout'=>true,
                 'id'=>'pajax-1',
@@ -101,4 +89,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
     
     ?>
+
 </div>

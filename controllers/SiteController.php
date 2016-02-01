@@ -4,27 +4,26 @@ namespace app\controllers;
 
 use app\models\Evento;
 use app\models\EventoSearch;
-use Yii;
-use yii\helpers\Html;
-use yii\helpers\Json;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\data\ActiveDataProvider;
-use yii\mongodb\Query;
-use yii\mongodb\Collection;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\CustomForm;
 use app\models\Estudiantes;
 use app\models\EstudiantesBusqueda;
 use app\models\EstudiantesBusquedaRanking;
 use app\models\Ue;
-use app\models\CustomForm;
 use app\models\UeBusqueda;
 use app\models\Distrito;
-use kartik\grid\GridView;
+use Yii;
+use yii\web\Controller;
 use yii\web\Session;
-
+use yii\helpers\Html;
+use yii\helpers\Json;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
+use yii\mongodb\Query;
+use yii\mongodb\Collection;
+use kartik\grid\GridView;
 
 class SiteController extends Controller
 {
@@ -151,7 +150,17 @@ class SiteController extends Controller
     
     public function actionReportes()
     {
-        return $this->render('reportes');
+        $searchModel = new EventoSearch();
+
+        $eventos = new Evento();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('reportes',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'eventos' => $eventos,
+        ]);
     }
     
     public function actionR_general()

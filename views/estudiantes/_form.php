@@ -17,6 +17,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'MATERIA') ?>
 
     <?= $form->field($model, 'CURSO') ?>
+    
+    <?= $form->field($model, 'RUDE') ?>
 
     <?= $form->field($model, 'NOMBRE') ?>
 
@@ -24,17 +26,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'MATERNO') ?>
 
-    <?= $form->field($model, 'RUDE') ?>
-
     <?= $form->field($model, 'GENERO') ?>
 
+    <?= $form->field($model, 'FECHA_NACIMIENTO') ?>
+    
     <?= $form->field($model, 'CI') ?>
 
-    <?= $form->field($model, 'FECHA_NACIMIENTO') ?>
-
-    <?= $form->field($model, 'CORREO') ?>
-
     <?= $form->field($model, 'FONO') ?>
+    
+    <?= $form->field($model, 'CORREO') ?>
+    
+    <?= $form->field($model, 'TUTOR') ?>
+    
+    <?= $form->field($model, 'UNIDAD_EDUCATIVA') ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Guardar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listado de Eventos';
+$this->title = 'Clasificacion';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -40,10 +40,17 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             'format'=>'raw'
         ],
-        'GESTION',
+        [
+            'class' => '\kartik\grid\DataColumn',
+            'attribute'=>'GESTION',
+            //'filter'=>false,
+            //'enableSorting' => false,
+        ],
         [
             'class' => '\kartik\grid\DataColumn',
             'attribute'=>'ETAPAS',
+            'filter'=>false,
+            'enableSorting' => false,
             'value'=>function ($model) {
                 return $model->obtenerEtapasEvento(false, '/site/r_general');
             },

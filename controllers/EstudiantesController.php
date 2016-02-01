@@ -91,7 +91,7 @@ class EstudiantesController extends Controller
 
         $url = $this->armarURL($datos);
 
-        Yii::$app->session->set('urlDatos', $url);
+        //Yii::$app->session->set('urlDatos', $url);
 
         $searchModel = new EstudiantesBusqueda();
 
@@ -295,11 +295,13 @@ class EstudiantesController extends Controller
     public function actionView($id)
     {
         $model = Estudiantes::find()->with('tutor')->where(['_id'=>$id])->one();
-        Yii::$app->session->open();
-        $url = Yii::$app->session->get('urlDatos');
+        $url = $_SERVER['HTTP_REFERER'];
+
+        $url = explode($_SERVER["REQUEST_SCHEME"]."://".$_SERVER["HTTP_HOST"], $url);
+
         if ($model !== null) {
             return $this->render('view', [
-                'model' => $model,'idEstudiante' => $id, 'url'=>$url
+                'model' => $model,'idEstudiante' => $id, 'url'=>$url[1]
             ]);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -505,11 +507,16 @@ class EstudiantesController extends Controller
      * @param integer $_id
      * @return mixed
      */
+    
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        Yii::$app->session->open();
-        $url = Yii::$app->session->get('urlDatos');
+
+        $url = $_SERVER['HTTP_REFERER'];
+
+        $url = explode($_SERVER["REQUEST_SCHEME"]."://".$_SERVER["HTTP_HOST"], $url);
+
+        $url = $url[1];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => (string)$model->_id, 'url'=>$url]);

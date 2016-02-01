@@ -14,6 +14,7 @@ use app\models\Ue;
 use app\models\UeBusqueda;
 use app\models\Distrito;
 use Yii;
+use yii\base\Exception;
 use yii\web\Controller;
 use yii\web\Session;
 use yii\helpers\Html;
@@ -24,6 +25,7 @@ use yii\data\ActiveDataProvider;
 use yii\mongodb\Query;
 use yii\mongodb\Collection;
 use kartik\grid\GridView;
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
@@ -171,7 +173,17 @@ class SiteController extends Controller
 
         $eventos = new Evento();
 
-        $etapas = $eventos->find()->where(['_id'=>new \MongoId($get['EstudiantesBusqueda']['NOMBRE_EVENTO'])])->one();
+        //Validaciones
+        
+        if(!empty($get['EstudiantesBusqueda']['NOMBRE_EVENTO']) && \MongoId::isValid($get['EstudiantesBusqueda']['NOMBRE_EVENTO'])){
+            $etapas = $eventos->find()->where(['_id'=>new \MongoId($get['EstudiantesBusqueda']['NOMBRE_EVENTO'])])->one();
+        }else{
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        if(empty($etapas)){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
 
         $gridColumns = [
             'DISTRITO',

@@ -162,6 +162,79 @@ class SiteController extends Controller
             'eventos' => $eventos,
         ]);
     }
+
+    public function actionReporteshistorial(){
+
+        $searchModel = new EstudiantesBusqueda();
+
+        $get = Yii::$app->request->queryParams;
+
+        $eventos = new Evento();
+
+        $etapas = $eventos->find()->where(['_id'=>new \MongoId($get['EstudiantesBusqueda']['NOMBRE_EVENTO'])])->one();
+
+        $gridColumns = [
+            'DISTRITO',
+            'CURSO',
+            'AREA',
+            'EDAD',
+            'DEPENDENCIA',
+            'GENERO',
+            'PATERNO',
+            'MATERNO',
+            'NOMBRE',
+            'RUDE',
+            'NOTA_ETAPA'.$etapas->ETAPAS
+        ];
+
+        $query1S = Yii::$app->request->queryParams;
+
+        $query1S['EstudiantesBusqueda']['CURSO'] = '1s';
+
+        $dataProvider1S = $searchModel->search($query1S);
+
+        $query2S = Yii::$app->request->queryParams;
+
+        $query2S['EstudiantesBusqueda']['CURSO'] = '2s';
+
+        $dataProvider2S = $searchModel->search($query2S);
+
+        $query3S = Yii::$app->request->queryParams;
+
+        $query3S['EstudiantesBusqueda']['CURSO'] = '3s';
+
+        $dataProvider3S = $searchModel->search($query3S);
+
+        $query4S = Yii::$app->request->queryParams;
+
+        $query4S['EstudiantesBusqueda']['CURSO'] = '4s';
+
+        $dataProvider4S = $searchModel->search($query4S);
+
+        $query5S = Yii::$app->request->queryParams;
+
+        $query5S['EstudiantesBusqueda']['CURSO'] = '5s';
+
+        $dataProvider5S = $searchModel->search($query5S);
+
+
+        $query6S = Yii::$app->request->queryParams;
+
+        $query6S['EstudiantesBusqueda']['CURSO'] = '6s';
+
+        $dataProvider6S = $searchModel->search($query6S);
+
+        return $this->render('reportes_historial', [
+            'dataProvider1S' => $dataProvider1S,
+            'dataProvider2S' => $dataProvider2S,
+            'dataProvider3S' => $dataProvider3S,
+            'dataProvider4S' => $dataProvider4S,
+            'dataProvider5S' => $dataProvider5S,
+            'dataProvider6S' => $dataProvider6S,
+            'eventos' => $eventos,
+            'gridColumns' => $gridColumns,
+        ]);
+    }
     
     public function actionR_general()
     {

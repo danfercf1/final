@@ -2,14 +2,14 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use app\models\Evento;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Reportes';
-$this->params['breadcrumbs'][] = ['label' => 'Reportes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Reportes gestion actual...';
+$this->params['breadcrumbs'][] = ['label' => 'Reportes', 'url' => ['reportes']];
 ?>
 
 <div class="historial-eventos">
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = 'Reportes gestion actual...';
                 ]
             ],
             'value'=>function ($model) {
-                return Html::a(Html::encode($model->NOMBRE_EVENTO), 'datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id);
+                return Html::a(Html::encode($model->NOMBRE_EVENTO), 'reporteshistorial?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id.'&EstudiantesBusqueda[SELECC_ETAPA'.$model->ETAPAS.']=1&sort=-NOTA_ETAPA'.$model->ETAPAS);
             },
             'format'=>'raw'
         ],

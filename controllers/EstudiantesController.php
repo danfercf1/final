@@ -487,9 +487,7 @@ class EstudiantesController extends Controller
                 }
 
             }else{
-                //var_dump("aaaa");
             }
-            //return $this->redirect(['view', 'id' => (string)$model->_id]);
         } else {
             return $this->render('nota', [
                 'model' => $model_file, 'gestiones'=>$gestiones

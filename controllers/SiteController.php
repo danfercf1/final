@@ -243,7 +243,7 @@ class SiteController extends Controller
             'dataProvider4S' => $dataProvider4S,
             'dataProvider5S' => $dataProvider5S,
             'dataProvider6S' => $dataProvider6S,
-            'eventos' => $eventos,
+            'eventos' => $etapas,
             'gridColumns' => $gridColumns,
         ]);
     }

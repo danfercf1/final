@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Historial reportes'];
 
 <div class="clasificacion">
 
+    <h1><?=$eventos->NOMBRE_EVENTO. ' (Gestión: '.$eventos->GESTION;?>)</h1>
+
     <?php
 
     echo GridView::widget([

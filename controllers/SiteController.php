@@ -174,7 +174,7 @@ class SiteController extends Controller
         $eventos = new Evento();
 
         //Validaciones
-        
+
         if(!empty($get['EstudiantesBusqueda']['NOMBRE_EVENTO']) && \MongoId::isValid($get['EstudiantesBusqueda']['NOMBRE_EVENTO'])){
             $etapas = $eventos->find()->where(['_id'=>new \MongoId($get['EstudiantesBusqueda']['NOMBRE_EVENTO'])])->one();
         }else{

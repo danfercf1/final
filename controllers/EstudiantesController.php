@@ -507,7 +507,7 @@ class EstudiantesController extends Controller
      * @param integer $_id
      * @return mixed
      */
-    
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);

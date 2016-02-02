@@ -11,9 +11,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="">
 
     <p class="lead">Gr&aacute;ficas</p>
-    
-    
+
+    <div>
+        <h4>Desviación Estándar: <?=$dev_std;?></h4>
+    </div>
     <?php
+    echo "<div class='division'></div>";
+
     echo "<div>";
     echo Highcharts::widget([
         'scripts' => [
@@ -162,9 +166,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
     echo "</div>";
 
-    echo "<div class='division'></div>";
+
     ?>
-    <div>
-        <h4>Desviación Estándar: <?=$dev_std;?></h4>
-    </div>
+
 </div>

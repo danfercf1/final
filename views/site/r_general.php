@@ -7,8 +7,6 @@ use kartik\grid\GridView;
 use yii\web\View;
 use kartik\widgets\Typeahead;
 
-//use kartik\widgets\Select2;
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
     
 <?php 
 
-//var_dump($urbano);                        
 echo GridView::widget([
         'dataProvider'=>$dataProvider,
         'filterModel'=>$searchModel,

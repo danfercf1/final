@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <?php $form = ActiveForm::begin(['method' => 'get', 'action'=>'/estudiantes/historial']); ?>
     
-     <?= $form->field($model, 'gestion')->dropDownList($gestiones, ['prompt'=>'Seleccionar Gestion...']) ?>
+     <?= Html::dropDownList('EventoSearch[GESTION]', [], $gestiones, ['prompt'=>'Seleccionar Gestion...']) ?>
 
 
     <div class="form-group">

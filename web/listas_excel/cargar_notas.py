@@ -19,7 +19,7 @@ etapa = 1
 
 gestion = 2015
 
-id_evento = '5678dc3d99b36c2440372361'
+id_evento = '56b004de5e273a2160318b5c'
 
 
 #FIN PARAMETROS

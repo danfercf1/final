@@ -86,7 +86,6 @@ class EstudiantesController extends Controller
     public function actionDatos()
     {
         $datos = Yii::$app->request->queryParams;
-
         Yii::$app->session->open();
 
         $url = $this->armarURL($datos);
@@ -215,7 +214,6 @@ class EstudiantesController extends Controller
             $bookId = Yii::$app->request->post('editableKey');
 
             $model = $this->findModel(unserialize($bookId));
-
 
             // store a default json response as desired by editable
             $out = Json::encode(['output'=>'', 'message'=>'']);

@@ -214,7 +214,7 @@ class EstudiantesController extends Controller
             // instantiate your book model for saving
             $bookId = Yii::$app->request->post('editableKey');
 
-            $model = $this->findModel(unserialize($bookId));
+            $model = $this->findModel($bookId);
 
 
             // store a default json response as desired by editable

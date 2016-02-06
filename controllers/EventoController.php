@@ -20,13 +20,18 @@ class EventoController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'only' => ['view', 'create', 'update', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'view', 'update', 'delete'],
+                        'actions' => ['logout','view', 'update', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    /*[
+                        'actions' => ['index'],
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],*/
                 ],
             ],
             'verbs' => [

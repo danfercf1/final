@@ -18,13 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p class="lead">Ver Historial de Olimpiadas</p>
     
-    
     <?php $form = ActiveForm::begin(['method' => 'get', 'action'=>'/estudiantes/historial']); ?>
-    
-     <?= Html::dropDownList('EventoSearch[GESTION]', [], $gestiones, ['prompt'=>'Seleccionar Gestion...']) ?>
-
 
     <div class="form-group">
+        <?= Html::dropDownList('EventoSearch[GESTION]', [], $gestiones, ['prompt'=>'Seleccionar Gestion...']) ?>
         <?= Html::submitButton('Cargar historial', ['class' => 'btn btn-success']) ?>
     </div>
 

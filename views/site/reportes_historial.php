@@ -13,13 +13,13 @@ use kartik\widgets\Typeahead;
 
 $this->title = 'Historial de reportes';
 $this->params['breadcrumbs'][] = ['label' => 'Reportes', 'url' => ['reportes']];
-$this->params['breadcrumbs'][] = ['label' => 'Historial reportes'];
+$this->params['breadcrumbs'][] = ['label' => 'Clasificados etapa final'];
 
 ?>
 
 <div class="clasificacion">
 
-    <h1><?=$eventos->NOMBRE_EVENTO. ' (Gestión: '.$eventos->GESTION;?>)</h1>
+    <h4><?=$eventos->NOMBRE_EVENTO. ' (Gestión: '.$eventos->GESTION;?>)</h4>
 
     <?php
 

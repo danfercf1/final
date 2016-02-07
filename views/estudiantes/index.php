@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'class' => '\kartik\grid\DataColumn',
             'attribute'=>'GESTION',
-            'filter'=>false,
+            //'filter'=>false,
             'enableSorting' => false,
         ],
         [

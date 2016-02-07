@@ -30,6 +30,11 @@
     width: 90%;
 }
 
+.gestionhistorial-form select{
+    width: 72%;
+    height: 25px;
+}
+
 .site-login .col-lg-1{
     width: 25%;
 }
@@ -105,7 +110,10 @@ table.table-striped  tr td{
 }
 
 /*Estilos vista*/
-
+.clasificacion h4{
+    text-align: center;
+    text-transform: uppercase;
+}
 /*.estudiantes-view .well h1{
     text-transform: lowercase;   
 }*/

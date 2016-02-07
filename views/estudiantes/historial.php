@@ -9,13 +9,13 @@ use kartik\grid\GridView;
 
 $this->title = 'Historial';
 $this->params['breadcrumbs'][] = ['label' => 'Historial', 'url' => ['gestionhistorial']];
-$this->params['breadcrumbs'][] = 'Eventos anteriores...';
+$this->params['breadcrumbs'][] = 'Gestiones anteriores...';
 ?>
 
 <div class="historial-eventos">
 
     <?php 
-        $heading = 'Historial gestiones anteriores';
+        $heading = 'Historial de Olimpiadas';
     ?>
 
 
@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = 'Eventos anteriores...';
             ],
             'value'=>function ($model) {
                 return Html::a(Html::encode($model->NOMBRE_EVENTO), 'datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id);
+                //return Html::a(Html::encode($model->NOMBRE_EVENTO), 'reporteshistorial?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id);
             },
             'format'=>'raw'
         ],

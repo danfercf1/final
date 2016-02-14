@@ -62,6 +62,7 @@ AppAsset::register($this);
             <div class="sidebar">
             <?php
             $type = SideNav::TYPE_DEFAULT;
+            $heading = '';
             echo SideNav::widget([
                 'type' => $type,
                 'encodeLabels' => false,

@@ -31,7 +31,11 @@
         "kartik-v/yii2-grid": "dev-master",
         "kartik-v/yii2-editable": "*",
         "kartik-v/yii2-mpdf": "@dev",
-        "miloschuman/yii2-highcharts-widget": "*"
+        "miloschuman/yii2-highcharts-widget": "*",
+        "codeception/codeception": "2.0.*",
+        "codeception/specify": "*",
+        "codeception/verify": "*",
+        "kartik-v/yii2-widget-depdrop": "@dev"
     },
 
     "require-dev": {

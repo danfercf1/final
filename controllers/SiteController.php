@@ -34,10 +34,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout', 'rankingpersonalizado'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'rankingpersonalizado'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -325,18 +325,132 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionRankingpersonalizado(){
+
+        $searchModel = new EstudiantesBusqueda();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $distritos = new Distrito();
+
+        $get = Yii::$app->request->queryParams;
+
+        $gridColumns = [];
+
+        if(isset($get['EstudiantesBusqueda']['ATRIBUTO']) && !empty($get['EstudiantesBusqueda']['ATRIBUTO'])){
+
+            foreach($get['EstudiantesBusqueda']['ATRIBUTO'] as $k=>$v){
+
+                if($v == 'DISTRITO'){
+                    array_push($gridColumns,
+                        [
+                            'class' => '\kartik\grid\DataColumn',
+                            'attribute'=>'DISTRITO',
+                            'width'=>'150px',
+                            'filterType'=>GridView::FILTER_TYPEAHEAD,
+                            'filterWidgetOptions'=>[
+                                'name' => 'DISTRITO',
+                                'options' => ['placeholder' => 'Escoger Distrito...'],
+                                'pluginOptions' => ['highlight'=>true],
+                                'dataset' => [
+                                    [
+                                        'local' => $distritos->obtenerNombres(),
+                                        'limit' => 10
+                                    ]
+                                ]
+                            ],
+                        ]
+                    );
+                }else{
+                    switch($v){
+                        case 'CURSO': $search = $searchModel->obtenercursos();
+                            break;
+                        case 'EDAD': $search = $searchModel->obtenerEdad();
+                            break;
+                        case 'AREA': $search = $searchModel->obtenerArea();
+                            break;
+                        case 'DEPENDENCIA': $search = $searchModel->obtenerDependencia();
+                            break;
+                        case 'GENERO': $search = $searchModel->obtenerGenero();
+                            break;
+                    }
+                    array_push($gridColumns,
+                        [
+                            'attribute'=>$v,
+                            'filter' => Html::activeDropDownList($searchModel, $v, $search,['class'=>'form-control','prompt' => 'Selecionar '.strtolower($v)])
+                        ]
+                    );
+                }
+
+
+            }
+
+            array_push($gridColumns, 'PATERNO', 'MATERNO', 'NOMBRE', 'NOTA_ETAPA'.$get['EstudiantesBusqueda']['NRO_ETAPA']);
+
+        }else{
+            $gridColumns = [
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute'=>'DISTRITO',
+                    'width'=>'150px',
+                    'filterType'=>GridView::FILTER_TYPEAHEAD,
+                    'filterWidgetOptions'=>[
+                        'name' => 'DISTRITO',
+                        'options' => ['placeholder' => 'Escoger Distrito...'],
+                        'pluginOptions' => ['highlight'=>true],
+                        'dataset' => [
+                            [
+                                'local' => $distritos->obtenerNombres(),
+                                'limit' => 10
+                            ]
+                        ]
+                    ],
+                ],
+                [
+                    'attribute'=>'CURSO',
+                    'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->obtenercursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
+                ],
+                [
+                    'attribute'=>'AREA',
+                    'filter' => Html::activeDropDownList($searchModel, 'AREA', $searchModel->obtenerArea(),['class'=>'form-control','prompt' => 'Selecionar Area'])
+                ],
+                [
+                    'attribute'=>'EDAD',
+                    'filter' => Html::activeDropDownList($searchModel, 'EDAD', $searchModel->obtenerEdad(),['class'=>'form-control','prompt' => 'Selecionar edad'])
+                ],
+                [
+                    'attribute'=>'DEPENDENCIA',
+                    'filter' => Html::activeDropDownList($searchModel, 'DEPENDENCIA', $searchModel->obtenerDependencia(),['class'=>'form-control','prompt' => 'Selecionar nivel de dependencia'])
+                ],
+                [
+                    'attribute'=>'GENERO',
+                    'filter' => Html::activeDropDownList($searchModel, 'GENERO', $searchModel->obtenerGenero(),['class'=>'form-control','prompt' => 'Selecionar genero'])
+                ],
+                'PATERNO',
+                'MATERNO',
+                'NOMBRE',
+                'NOTA_ETAPA'.$get['EstudiantesBusqueda']['NRO_ETAPA'],
+            ];
+        }
+
+        return $this->render('rankingpersonalizado',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+
+            'gridColumns'=>$gridColumns,
+        ]);
+    }
+
     public function actionPersonalizar()
     {
-        $model_custom = new CustomForm();
-        $gestiones = $model_custom->gestiones();
-        $searchModel = new EventoSearch();
+        $model_custom = new EstudiantesBusqueda();
+
         $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $model_custom->search(Yii::$app->request->queryParams);
         
         return $this->render('personalizar',[
             'model'=>$model_custom,
-            'gestiones'=>$gestiones,
-            'searchModel' => $searchModel,
+            'searchModel' => $model_custom,
             'dataProvider' => $dataProvider,
             'eventos' => $eventos,
             ]);

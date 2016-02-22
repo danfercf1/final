@@ -249,7 +249,7 @@ class SiteController extends Controller
     }
     
     public function actionR_general()
-    {
+    {     
         $searchModel = new EstudiantesBusqueda();
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -300,13 +300,18 @@ class SiteController extends Controller
             'MATERNO',
             'NOMBRE',
             //'RUDE',
-            'NOTA_ETAPA'.$get['EstudiantesBusqueda']['NRO_ETAPA'],
+            'NOTA_ETAPA'.$get['EstudiantesBusqueda']['NRO_ETAPA'],  
         ];
+        
+        array_push($gridColumns, [
+                'class' => '\kartik\grid\ActionColumn',
+                'updateOptions'=> ['hidden'=>true],
+                'deleteOptions' => ['hidden'=>true]
+        ]);
 
         return $this->render('r_general',[
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            
+            'dataProvider' => $dataProvider,   
             'gridColumns'=>$gridColumns,
         ]);
     }
@@ -341,6 +346,24 @@ class SiteController extends Controller
             'eventos' => $eventos,
             ]);
     }
+    
+    
+    public function actionView($id)
+    {
+        $model = Estudiantes::find()->with('tutor')->where(['_id'=>$id])->one();
+        $url = $_SERVER['HTTP_REFERER'];
+
+        $url = explode($_SERVER["REQUEST_SCHEME"]."://".$_SERVER["HTTP_HOST"], $url);
+
+        if ($model !== null) {
+            return $this->render('view', [
+                'model' => $model,'idEstudiante' => $id, 'url'=>$url[1]
+            ]);
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
     
     public function actionMejor_nota()
     {

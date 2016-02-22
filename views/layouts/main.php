@@ -59,7 +59,7 @@ AppAsset::register($this);
               
         ?>
         <div class="container">
-            <div class="sidebar">
+            <div id="menu-principal" class="sidebar">
             <?php
             $type = SideNav::TYPE_DEFAULT;
             $heading = '';

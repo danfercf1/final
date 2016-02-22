@@ -150,6 +150,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
             'AREA' => 'Area',
             'DEPENDENCIA' => 'Dependencia',
             'NOMBRE_EVENTO' => 'Nombre Evento',
+            'NOMBRE_UE' => 'Unidad Educativa',
         ];
     }
 

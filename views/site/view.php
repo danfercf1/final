@@ -4,8 +4,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Estudiantes */
 $this->title = $model->nombreCompleto();
-$this->params['breadcrumbs'][] = ['label' => 'Clasificacion', 'url' => ['ranking']];
-$this->params['breadcrumbs'][] = ['label' => 'Ranking general', 'url' => [$url]];
+$this->params['breadcrumbs'][] = ['label' => 'Clasificacion: Ranking general', 'url' => ['ranking']];
+$this->params['breadcrumbs'][] = ['label' => 'Olimpiada...', 'url' => [$url]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="estudiantes-view">

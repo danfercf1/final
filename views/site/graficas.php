@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="graficas">
 
-    <p class="lead">Analisis Estadistico</p>
+    <p class="lead">Analisis Estadistico: Rendimiento Academico</p>
 
     <div>
         <h4>Desviación Estándar: <?=$dev_std;?></h4>

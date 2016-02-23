@@ -8,8 +8,8 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Historial';
-$this->params['breadcrumbs'][] = ['label' => 'Historial', 'url' => ['gestionhistorial']];
-$this->params['breadcrumbs'][] = 'Gestiones anteriores...';
+$this->params['breadcrumbs'][] = ['label' => 'Estudiantes: Historial', 'url' => ['gestionhistorial']];
+$this->params['breadcrumbs'][] = 'Gestion...';
 ?>
 
 <div class="historial-eventos">
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = 'Gestiones anteriores...';
                 ]
             ],
             'value'=>function ($model) {
-                return Html::a(Html::encode($model->NOMBRE_EVENTO), 'datos?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id);
+                return Html::a(Html::encode($model->NOMBRE_EVENTO), '/site/reporteshistorial?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id.'&EstudiantesBusqueda[SELECC_ETAPA'.$model->ETAPAS.']=1&sort=-NOTA_ETAPA'.$model->ETAPAS);
                 //return Html::a(Html::encode($model->NOMBRE_EVENTO), 'reporteshistorial?EstudiantesBusqueda[NOMBRE_EVENTO]='.$model->_id);
             },
             'format'=>'raw'
@@ -63,10 +63,10 @@ $this->params['breadcrumbs'][] = 'Gestiones anteriores...';
             ],
             // set your toolbar
             'toolbar'=> [
-                ['content'=>
+                /*['content'=>
                     //Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>"Add Book", 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['#'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>"Refrescar Tabla", 'id'=>'grid_reset'])
-                ],
+                ],*/
                 '{export}',
                 '{toggleData}',
             ],

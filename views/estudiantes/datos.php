@@ -9,9 +9,8 @@ use yii\web\View;
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-
 $this->title = 'Olimpiada...';
-$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Estudiantes: Exploracion de datos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJs("$('#grid_reset').click(function(e){
@@ -73,10 +72,10 @@ JS
         ],
         // set your toolbar
         'toolbar'=> [
-            ['content'=>
+            /*['content'=>
                 //Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'], ['title'=>'Insertar nuevo estudiante', 'class' => 'btn btn-success']). ' '.
                 Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['#'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>"Refrescar Tabla", 'id'=>'grid_reset'])
-            ],
+            ],*/
             '{export}',
             '{toggleData}',
         ],

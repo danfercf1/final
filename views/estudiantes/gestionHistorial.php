@@ -9,7 +9,7 @@ use yii\widgets\ActiveField;
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Historial';
+$this->title = 'Estudiantes: Historial';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

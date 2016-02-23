@@ -15,9 +15,20 @@ class EstudiantesBusqueda extends Estudiantes
     /**
      * @inheritdoc
      */
+
+    public $etapa;
+    public $cantidad;
+    public $atributo;
+
     public function rules()
     {
         return [
+            [['etapa'], 'string'],
+            [['cantidad'], 'integer'],
+            ['cantidad', 'compare', 'compareValue' => 0, 'operator' => '>'],
+            ['cantidad', 'compare', 'compareValue' => 100, 'operator' => '<='],
+            //[['cantidad'], 'number','min'=>1,'max'=>100],
+            [['atributo'],'string'],
             [['_id', 'PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD','EDAD', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO', 'SELECC_ETAPA1', 'SELECC_ETAPA2', 'SELECC_ETAPA3', 'SELECC_ETAPA4', 'SELECC_ETAPA5'], 'safe'],
         ];
     }
@@ -42,9 +53,22 @@ class EstudiantesBusqueda extends Estudiantes
     {
         $query = Estudiantes::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        if(isset($params['EstudiantesBusqueda']['cantidad']) && !empty($params['EstudiantesBusqueda']['cantidad'])){
+
+            $pag = ((int) $params['EstudiantesBusqueda']['cantidad'] % 20 == 0) ? 20 : 10;
+
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+                'totalCount' => (int) $params['EstudiantesBusqueda']['cantidad'],
+                'pagination' => [
+                    'pageSize' => $pag,
+                ],
+            ]);
+        }else{
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query
+            ]);
+        }
 
         $this->load($params);
 

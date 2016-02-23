@@ -27,7 +27,7 @@ class CustomForm extends Model
              ['cantidad', 'compare', 'compareValue' => 0, 'operator' => '>'],
              ['cantidad', 'compare', 'compareValue' => 100, 'operator' => '<='],        
             //[['cantidad'], 'number','min'=>1,'max'=>100],
-             [['atributo'],'string'] 
+             [['atributo'],'string']
         ];
     }
 

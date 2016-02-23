@@ -32,10 +32,10 @@ class EstudiantesController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete', 'cargarexcel', 'updateajax'],
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'cargarexcel', 'updateajax', 'gestion', 'etapa'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'cargarexcel', 'cargarnotas', 'vernotas', 'cargarfinal', 'updateajax'],
+                        'actions' => ['logout', 'index', 'create', 'view', 'update', 'delete', 'cargarexcel', 'cargarnotas', 'vernotas', 'cargarfinal', 'updateajax', 'gestion', 'etapa'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -607,4 +607,48 @@ class EstudiantesController extends Controller
             'eventos' => $eventos,
         ]);
     }
+
+    public function actionGestion(){
+
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $gestion = $parents[0];
+                $gestion_evento = Evento::findOne($gestion);
+                $out = [['id'=>$gestion_evento->GESTION, 'name'=>$gestion_evento->GESTION]];
+
+                $selected = '';
+                echo Json::encode(['output'=>$out, 'selected'=>$selected]);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+
+    public function actionEtapa(){
+
+        if (isset($_POST['depdrop_parents'])) {
+            $out = [];
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $gestion = $parents[0];
+
+                $etapa_evento = Evento::findOne($gestion);
+
+                $cant_etapas = $etapa_evento->ETAPAS;
+
+                for($i = 1; $i <= $cant_etapas; $i++){
+                    array_push($out, ['id'=>$i, 'name'=>$i]);
+                }
+
+                //$out = [['id'=>$etapa_evento->ETAPAS, 'name'=>$etapa_evento->ETAPAS]];
+
+                $selected = '';
+                echo Json::encode(['output'=>$out, 'selected'=>$selected]);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+
 }

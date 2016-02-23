@@ -97,9 +97,9 @@ class Evento extends \yii\mongodb\ActiveRecord
             $eventos = $usuario->eventos;
             //foreach($eventos as $v){
                 for($i=0;$i < count($eventos);$i++){
-                $id = new \MongoId($eventos[$i]['_id']);
-                $datos[$id->{'$id'}] = $eventos[$i]['NOMBRE_EVENTO'];
-            }
+                    $id = new \MongoId($eventos[$i]['_id']);
+                    $datos[$id->{'$id'}] = $eventos[$i]['NOMBRE_EVENTO'];
+                }
             return $datos;
         }
     }

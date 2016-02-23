@@ -34,7 +34,8 @@
         "miloschuman/yii2-highcharts-widget": "*",
         "codeception/codeception": "2.0.*",
         "codeception/specify": "*",
-        "codeception/verify": "*"
+        "codeception/verify": "*",
+        "kartik-v/yii2-widget-depdrop": "@dev"
     },
 
     "require-dev": {

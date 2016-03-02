@@ -1,4 +1,5 @@
 <?php
+
 $params = require(__DIR__ . '/params.php');
 
 $config = [
@@ -48,7 +49,7 @@ $config = [
         //'db' => require(__DIR__ . '/db.php'),
         'mongodb' => [
             'class' => '\yii\mongodb\Connection',
-            'dsn' => 'mongodb://datos:datos@localhost:27017/datos',
+            'dsn' => 'mongodb://admin:admin@localhost:27017/datos',
         ],
         /*codigo importacion theme*/
         /*'view' => [
@@ -58,7 +59,18 @@ $config = [
             ]
         ],
         /*fin codigo importacion*/
+        /*'assetManager'=>array(
+            'bundles' => array(
+                'yii\web\JqueryAsset' => array(
+                    'sourcePath' => null,
+                    'js' => array(
+                         '//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js',
+                    ),
+                ),
+            )
+        ),*/
     ],
+    
 
     'modules' => [
         'debug' => [
@@ -78,6 +90,8 @@ $config = [
                 ]
             ],
         ],
+        
+        'gridview' => [ 'class' => '\kartik\grid\Module' ],
         /*'user' => [
             'class' => 'dektrium\user\Module',
             'enableUnconfirmedLogin' => true,
@@ -88,7 +102,8 @@ $config = [
     ],
     'params' => $params,
     'language'=>'es-ES',
-    'charset'=>'UTF-8'
+    'charset'=>'UTF-8',
+    
 ];
 
 if (YII_ENV_DEV) {
@@ -102,6 +117,8 @@ if (YII_ENV_DEV) {
             ],
         ],
     ];
+    
+    $config['modules']['gridview'] = ['class' =>'\kartik\grid\Module'];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [

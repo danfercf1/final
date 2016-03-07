@@ -44,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // set your toolbar
             'toolbar'=> [
                 ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'], ['title'=>'Crear nuevo usuario', 'class' => 'btn btn-success']). ' '.
-                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['#'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>"Refrescar Tabla", 'id'=>'grid_reset'])
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'], ['title'=>'Crear nuevo usuario', 'class' => 'btn btn-success'])
+                    //Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['#'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>"Refrescar Tabla", 'id'=>'grid_reset'])
                 ],
                 '{export}',
                 '{toggleData}',

@@ -199,7 +199,8 @@ class EstudiantesController extends Controller
                     'disabled'=>($model->$nota_selecc > 0) ? false : true,
                     'checked'=>$check_etapas,
                     'data_selecc'=>$etapa_selecc_nro,
-                    'value'=>$key
+                    'value'=>$key,
+                    'id'=>'test'
                 ];
             }
         ]);

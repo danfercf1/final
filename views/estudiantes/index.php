@@ -7,14 +7,14 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Exploracion...';
-$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
+$this->title = 'Estudiantes: Exploracion de datos';
+//$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="lista-eventos">
     <?php 
-    $heading = 'Exploracion Olimpiadas';
+    $heading = 'Olimpiadas';
 
     Yii::$app->session->open();
 
@@ -74,10 +74,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // set your toolbar
             'toolbar'=> [
-                ['content'=>
+                /*['content'=>
                     //Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>"Add Book", 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['#'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>"Refrescar Tabla", 'id'=>'grid_reset'])
-                ],
+                ],*/
                 '{export}',
                 '{toggleData}',
             ],

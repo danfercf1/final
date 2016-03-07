@@ -59,7 +59,7 @@ AppAsset::register($this);
               
         ?>
         <div class="container">
-            <div class="sidebar">
+            <div id="menu-principal" class="sidebar">
             <?php
             if(!Yii::$app->user->isGuest){
                 $type = SideNav::TYPE_DEFAULT;

@@ -11,8 +11,8 @@ use kartik\widgets\Typeahead;
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ranking general';
-$this->params['breadcrumbs'][] = ['label' => 'Clasificacion', 'url' => ['ranking']];
+$this->title = 'Olimpiada...';
+$this->params['breadcrumbs'][] = ['label' => 'Clasificacion: Ranking general', 'url' => ['ranking']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -39,10 +39,10 @@ echo GridView::widget([
         ],
         // set your toolbar
         'toolbar'=> [
-            ['content'=>
+            /*['content'=>
                 //Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>"Add Book", 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
                 Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['#'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>"Refrescar tabla", 'id'=>'grid_reset'])
-            ],
+            ],*/
             '{export}',
             '{toggleData}',
         ],

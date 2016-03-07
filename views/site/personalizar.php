@@ -13,8 +13,8 @@ use yii\web\View;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Personalizar...';
-$this->params['breadcrumbs'][] = ['label' => 'Clasificacion', 'url' => ['personalizar']];
+$this->title = 'Clasificacion: Personalizar ranking';
+//$this->params['breadcrumbs'][] = ['label' => 'Clasificacion', 'url' => ['personalizar']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJs(<<<JS

@@ -8,9 +8,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
-<div class="">
+<div class="graficas">
 
-    <p class="lead">Gr&aacute;ficas</p>
+    <p class="lead">Analisis Estadistico: Rendimiento Academico</p>
 
     <div>
         <h4>Desviación Estándar: <?=$dev_std;?></h4>

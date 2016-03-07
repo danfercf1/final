@@ -9,7 +9,7 @@ $I->wantTo('ensure that login works');
 
 $loginPage = LoginPage::openBy($I);
 
-$I->see('Login', 'h1');
+$I->see('Iniciar sesion');
 
 $I->amGoingTo('try to login with empty credentials');
 $loginPage->login('', '');
@@ -17,8 +17,9 @@ if (method_exists($I, 'wait')) {
     $I->wait(3); // only for selenium
 }
 $I->expectTo('see validations errors');
-$I->see('Username cannot be blank.');
-$I->see('Password cannot be blank.');
+$I->see('Este campo no puede estar vacio.');
+//$I->see('Username no puede estar vacio.');
+//$I->see('Password no puede estar vacio.');
 
 $I->amGoingTo('try to login with wrong credentials');
 $loginPage->login('admin', 'wrong');
@@ -32,6 +33,5 @@ $I->amGoingTo('try to login with correct credentials');
 $loginPage->login('admin', 'admin');
 if (method_exists($I, 'wait')) {
     $I->wait(3); // only for selenium
+    $I->see('Cerrar sesion (admin)');
 }
-$I->expectTo('see user info');
-$I->see('Logout (admin)');

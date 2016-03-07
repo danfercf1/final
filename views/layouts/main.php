@@ -61,36 +61,38 @@ AppAsset::register($this);
         <div class="container">
             <div class="sidebar">
             <?php
-            $type = SideNav::TYPE_DEFAULT;
-            $heading = '';
-            echo SideNav::widget([
-                'type' => $type,
-                'encodeLabels' => false,
-                'heading' => $heading,
-                'items' => [
-                    // Important: you need to specify url as 'controller/action',
-                    // not just as 'controller' even if default action is used.
-                    ['label' => 'Inicio', 'icon' => 'home', 'url' => Url::to(['/site/index', 'type'=>$type]) /*, 'active' => ($item == 'index')*/],
-                    ['label' => 'Estudiantes', 'icon' => 'book', 'items' => [
-                        ['label' => 'Cargar Excel', 'url' => Url::to(['/estudiantes/cargarexcel', 'type'=>$type])/*, 'active' => ($item == 'cargarexcel')*/],
-                        ['label' => 'Exploracion de datos', 'url' => Url::to(['/estudiantes/index', 'type'=>$type])/*, 'active' => ($item == 'datos')*/],
-                        ['label' => 'Historial', 'icon' => 'user', 'items' => [
-                            ['label' => 'Eventos anteriores', 'url' => Url::to(['/estudiantes/gestionhistorial', 'type'=>$type])/*, 'active' => ($item == 'gestionHistorial')*/],
-                            //['label' => 'Registro 2', 'url' => Url::to(['/site/online-2', 'type'=>$type]), 'active' => ($item == 'online-2')]
+            if(!Yii::$app->user->isGuest){
+                $type = SideNav::TYPE_DEFAULT;
+                $heading = '';
+                echo SideNav::widget([
+                    'type' => $type,
+                    'encodeLabels' => false,
+                    'heading' => $heading,
+                    'items' => [
+                        // Important: you need to specify url as 'controller/action',
+                        // not just as 'controller' even if default action is used.
+                        ['label' => 'Inicio', 'icon' => 'home', 'url' => Url::to(['/site/index', 'type'=>$type]) /*, 'active' => ($item == 'index')*/],
+                        ['label' => 'Estudiantes', 'icon' => 'book', 'items' => [
+                            ['label' => 'Cargar Excel', 'url' => Url::to(['/estudiantes/cargarexcel', 'type'=>$type])/*, 'active' => ($item == 'cargarexcel')*/],
+                            ['label' => 'Exploracion de datos', 'url' => Url::to(['/estudiantes/index', 'type'=>$type])/*, 'active' => ($item == 'datos')*/],
+                            ['label' => 'Historial', 'icon' => 'user', 'items' => [
+                                ['label' => 'Eventos anteriores', 'url' => Url::to(['/estudiantes/gestionhistorial', 'type'=>$type])/*, 'active' => ($item == 'gestionHistorial')*/],
+                                //['label' => 'Registro 2', 'url' => Url::to(['/site/online-2', 'type'=>$type]), 'active' => ($item == 'online-2')]
+                            ]],
                         ]],
-                    ]],
-                    ['label' => 'Clasificacion', 'icon' => 'tags', 'items' => [
-                        ['label' => 'Ranking general', 'url' => Url::to(['/site/ranking/', 'type'=>$type])/*, 'active' => ($item == 'r_general')*/],
-                        ['label' => 'Personalizar ranking', 'url' => Url::to(['/site/personalizar', 'type'=>$type])/*, 'active' => ($item == 'personalizar')*/],
-                        
-                        ['label' => 'Boletin informativo', 'icon' => 'bullhorn', 'items' => [
-                            ['label' => 'Estadisticas', 'url' => Url::to(['/site/estadisticas', 'type'=>$type])/*, 'active' => ($item == 'estadisticas')*/],
-                            ['label' => 'Reportes', 'url' => Url::to(['/site/reportes', 'type'=>$type])/*, 'active' => ($item == 'reportes')*/]
+                        ['label' => 'Clasificacion', 'icon' => 'tags', 'items' => [
+                            ['label' => 'Ranking general', 'url' => Url::to(['/site/ranking/', 'type'=>$type])/*, 'active' => ($item == 'r_general')*/],
+                            ['label' => 'Personalizar ranking', 'url' => Url::to(['/site/personalizar', 'type'=>$type])/*, 'active' => ($item == 'personalizar')*/],
+
+                            ['label' => 'Boletin informativo', 'icon' => 'bullhorn', 'items' => [
+                                ['label' => 'Estadisticas', 'url' => Url::to(['/site/estadisticas', 'type'=>$type])/*, 'active' => ($item == 'estadisticas')*/],
+                                ['label' => 'Reportes', 'url' => Url::to(['/site/reportes', 'type'=>$type])/*, 'active' => ($item == 'reportes')*/]
+                            ]],
                         ]],
-                    ]],
-                    ['label' => 'Cuenta de usuario', 'icon' => 'user', 'url' => Url::to(['/usuarios/index', 'type'=>$type])/*, 'active' => ($item == 'index')*/],
-                ],
-            ]);
+                        ['label' => 'Cuenta de usuario', 'icon' => 'user', 'url' => Url::to(['/usuarios/index', 'type'=>$type])/*, 'active' => ($item == 'index')*/],
+                    ],
+                ]);
+            }
             ?>
             </div>
             <div class="main">

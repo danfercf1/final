@@ -64,7 +64,7 @@
 }
 
 /* Estilos campos de texto */
-.form-control {
+.form-control{
     display: block;
     width: 90%;
     height: 25px;
@@ -79,6 +79,10 @@
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
+
+/*.form-control input-group{
+    height: 25px;
+}*/
 
 /* Estilos gridview*/
 .grid-view{
@@ -124,10 +128,20 @@ table.table-striped  tr td{
     width: 55%;
 }
 
-.estudiantes-view h1, .tutor-view h1, .ue-view h1, .evento-view h1, .distrito-view h1, .usuarios-view h1{
+.usuarios-confirm{
+    font-size: 12px;
+    padding: 0 30px;
+    width: 56%;
+}
+
+.estudiantes-view h1, .tutor-view h1, .ue-view h1, .evento-view h1, .distrito-view h1, .usuarios-view h1, .usuarios-confirm h1{
     font-size: 14px;
     text-transform: uppercase;
     font-weight: bold;
+}
+
+.usuarios-confirm p .btn-primary{
+   display: inline;
 }
 
 .estudiantes-view p, .tutor-view p, .ue-view p, .evento-view p, .distrito-view p, .usuarios-view p{
@@ -159,6 +173,20 @@ table.table-striped  tr td{
 .estudiantes-update input, .tutor-update input, .ue-update input, .evento-update input, .distrito-update input, .usuarios-update input, .usuarios-create input, .tutor-create input, .ue-create input, .estudiantes-create .control-label{
     width: 60%;
     display: inline;
+}
+
+.usuarios-create .input-group, .usuarios-update .input-group{
+    display: table;
+    width: 60%;
+}
+
+#usuarios-fecha_creacion-kvdate .input-group-addon{
+    padding: 0 5px 0 7px;
+}
+
+#usuarios-fecha_creacion-kvdate{
+    float: right;
+     right: 67px;
 }
 
 /*Autocomplete*/

@@ -166,14 +166,6 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
         $dias = mktime(0,0,0, $dias[1], 0, $dias[2]);
         $edad = (int)((time()-$dias)/31556926);
         return $edad;
-        
-        /*list($dia,$mes,$ano) = explode("/",$fecha);
-    	$ano_diferencia  = date("Y") - $ano;
-    	$mes_diferencia = date("m") - $mes;
-    	$dia_diferencia   = date("d") - $dia;
-    	if ($dia_diferencia < 0 || $mes_diferencia < 0)
-    		$ano_diferencia--;
-    	return $ano_diferencia;*/
     }
 
     public static function getNotaAlta()

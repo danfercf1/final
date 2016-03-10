@@ -23,7 +23,7 @@ class UsuariosController extends Controller
                 'only' => ['index', 'view', 'create', 'update', 'delete', 'confirm'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'view', 'update', 'delete', 'create'],
+                        'actions' => ['logout', 'index', 'view', 'update', 'delete', 'create', 'confirm'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

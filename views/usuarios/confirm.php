@@ -9,7 +9,7 @@ use yii\grid\GridView;
 $this->title = 'Confirmacion de Registro';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="usuarios-index">
+<div class="usuarios-confirm">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

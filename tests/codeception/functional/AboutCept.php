@@ -1,7 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: daniel
- * Date: 14/02/2016
- * Time: 18:10
- */
+
+use tests\codeception\_pages\AboutPage;
+
+/* @var $scenario Codeception\Scenario */
+
+$I = new FunctionalTester($scenario);
+$I->wantTo('ensure that about works');
+AboutPage::openBy($I);
+$I->see('About', 'h1');

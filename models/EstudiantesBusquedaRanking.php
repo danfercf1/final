@@ -16,10 +16,21 @@ class EstudiantesBusquedaRanking extends Estudiantes
      * @inheritdoc
      */
 
+    public $etapa;
+    public $cantidad;
+    public $atributo;
+
     public function rules()
     {
         return [
-            [['_id', 'PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD','EDAD', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO'], 'safe'],
+            [['etapa'], 'string'],
+            [['cantidad'], 'integer'],
+            ['cantidad', 'compare', 'compareValue' => 0, 'operator' => '>'],
+            ['cantidad', 'compare', 'compareValue' => 100, 'operator' => '<='],
+            //[['cantidad'], 'number','min'=>1,'max'=>100],
+            [['atributo'],'string'],
+            [['_id', 'PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD','EDAD', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO', 'SELECC_ETAPA1', 'SELECC_ETAPA2', 'SELECC_ETAPA3', 'SELECC_ETAPA4', 'SELECC_ETAPA5'], 'safe'],
+            [['cantidad', 'NOMBRE_EVENTO', 'GESTION', 'NRO_ETAPA'], 'required', 'on'=>'search']
         ];
     }
 
@@ -43,24 +54,22 @@ class EstudiantesBusquedaRanking extends Estudiantes
     {
         $query = Estudiantes::find();
 
-        $id_evento = $_SESSION['LastEvent'];
+        if(isset($params['EstudiantesBusquedaRanking']['cantidad']) && !empty($params['EstudiantesBusquedaRanking']['cantidad'])){
 
-        $model_evento = Evento::findOne($id_evento);
+            $pag = ((int) $params['EstudiantesBusquedaRanking']['cantidad'] % 20 == 0) ? 20 : 10;
 
-        $etapas = $model_evento->ETAPAS;
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => [
-                'defaultOrder' => [
-                    'NOTA_ETAPA'.$etapas => SORT_DESC,
-                ]
-            ],
-            'pagination' => [
-                'pageSize' => 20,
-            ],
-            'totalCount'=>50
-        ]);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+                'totalCount' => (int) $params['EstudiantesBusquedaRanking']['cantidad'],
+                'pagination' => [
+                    'pageSize' => $pag,
+                ],
+            ]);
+        }else{
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query
+            ]);
+        }
 
         $this->load($params);
 
@@ -88,6 +97,18 @@ class EstudiantesBusquedaRanking extends Estudiantes
             ->andFilterWhere(['like', 'DEPENDENCIA', $this->DEPENDENCIA])
             ->andFilterWhere(['=', 'NOMBRE_EVENTO', new \MongoId($this->NOMBRE_EVENTO)]);
 
+            if(isset($this->SELECC_ETAPA1)){
+                $query->andFilterWhere(['=', 'SELECC_ETAPA1', (int)$this->SELECC_ETAPA1]);
+            }else if(isset($this->SELECC_ETAPA2)){
+                $query->andFilterWhere(['=', 'SELECC_ETAPA2', (int)$this->SELECC_ETAPA2]);
+            }else if(isset($this->SELECC_ETAPA3)){
+                $query->andFilterWhere(['=', 'SELECC_ETAPA3', (int)$this->SELECC_ETAPA3]);
+            }else if(isset($this->SELECC_ETAPA4)){
+                $query->andFilterWhere(['=', 'SELECC_ETAPA4', (int)$this->SELECC_ETAPA4]);
+            }else if(isset($this->SELECC_ETAPA5)){
+                $query->andFilterWhere(['=', 'SELECC_ETAPA5', (int)$this->SELECC_ETAPA5]);
+            }
+
         if((int)$this->EDAD == 15){
             $query->andFilterWhere(['<=', 'EDAD', (int)$this->EDAD]);
         }
@@ -96,9 +117,7 @@ class EstudiantesBusquedaRanking extends Estudiantes
              $query->andFilterWhere(['<=', 'EDAD', (int)$this->EDAD]);  
         }
 
-        if(isset($etapas)){
-            $query->andFilterWhere(['>', 'NOTA_ETAPA'.$etapas, 0]);
-        }
+
 
         return $dataProvider;
     }

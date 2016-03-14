@@ -22,6 +22,7 @@ use yii\helpers\Json;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\mongodb\Query;
 use yii\mongodb\Collection;
 use kartik\grid\GridView;
@@ -34,10 +35,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'rankingpersonalizado'],
+                'only' => ['logout', 'rankingpersonalizado', 'personalizar'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'rankingpersonalizado'],
+                        'actions' => ['logout', 'rankingpersonalizado', 'personalizar'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -332,9 +333,7 @@ class SiteController extends Controller
 
     public function actionRankingpersonalizado(){
 
-        $searchModel = new EstudiantesBusqueda();
-
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new EstudiantesBusquedaRanking();
 
         $distritos = new Distrito();
 
@@ -342,55 +341,71 @@ class SiteController extends Controller
 
         $gridColumns = [];
 
-        if(isset($get['EstudiantesBusqueda']['ATRIBUTO']) && !empty($get['EstudiantesBusqueda']['ATRIBUTO'])){
+        $data = [];
 
-            foreach($get['EstudiantesBusqueda']['ATRIBUTO'] as $k=>$v){
+        $data_final = [];
 
-                if($v == 'DISTRITO'){
-                    array_push($gridColumns,
-                        [
-                            'class' => '\kartik\grid\DataColumn',
-                            'attribute'=>'DISTRITO',
-                            'width'=>'150px',
-                            'filterType'=>GridView::FILTER_TYPEAHEAD,
-                            'filterWidgetOptions'=>[
-                                'name' => 'DISTRITO',
-                                'options' => ['placeholder' => 'Escoger Distrito...'],
-                                'pluginOptions' => ['highlight'=>true],
-                                'dataset' => [
-                                    [
-                                        'local' => $distritos->obtenerNombres(),
-                                        'limit' => 10
-                                    ]
-                                ]
-                            ],
+        $distrito = [];
+
+        $order = [];
+
+        $model = Estudiantes::find()->where(['NOTA_ETAPA'.$get['EstudiantesBusquedaRanking']['NRO_ETAPA'] => ['$gte'=>51]])->select(['DISTRITO', '_id'=>false])->orderBy(['DISTRITO'=>SORT_ASC, 'NOTA_ETAPA'. $get['EstudiantesBusquedaRanking']['NRO_ETAPA']=>SORT_DESC])->asArray()->all();
+
+        foreach($model as $k=>$v){
+            array_push($distrito, $v['DISTRITO']);
+        }
+
+        $n_distritos = array_unique($distrito);
+
+        $atributos = $get['EstudiantesBusquedaRanking']['ATRIBUTO'];
+
+        if(isset($get['EstudiantesBusquedaRanking']['ATRIBUTO']) && !empty($get['EstudiantesBusquedaRanking']['ATRIBUTO'])){
+
+            array_push($gridColumns,
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute'=>'DISTRITO',
+                    'width'=>'150px',
+                    'filterType'=>GridView::FILTER_TYPEAHEAD,
+                    'filterWidgetOptions'=>[
+                        'name' => 'DISTRITO',
+                        'options' => ['placeholder' => 'Escoger Distrito...'],
+                        'pluginOptions' => ['highlight'=>true],
+                        'dataset' => [
+                            [
+                                'local' => $distritos->obtenerNombres(),
+                                'limit' => 10
+                            ]
                         ]
-                    );
-                }else{
-                    switch($v){
-                        case 'CURSO': $search = $searchModel->obtenercursos();
-                            break;
-                        case 'EDAD': $search = $searchModel->obtenerEdad();
-                            break;
-                        case 'AREA': $search = $searchModel->obtenerArea();
-                            break;
-                        case 'DEPENDENCIA': $search = $searchModel->obtenerDependencia();
-                            break;
-                        case 'GENERO': $search = $searchModel->obtenerGenero();
-                            break;
-                    }
-                    array_push($gridColumns,
-                        [
-                            'attribute'=>$v,
-                            'filter' => Html::activeDropDownList($searchModel, $v, $search,['class'=>'form-control','prompt' => 'Selecionar '.strtolower($v)])
-                        ]
-                    );
+                    ],
+                ]
+            );
+
+            foreach($atributos as $k=>$v){
+
+                switch($v){
+                    case 'CURSO': $order['CURSO'] = SORT_ASC;
+                        break;
+                    case 'EDAD': $order['EDAD'] = SORT_ASC;
+                        break;
+                    case 'AREA': $order['EDAD'] = SORT_ASC;
+                        break;
+                    case 'DEPENDENCIA': $order['DEPENDENCIA'] = SORT_ASC;
+                        break;
+                    case 'GENERO': $order['GENERO'] = SORT_ASC;
+                        break;
                 }
 
-
+                array_push($gridColumns,
+                    [
+                        'attribute'=>$v,
+                    ]
+                );
             }
 
-            array_push($gridColumns, 'PATERNO', 'MATERNO', 'NOMBRE', 'NOTA_ETAPA'.$get['EstudiantesBusqueda']['NRO_ETAPA']);
+            $order['NOTA_ETAPA'. $get['EstudiantesBusquedaRanking']['NRO_ETAPA']] = SORT_DESC;
+
+            array_push($gridColumns, 'PATERNO', 'MATERNO', 'NOMBRE', 'NOTA_ETAPA'. $get['EstudiantesBusquedaRanking']['NRO_ETAPA']);
 
         }else{
             $gridColumns = [
@@ -411,32 +426,32 @@ class SiteController extends Controller
                         ]
                     ],
                 ],
-                [
-                    'attribute'=>'CURSO',
-                    'filter' => Html::activeDropDownList($searchModel, 'CURSO', $searchModel->obtenercursos(),['class'=>'form-control','prompt' => 'Selecionar Curso'])
-                ],
-                [
-                    'attribute'=>'AREA',
-                    'filter' => Html::activeDropDownList($searchModel, 'AREA', $searchModel->obtenerArea(),['class'=>'form-control','prompt' => 'Selecionar Area'])
-                ],
-                [
-                    'attribute'=>'EDAD',
-                    'filter' => Html::activeDropDownList($searchModel, 'EDAD', $searchModel->obtenerEdad(),['class'=>'form-control','prompt' => 'Selecionar edad'])
-                ],
-                [
-                    'attribute'=>'DEPENDENCIA',
-                    'filter' => Html::activeDropDownList($searchModel, 'DEPENDENCIA', $searchModel->obtenerDependencia(),['class'=>'form-control','prompt' => 'Selecionar nivel de dependencia'])
-                ],
-                [
-                    'attribute'=>'GENERO',
-                    'filter' => Html::activeDropDownList($searchModel, 'GENERO', $searchModel->obtenerGenero(),['class'=>'form-control','prompt' => 'Selecionar genero'])
-                ],
                 'PATERNO',
                 'MATERNO',
                 'NOMBRE',
-                'NOTA_ETAPA'.$get['EstudiantesBusqueda']['NRO_ETAPA'],
+                'NOTA_ETAPA'.$get['EstudiantesBusquedaRanking']['NRO_ETAPA'],
             ];
+            $order['NOTA_ETAPA'. $get['EstudiantesBusquedaRanking']['NRO_ETAPA']] = SORT_DESC;
         }
+
+        foreach($n_distritos as $v){
+            $model = Estudiantes::find()->where(['DISTRITO'=>$v, 'NOTA_ETAPA'.$get['EstudiantesBusquedaRanking']['NRO_ETAPA'] => ['$gte'=>51]])->limit($get['EstudiantesBusquedaRanking']['cantidad'])->orderBy($order)->asArray()->all();
+            array_push($data, $model);
+        }
+
+        foreach($data as $v){
+            foreach($v as $w){
+                array_push($data_final, $w);
+            }
+        }
+
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $data_final,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
 
         return $this->render('rankingpersonalizado',[
             'searchModel' => $searchModel,
@@ -448,11 +463,14 @@ class SiteController extends Controller
 
     public function actionPersonalizar()
     {
-        $model_custom = new EstudiantesBusqueda();
+        $model_custom = new EstudiantesBusquedaRanking();
 
         $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
+
         $dataProvider = $model_custom->search(Yii::$app->request->queryParams);
-        
+
+        $model_custom->scenario = 'search';
+
         return $this->render('personalizar',[
             'model'=>$model_custom,
             'searchModel' => $model_custom,

@@ -20,16 +20,16 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="clasificacion">
 
     <?php
-    $heading = 'Ranking de notas';
+        $heading = 'Ranking de notas';
     ?>
 
     <?php
 
     echo GridView::widget([
         'dataProvider'=>$dataProvider,
-        'filterModel'=>$searchModel,
+        //'filterModel'=>$searchModel,
         'columns'=>$gridColumns,
-        'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
+        //'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
         'headerRowOptions'=>['class'=>'kartik-sheet-style'],
         'filterRowOptions'=>['class'=>'kartik-sheet-style'],
         'pjax'=>true,

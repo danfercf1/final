@@ -4278,6 +4278,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "phpoffice/phpexcel": 20,
+        "bower-asset/jquery": 0,
         "kartik-v/yii2-grid": 20,
         "kartik-v/yii2-mpdf": 20,
         "kartik-v/yii2-widget-depdrop": 20

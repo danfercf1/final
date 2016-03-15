@@ -35,10 +35,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
+<<<<<<< HEAD
+                'only' => ['logout', 'rankingpersonalizado', 'ranking', 'estadisticas', 'reportes' ],
+                'rules' => [
+                    [
+                        'actions' => ['logout', 'rankingpersonalizado', 'ranking', 'estadisticas', 'reportes' ],
+=======
                 'only' => ['logout', 'rankingpersonalizado', 'personalizar'],
                 'rules' => [
                     [
                         'actions' => ['logout', 'rankingpersonalizado', 'personalizar'],
+>>>>>>> origin/master
                         'allow' => true,
                         'roles' => ['@'],
                     ],

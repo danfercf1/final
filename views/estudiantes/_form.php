@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Estudiantes */
@@ -28,7 +29,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'GENERO') ?>
 
-    <?= $form->field($model, 'FECHA_NACIMIENTO') ?>
+    <?php //$form->field($model, 'FECHA_NACIMIENTO') ?>
+
+    <?php
+        echo "<div><label>Fecha de Nacimiento:</label> ".$model->getFechaNaC()."</div>";
+    ?>
+
+    <?php
+
+    echo DatePicker::widget([
+        'name' => 'Estudiantes[FECHA_NACIMIENTO]',
+        'value' => '',
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'dd-mm-yyyy'
+        ]
+    ]);
+    ?>
     
     <?= $form->field($model, 'CI') ?>
 

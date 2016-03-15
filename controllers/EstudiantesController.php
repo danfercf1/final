@@ -517,6 +517,8 @@ class EstudiantesController extends Controller
 
         $url = $url[1];
 
+        $model->scenario = 'update';
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => (string)$model->_id, 'url'=>$url]);
         } else {

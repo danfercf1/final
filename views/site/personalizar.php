@@ -21,7 +21,7 @@ $this->registerJs(<<<JS
     $("#id_etapa").change(function(){
         var val = $( "#id_etapa option:selected" ).val();
         if(typeof  val != 'undefined'){
-            $('#cont_seleccion').html("<input type='hidden' name='EstudiantesBusqueda[SELECC_ETAPA"+val+"]' value='1'/> <input type='hidden' name='sort' value='-NOTA_ETAPA"+val+"'/>");
+            $('#cont_seleccion').html("<input type='hidden' name='EstudiantesBusquedaRanking[SELECC_ETAPA"+val+"]' value='1'/> <input type='hidden' name='sort' value='-NOTA_ETAPA"+val+"'/>");
         }
     });
 JS
@@ -64,7 +64,7 @@ JS
 
     <?php 
         $data = [
-            'DISTRITO' => "Distrito",
+            //'DISTRITO' => "Distrito",
             'CURSO' => "Curso",
             'EDAD' => "Edad",
             'AREA' => "Area",
@@ -77,7 +77,7 @@ JS
         echo '<label class="control-label">Atributo</label>';
         
         echo Select2::widget([
-            'name' => 'EstudiantesBusqueda[ATRIBUTO]',
+            'name' => 'EstudiantesBusquedaRanking[ATRIBUTO]',
             'size' => Select2::SMALL,
             'data' => $data,
             'options' => ['placeholder' => 'Seleccionar variables ...', 'multiple' => true],

@@ -86,6 +86,7 @@ AppAsset::register($this);
 
                             ['label' => 'Boletin informativo', 'icon' => 'bullhorn', 'items' => [
                                 ['label' => 'Estadisticas', 'url' => Url::to(['/site/estadisticas', 'type'=>$type])/*, 'active' => ($item == 'estadisticas')*/],
+                                ['label' => 'Estadisticas Datos', 'url' => Url::to(['/site/estadisticad', 'type'=>$type])/*, 'active' => ($item == 'estadisticas')*/],
                                 ['label' => 'Reportes', 'url' => Url::to(['/site/reportes', 'type'=>$type])/*, 'active' => ($item == 'reportes')*/]
                             ]],
                         ]],

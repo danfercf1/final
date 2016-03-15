@@ -35,10 +35,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'rankingpersonalizado', 'personalizar'],
+                'only' => ['logout', 'rankingpersonalizado', 'personalizar', 'datos', 'estadisticad'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'rankingpersonalizado', 'personalizar'],
+                        'actions' => ['logout', 'rankingpersonalizado', 'personalizar', 'datos', 'estadisticad'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -719,6 +719,467 @@ class SiteController extends Controller
             'data_min'=>$data_min,
             'dev_std'=>$dev_std
         ]);
+    }
+
+    public function actionEstadisticad(){
+        $model_custom = new CustomForm();
+        $gestiones = $model_custom->gestiones();
+        $searchModel = new EventoSearch();
+        $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('estadisticasd',[
+            'model'=>$model_custom,
+            'gestiones'=>$gestiones,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'eventos' => $eventos,
+        ]);
+    }
+
+    public function actionDatos(){
+
+        $params = Yii::$app->request->queryParams;
+
+        $dist_tot = [];
+
+        $dist_ap = [];
+
+        $collection = Yii::$app->mongodb->getCollection('estudiante');
+
+        //APROBADOS
+
+        if(isset($params['CustomForm']['atributo']) && $params['CustomForm']['atributo'] == 'distrito'){
+
+            $distrito_tot = $collection->aggregate(
+                ['$match' =>
+                    [
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['DISTRITO'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['DISTRITO'=>'$DISTRITO'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            $distrito_ap = $collection->aggregate(
+                ['$match' =>
+                    [
+                        'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51],
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['DISTRITO'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['DISTRITO'=>'$DISTRITO'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            foreach($distrito_tot as $v){
+                array_push($dist_tot, ['DISTRITO'=>$v['_id']['DISTRITO'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            foreach($distrito_ap as $v){
+                array_push($dist_ap, ['DISTRITO'=>$v['_id']['DISTRITO'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            array_multisort($dist_tot);
+
+            array_multisort($dist_ap);
+
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $dist_tot,
+                'pagination' => false,
+            ]);
+
+            $dataProviderAP = new ArrayDataProvider([
+                'allModels' => $dist_ap,
+                'pagination' => false,
+            ]);
+
+            $gridColumns = [
+                [
+                    'class' => '\kartik\grid\SerialColumn'
+                ],
+                'DISTRITO',
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => 'CANTIDAD',
+                    'pageSummary' => true
+                ]
+            ];
+
+            return $this->render('datos', ['dataProvider'=>$dataProvider,'dataProviderAP'=>$dataProviderAP, 'gridColumns'=>$gridColumns]);
+
+        }elseif(isset($params['CustomForm']['atributo']) && $params['CustomForm']['atributo'] == 'curso'){
+
+            $distrito_tot = $collection->aggregate(
+
+                ['$match' =>
+                    [
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['CURSO'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['CURSO'=>'$CURSO'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            $distrito_ap = $collection->aggregate(
+                ['$match' =>
+                    [
+                        'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51],
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['CURSO'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['CURSO'=>'$CURSO'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            foreach($distrito_tot as $v){
+                array_push($dist_tot, ['CURSO'=>$v['_id']['CURSO'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            foreach($distrito_ap as $v){
+                array_push($dist_ap, ['CURSO'=>$v['_id']['CURSO'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            array_multisort($dist_tot);
+
+            array_multisort($dist_ap);
+
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $dist_tot,
+                'pagination' => false,
+            ]);
+
+            $dataProviderCU = new ArrayDataProvider([
+                'allModels' => $dist_ap,
+                'pagination' => false,
+            ]);
+
+            $gridColumns = [
+                [
+                    'class' => '\kartik\grid\SerialColumn'
+                ],
+                'CURSO',
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => 'CANTIDAD',
+                    'pageSummary' => true
+                ]
+            ];
+
+            return $this->render('datos_curso', ['dataProvider'=>$dataProvider, 'dataProviderCU'=>$dataProviderCU, 'gridColumns'=>$gridColumns]);
+
+        }elseif(isset($params['CustomForm']['atributo']) && $params['CustomForm']['atributo'] == 'edad'){
+
+            $distrito_tot = $collection->aggregate(
+
+                ['$match' =>
+                    [
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['EDAD'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['EDAD'=>'$EDAD'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            $distrito_ap = $collection->aggregate(
+                ['$match' =>
+                    [
+                        'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51],
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['EDAD'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['EDAD'=>'$EDAD'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            foreach($distrito_tot as $v){
+                array_push($dist_tot, ['EDAD'=>$v['_id']['EDAD'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            foreach($distrito_ap as $v){
+                array_push($dist_ap, ['EDAD'=>$v['_id']['EDAD'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            array_multisort($dist_tot);
+
+            array_multisort($dist_ap);
+
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $dist_tot,
+                'pagination' => false,
+            ]);
+
+            $dataProviderCU = new ArrayDataProvider([
+                'allModels' => $dist_ap,
+                'pagination' => false,
+            ]);
+
+            $gridColumns = [
+                [
+                    'class' => '\kartik\grid\SerialColumn'
+                ],
+                'EDAD',
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => 'CANTIDAD',
+                    'pageSummary' => true
+                ]
+            ];
+
+            return $this->render('datos_edad', ['dataProvider'=>$dataProvider, 'dataProviderCU'=>$dataProviderCU, 'gridColumns'=>$gridColumns]);
+
+        }elseif(isset($params['CustomForm']['atributo']) && $params['CustomForm']['atributo'] == 'area'){
+
+            $distrito_tot = $collection->aggregate(
+
+                ['$match' =>
+                    [
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['AREA'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['AREA'=>'$AREA'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            $distrito_ap = $collection->aggregate(
+                ['$match' =>
+                    [
+                        'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51],
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['AREA'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['AREA'=>'$AREA'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            foreach($distrito_tot as $v){
+                array_push($dist_tot, ['AREA'=>$v['_id']['AREA'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            foreach($distrito_ap as $v){
+                array_push($dist_ap, ['AREA'=>$v['_id']['AREA'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            array_multisort($dist_tot);
+
+            array_multisort($dist_ap);
+
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $dist_tot,
+                'pagination' => false,
+            ]);
+
+            $dataProviderCU = new ArrayDataProvider([
+                'allModels' => $dist_ap,
+                'pagination' => false,
+            ]);
+
+            $gridColumns = [
+                [
+                    'class' => '\kartik\grid\SerialColumn'
+                ],
+                'AREA',
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => 'CANTIDAD',
+                    'pageSummary' => true
+                ]
+            ];
+
+            return $this->render('datos_area', ['dataProvider'=>$dataProvider, 'dataProviderCU'=>$dataProviderCU, 'gridColumns'=>$gridColumns]);
+
+        }elseif(isset($params['CustomForm']['atributo']) && $params['CustomForm']['atributo'] == 'dependencia'){
+
+            $distrito_tot = $collection->aggregate(
+
+                ['$match' =>
+                    [
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['DEPENDENCIA'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['DEPENDENCIA'=>'$DEPENDENCIA'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            $distrito_ap = $collection->aggregate(
+                ['$match' =>
+                    [
+                        'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51],
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['DEPENDENCIA'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['DEPENDENCIA'=>'$DEPENDENCIA'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            foreach($distrito_tot as $v){
+                array_push($dist_tot, ['DEPENDENCIA'=>$v['_id']['DEPENDENCIA'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            foreach($distrito_ap as $v){
+                array_push($dist_ap, ['DEPENDENCIA'=>$v['_id']['DEPENDENCIA'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            array_multisort($dist_tot);
+
+            array_multisort($dist_ap);
+
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $dist_tot,
+                'pagination' => false,
+            ]);
+
+            $dataProviderCU = new ArrayDataProvider([
+                'allModels' => $dist_ap,
+                'pagination' => false,
+            ]);
+
+            $gridColumns = [
+                [
+                    'class' => '\kartik\grid\SerialColumn'
+                ],
+                'DEPENDENCIA',
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => 'CANTIDAD',
+                    'pageSummary' => true
+                ]
+            ];
+
+            return $this->render('datos_dependencia', ['dataProvider'=>$dataProvider, 'dataProviderCU'=>$dataProviderCU, 'gridColumns'=>$gridColumns]);
+
+        }elseif(isset($params['CustomForm']['atributo']) && $params['CustomForm']['atributo'] == 'genero'){
+
+            $distrito_tot = $collection->aggregate(
+
+                ['$match' =>
+                    [
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['GENERO'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['GENERO'=>'$GENERO'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            $distrito_ap = $collection->aggregate(
+                ['$match' =>
+                    [
+                        'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51],
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['GENERO'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['GENERO'=>'$GENERO'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            foreach($distrito_tot as $v){
+                array_push($dist_tot, ['GENERO'=>$v['_id']['GENERO'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            foreach($distrito_ap as $v){
+                array_push($dist_ap, ['GENERO'=>$v['_id']['GENERO'], 'CANTIDAD'=>$v['number']]);
+            }
+
+            array_multisort($dist_tot);
+
+            array_multisort($dist_ap);
+
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $dist_tot,
+                'pagination' => false,
+            ]);
+
+            $dataProviderCU = new ArrayDataProvider([
+                'allModels' => $dist_ap,
+                'pagination' => false,
+            ]);
+
+            $gridColumns = [
+                [
+                    'class' => '\kartik\grid\SerialColumn'
+                ],
+                'GENERO',
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => 'CANTIDAD',
+                    'pageSummary' => true
+                ]
+            ];
+
+            return $this->render('datos_dependencia', ['dataProvider'=>$dataProvider, 'dataProviderCU'=>$dataProviderCU, 'gridColumns'=>$gridColumns]);
+        }
     }
 
     public function sd_square($x, $mean) {

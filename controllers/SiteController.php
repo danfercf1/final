@@ -553,8 +553,12 @@ class SiteController extends Controller
             }
         }else{
             foreach($result as $v){
-                array_push($categories, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-                array_push($data, $v['number']);
+                $dataT[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
+            }
+            ksort($dataT);
+            foreach($dataT as $k=>$v){
+                array_push($categories, $k);
+                array_push($data, $v);
             }
         }
 
@@ -584,8 +588,12 @@ class SiteController extends Controller
             }
         }else{
             foreach($result_avg as $v){
-                array_push($categories_avg, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-                array_push($data_avg, $v['number']);
+                $dataT[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
+            }
+            ksort($dataT);
+            foreach($dataT as $k=>$v){
+                array_push($categories_avg, $k);
+                array_push($data_avg, $v);
             }
         }
 
@@ -605,27 +613,17 @@ class SiteController extends Controller
             ]]
         );
 
-        if(strtoupper($params['CustomForm']['atributo']) == 'EDAD'){
-            foreach($result_mod as $v){
-                $cont = array_count_values($v['number']);
-                arsort($cont);
-                $mod = array_keys($cont);
-                $edad[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $mod[0];
+        foreach($result_mod as $v){
+            $cont = array_count_values($v['number']);
+            arsort($cont);
+            $mod = array_keys($cont);
+            $edad[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $mod[0];
 
-            }
-            ksort($edad);
-            foreach($edad as $k=>$v){
-                array_push($categories_mod, $k);
-                array_push($data_mod, $v);
-            }
-        }else{
-            foreach($result_mod as $v){
-                array_push($categories_mod, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-                $cont = array_count_values($v['number']);
-                arsort($cont);
-                $mod = array_keys($cont);
-                array_push($data_mod, $mod[0]);
-            }
+        }
+        ksort($edad);
+        foreach($edad as $k=>$v){
+            array_push($categories_mod, $k);
+            array_push($data_mod, $v);
         }
 
         //MAX & MIN
@@ -658,33 +656,23 @@ class SiteController extends Controller
             ]]
         );
 
-        if(strtoupper($params['CustomForm']['atributo']) == 'EDAD'){
-            foreach($result_max as $v){
-                $edadmax[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
-            }
-            ksort($edadmax);
-            foreach($edadmax as $k=>$v){
-                array_push($categories_maxmin, $k);
-                array_push($data_max, $v);
-            }
-
-            foreach($result_min as $v){
-                $edadmin[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
-            }
-            ksort($edadmin);
-            foreach($edadmin as $k=>$v){
-                array_push($data_min, $v);
-            }
-        }else{
-            foreach($result_max as $v){
-                array_push($categories_maxmin, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-                array_push($data_max, $v['number']);
-            }
-
-            foreach($result_min as $v){
-                array_push($data_min, $v['number']);
-            }
+        foreach($result_max as $v){
+            $edadmax[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
         }
+        ksort($edadmax);
+        foreach($edadmax as $k=>$v){
+            array_push($categories_maxmin, $k);
+            array_push($data_max, $v);
+        }
+
+        foreach($result_min as $v){
+            $edadmin[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
+        }
+        ksort($edadmin);
+        foreach($edadmin as $k=>$v){
+            array_push($data_min, $v);
+        }
+
 
         //Desviacion Estandar
 

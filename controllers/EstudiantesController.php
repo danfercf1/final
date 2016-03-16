@@ -281,7 +281,8 @@ class EstudiantesController extends Controller
         return $this->render('datos',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'gridColumns'=>$gridColumns
+            'gridColumns'=>$gridColumns,
+            'evento_model'=>$evento_model
         ]);
     }
 

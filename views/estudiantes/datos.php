@@ -11,7 +11,7 @@ use yii\web\View;
 
 $this->title = 'Olimpiada...';
 $this->params['breadcrumbs'][] = ['label' => 'Estudiantes: Exploracion de datos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $evento_model->NOMBRE_EVENTO;
 
 $this->registerJs("$('#grid_reset').click(function(e){
     e.preventDefault();
@@ -89,7 +89,7 @@ JS
         'condensed'=>true,
         'responsive'=>false,
         //'hover'=>true,
-        'showPageSummary'=>true,
+        'showPageSummary'=>false,
         'panel'=>[
             'type'=>GridView::TYPE_PRIMARY,
             'heading'=>$heading,

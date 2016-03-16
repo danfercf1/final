@@ -1,11 +1,6 @@
 <?php
 
-use yii\helpers\Html;
-//use yii\grid\GridView;
-//use yii\bootstrap\Tabs;
 use kartik\grid\GridView;
-use yii\web\View;
-use kartik\widgets\Typeahead;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EstudiantesBusqueda */

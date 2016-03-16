@@ -1,9 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-/*use yii\grid\GridView;*/
 use yii\widgets\ActiveForm;
-use yii\widgets\ActiveField;
 use kartik\widgets\Select2;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
@@ -35,13 +33,13 @@ JS
     <?php $form = ActiveForm::begin(['method' => 'get', 'action'=>'/site/rankingpersonalizado', 'id'=>'form_personalizado']); ?>
     
     
-    <?= $form->field($model, 'NOMBRE_EVENTO')->dropDownList($eventos->obtenerNombres(true), ['prompt'=>'Seleccionar evento...', 'id'=>'evento']) ?>
+    <?= $form->field($model, 'NOMBRE_EVENTO')->dropDownList($eventos->obtenerNombres(true), ['prompt'=>'Seleccionar evento...']) ?>
 
     <?php
         echo $form->field($model, 'GESTION')->widget(DepDrop::classname(), [
-            'options' => ['id'=>'id_gestion'],
+            'options' => [],
             'pluginOptions'=>[
-                'depends'=>['evento'],
+                'depends'=>['estudiantesbusquedaranking-nombre_evento'],
                 'placeholder' => 'Seleccionar Gestion...',
                 'url' => Url::to(['/estudiantes/gestion'])
             ]
@@ -50,9 +48,9 @@ JS
 
     <?php
         echo $form->field($model, 'NRO_ETAPA')->widget(DepDrop::classname(), [
-            'options' => ['id'=>'id_etapa'],
+            'options' => [],
             'pluginOptions'=>[
-                'depends'=>['evento'],
+                'depends'=>['estudiantesbusquedaranking-nombre_evento'],
                 'placeholder' => 'Seleccionar Etapa...',
                 'url' => Url::to(['/estudiantes/etapa'])
             ]
@@ -78,6 +76,7 @@ JS
         
         echo Select2::widget([
             'name' => 'EstudiantesBusquedaRanking[ATRIBUTO]',
+            'id' => 'estudiantesbusquedaranking-atributo',
             'size' => Select2::SMALL,
             'data' => $data,
             'options' => ['placeholder' => 'Seleccionar variables ...', 'multiple' => true],

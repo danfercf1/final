@@ -27,6 +27,7 @@ use yii\mongodb\Query;
 use yii\mongodb\Collection;
 use kartik\grid\GridView;
 use yii\web\NotFoundHttpException;
+use yii\web\BadRequestHttpException;
 
 class SiteController extends Controller
 {
@@ -136,17 +137,12 @@ class SiteController extends Controller
     
     public function actionEstadisticas()
     {
-        $model_custom = new CustomForm();
-        $gestiones = $model_custom->gestiones();
-        $searchModel = new EventoSearch();
+        $model_custom = new CustomForm(['scenario' => 'estadistica']);
+
         $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
         return $this->render('estadisticas',[
             'model'=>$model_custom,
-            'gestiones'=>$gestiones,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
             'eventos' => $eventos,
             ]);
     }
@@ -456,27 +452,20 @@ class SiteController extends Controller
         return $this->render('rankingpersonalizado',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-
             'gridColumns'=>$gridColumns,
         ]);
     }
 
     public function actionPersonalizar()
     {
-        $model_custom = new EstudiantesBusquedaRanking();
+        $model_custom = new EstudiantesBusquedaRanking(['scenario'=>'search']);
 
         $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
 
-        $dataProvider = $model_custom->search(Yii::$app->request->queryParams);
-
-        $model_custom->scenario = 'search';
-
         return $this->render('personalizar',[
             'model'=>$model_custom,
-            'searchModel' => $model_custom,
-            'dataProvider' => $dataProvider,
             'eventos' => $eventos,
-            ]);
+        ]);
     }
     
     
@@ -531,6 +520,10 @@ class SiteController extends Controller
         $collection = Yii::$app->mongodb->getCollection('estudiante');
 
         //APROBADOS
+
+        if(!isset($params['CustomForm']['evento']) || empty($params['CustomForm']['evento']) || !$this->isValid($params['CustomForm']['evento'])){
+            throw new BadRequestHttpException('Parámetros inválidos debe revisar el formulario');
+        }
 
         $result = $collection->aggregate(
             ['$match' =>
@@ -698,7 +691,6 @@ class SiteController extends Controller
         $model = Estudiantes::find()->where(['NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51]])->select(['NOTA_ETAPA'.$params['CustomForm']['etapa']])->asArray()->all();
 
 
-
         foreach($model as $v){
             array_push($desv_std, $v['NOTA_ETAPA'.$params['CustomForm']['etapa']]);
         }
@@ -722,17 +714,13 @@ class SiteController extends Controller
     }
 
     public function actionEstadisticad(){
-        $model_custom = new CustomForm();
-        $gestiones = $model_custom->gestiones();
-        $searchModel = new EventoSearch();
+
+        $model_custom = new CustomForm(['scenario'=>'estadistica']);
+
         $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('estadisticasd',[
             'model'=>$model_custom,
-            'gestiones'=>$gestiones,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
             'eventos' => $eventos,
         ]);
     }
@@ -1188,5 +1176,26 @@ class SiteController extends Controller
 
     public function sd($array) {
         return sqrt(array_sum(array_map([$this, 'sd_square'], $array, array_fill(0,count($array), (array_sum($array) / count($array)) ) ) ) / (count($array)-1) );
+    }
+
+    public function isValid($id)
+    {
+        $regex = '/^[0-9a-z]{24}$/';
+
+        if (class_exists("MongoId"))
+        {
+            $tmp = new \MongoId($id);
+            if ($tmp->{'$id'} == $id)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        if (preg_match($regex, $id))
+        {
+            return true;
+        }
+        return false;
     }
 }

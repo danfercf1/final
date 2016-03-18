@@ -29,7 +29,7 @@ JS
 
 <div class="estadisticas-form">
 
-    <p class="lead">Ver Estadisticas</p>
+    <p class="lead">Graficas Estadisticas</p>
     
     <?php $form = ActiveForm::begin([
         'id' => 'estadisticas-form',

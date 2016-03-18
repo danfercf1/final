@@ -13,7 +13,7 @@ use yii\web\View;
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Estadisticas';
+$this->title = 'Conteo general';
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJs(<<<JS
@@ -29,7 +29,7 @@ JS
 
 <div class="estadisticas-form">
 
-    <p class="lead">Ver Estadisticas (solo datos)</p>
+    <p class="lead">Recuento de Estudiantes</p>
     
     <?php $form = ActiveForm::begin([
         'id' => 'estadisticas-form',

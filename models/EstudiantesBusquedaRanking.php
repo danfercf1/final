@@ -19,6 +19,7 @@ class EstudiantesBusquedaRanking extends Estudiantes
     public $etapa;
     public $cantidad;
     public $atributo;
+    const SCENARIO_SEARCH = 'search';
 
     public function rules()
     {
@@ -30,7 +31,7 @@ class EstudiantesBusquedaRanking extends Estudiantes
             //[['cantidad'], 'number','min'=>1,'max'=>100],
             [['atributo'],'string'],
             [['_id', 'PATERNO', 'CURSO', 'GENERO', 'MATERNO', 'CI', 'RUDE', 'NOMBRE', 'FECHA_NACIMIENTO', 'NOTA', 'DEPARTAMENTO', 'MATERIA', 'FONO', 'TUTOR', 'DISTRITO', 'UNIDAD_EDUCATIVA', 'CORREO', 'DISCAPACIDAD', 'NACIONALIDAD','EDAD', 'AREA', 'DEPENDENCIA', 'NOMBRE_EVENTO', 'SELECC_ETAPA1', 'SELECC_ETAPA2', 'SELECC_ETAPA3', 'SELECC_ETAPA4', 'SELECC_ETAPA5'], 'safe'],
-            [['cantidad', 'NOMBRE_EVENTO', 'GESTION', 'NRO_ETAPA'], 'required', 'on'=>'search']
+            [['cantidad', 'NOMBRE_EVENTO', 'GESTION', 'NRO_ETAPA', 'atributo'], 'required']
         ];
     }
 
@@ -39,8 +40,9 @@ class EstudiantesBusquedaRanking extends Estudiantes
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return [
+            self::SCENARIO_SEARCH => ['cantidad', 'NOMBRE_EVENTO', 'GESTION', 'NRO_ETAPA', 'atributo'],
+        ];
     }
 
     /**

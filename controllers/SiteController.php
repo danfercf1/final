@@ -27,6 +27,7 @@ use yii\mongodb\Query;
 use yii\mongodb\Collection;
 use kartik\grid\GridView;
 use yii\web\NotFoundHttpException;
+use yii\web\BadRequestHttpException;
 
 class SiteController extends Controller
 {
@@ -136,17 +137,12 @@ class SiteController extends Controller
     
     public function actionEstadisticas()
     {
-        $model_custom = new CustomForm();
-        $gestiones = $model_custom->gestiones();
-        $searchModel = new EventoSearch();
+        $model_custom = new CustomForm(['scenario' => 'estadistica']);
+
         $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
         return $this->render('estadisticas',[
             'model'=>$model_custom,
-            'gestiones'=>$gestiones,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
             'eventos' => $eventos,
             ]);
     }
@@ -456,27 +452,20 @@ class SiteController extends Controller
         return $this->render('rankingpersonalizado',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-
             'gridColumns'=>$gridColumns,
         ]);
     }
 
     public function actionPersonalizar()
     {
-        $model_custom = new EstudiantesBusquedaRanking();
+        $model_custom = new EstudiantesBusquedaRanking(['scenario'=>'search']);
 
         $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
 
-        $dataProvider = $model_custom->search(Yii::$app->request->queryParams);
-
-        $model_custom->scenario = 'search';
-
         return $this->render('personalizar',[
             'model'=>$model_custom,
-            'searchModel' => $model_custom,
-            'dataProvider' => $dataProvider,
             'eventos' => $eventos,
-            ]);
+        ]);
     }
     
     
@@ -532,6 +521,10 @@ class SiteController extends Controller
 
         //APROBADOS
 
+        if(!isset($params['CustomForm']['evento']) || empty($params['CustomForm']['evento']) || !$this->isValid($params['CustomForm']['evento'])){
+            throw new BadRequestHttpException('Parámetros inválidos debe revisar el formulario');
+        }
+
         $result = $collection->aggregate(
             ['$match' =>
                         [
@@ -560,8 +553,12 @@ class SiteController extends Controller
             }
         }else{
             foreach($result as $v){
-                array_push($categories, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-                array_push($data, $v['number']);
+                $dataT[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
+            }
+            ksort($dataT);
+            foreach($dataT as $k=>$v){
+                array_push($categories, $k);
+                array_push($data, $v);
             }
         }
 
@@ -591,8 +588,12 @@ class SiteController extends Controller
             }
         }else{
             foreach($result_avg as $v){
-                array_push($categories_avg, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-                array_push($data_avg, $v['number']);
+                $dataT[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
+            }
+            ksort($dataT);
+            foreach($dataT as $k=>$v){
+                array_push($categories_avg, $k);
+                array_push($data_avg, $v);
             }
         }
 
@@ -612,27 +613,17 @@ class SiteController extends Controller
             ]]
         );
 
-        if(strtoupper($params['CustomForm']['atributo']) == 'EDAD'){
-            foreach($result_mod as $v){
-                $cont = array_count_values($v['number']);
-                arsort($cont);
-                $mod = array_keys($cont);
-                $edad[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $mod[0];
+        foreach($result_mod as $v){
+            $cont = array_count_values($v['number']);
+            arsort($cont);
+            $mod = array_keys($cont);
+            $edad[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $mod[0];
 
-            }
-            ksort($edad);
-            foreach($edad as $k=>$v){
-                array_push($categories_mod, $k);
-                array_push($data_mod, $v);
-            }
-        }else{
-            foreach($result_mod as $v){
-                array_push($categories_mod, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-                $cont = array_count_values($v['number']);
-                arsort($cont);
-                $mod = array_keys($cont);
-                array_push($data_mod, $mod[0]);
-            }
+        }
+        ksort($edad);
+        foreach($edad as $k=>$v){
+            array_push($categories_mod, $k);
+            array_push($data_mod, $v);
         }
 
         //MAX & MIN
@@ -665,38 +656,27 @@ class SiteController extends Controller
             ]]
         );
 
-        if(strtoupper($params['CustomForm']['atributo']) == 'EDAD'){
-            foreach($result_max as $v){
-                $edadmax[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
-            }
-            ksort($edadmax);
-            foreach($edadmax as $k=>$v){
-                array_push($categories_maxmin, $k);
-                array_push($data_max, $v);
-            }
-
-            foreach($result_min as $v){
-                $edadmin[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
-            }
-            ksort($edadmin);
-            foreach($edadmin as $k=>$v){
-                array_push($data_min, $v);
-            }
-        }else{
-            foreach($result_max as $v){
-                array_push($categories_maxmin, $v['_id'][strtoupper($params['CustomForm']['atributo'])]);
-                array_push($data_max, $v['number']);
-            }
-
-            foreach($result_min as $v){
-                array_push($data_min, $v['number']);
-            }
+        foreach($result_max as $v){
+            $edadmax[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
         }
+        ksort($edadmax);
+        foreach($edadmax as $k=>$v){
+            array_push($categories_maxmin, $k);
+            array_push($data_max, $v);
+        }
+
+        foreach($result_min as $v){
+            $edadmin[$v['_id'][strtoupper($params['CustomForm']['atributo'])]] = $v['number'];
+        }
+        ksort($edadmin);
+        foreach($edadmin as $k=>$v){
+            array_push($data_min, $v);
+        }
+
 
         //Desviacion Estandar
 
         $model = Estudiantes::find()->where(['NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51]])->select(['NOTA_ETAPA'.$params['CustomForm']['etapa']])->asArray()->all();
-
 
 
         foreach($model as $v){
@@ -722,17 +702,13 @@ class SiteController extends Controller
     }
 
     public function actionEstadisticad(){
-        $model_custom = new CustomForm();
-        $gestiones = $model_custom->gestiones();
-        $searchModel = new EventoSearch();
+
+        $model_custom = new CustomForm(['scenario'=>'estadistica']);
+
         $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('estadisticasd',[
             'model'=>$model_custom,
-            'gestiones'=>$gestiones,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
             'eventos' => $eventos,
         ]);
     }
@@ -1188,5 +1164,26 @@ class SiteController extends Controller
 
     public function sd($array) {
         return sqrt(array_sum(array_map([$this, 'sd_square'], $array, array_fill(0,count($array), (array_sum($array) / count($array)) ) ) ) / (count($array)-1) );
+    }
+
+    public function isValid($id)
+    {
+        $regex = '/^[0-9a-z]{24}$/';
+
+        if (class_exists("MongoId"))
+        {
+            $tmp = new \MongoId($id);
+            if ($tmp->{'$id'} == $id)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        if (preg_match($regex, $id))
+        {
+            return true;
+        }
+        return false;
     }
 }

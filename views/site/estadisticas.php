@@ -33,33 +33,36 @@ JS
     
     <?php $form = ActiveForm::begin([
         'id' => 'estadisticas-form',
-        'method' => 'get', 'action'=>'/site/graficas'
-    ]); ?>
+        'method' => 'get',
+        'action'=>'/site/graficas',
+    ]);
+    ?>
     
-     <?= $form->field($model, 'evento')->dropDownList($eventos->obtenerNombres(true), ['prompt'=>'Seleccionar evento...', 'id'=>'evento']) ?>
+     <?= $form->field($model, 'evento')->dropDownList($eventos->obtenerNombres(true), ['prompt'=>'Seleccionar evento...']) ?>
      
-     <?php 
+     <?php
         echo $form->field($model, 'gestion')->widget(DepDrop::classname(), [
-            'options' => ['id'=>'id_gestion'],
+            'options' => [],
             'pluginOptions'=>[
-                'depends'=>['evento'],
+                'depends'=>['customform-evento'],
                 'placeholder' => 'Seleccionar Gestion...',
-                'url' => Url::to(['/estudiantes/gestion'])
+                'url' => Url::to(['/estudiantes/gestion']),
             ]
         ]);
      ?>
      
      <?php
          echo $form->field($model, 'etapa')->widget(DepDrop::classname(), [
-                'options' => ['id'=>'id_etapa'],
+                'options' => [],
                 'pluginOptions'=>[
-                    'depends'=>['evento'],
+                    'depends'=>['customform-evento'],
                     'placeholder' => 'Seleccionar Etapa...',
                     'url' => Url::to(['/estudiantes/etapa'])
                 ]
             ]);
      ?>
-     <?= $form->field($model, 'atributo')->dropDownList(array("distrito"=>"Distrito", "curso"=>"Curso", "edad"=>"Edad", "area"=>"Area", "dependencia"=>"Dependencia", "genero"=>"Genero"), ['prompt'=>'Seleccionar atributo...']) ?>
+
+    <?= $form->field($model, 'atributo')->dropDownList(array("distrito"=>"Distrito", "curso"=>"Curso", "edad"=>"Edad", "area"=>"Area", "dependencia"=>"Dependencia", "genero"=>"Genero"), ['prompt'=>'Seleccionar atributo...']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('generar', ['class' => 'btn btn-success', 'name' => 'estadisticas-button']) ?>

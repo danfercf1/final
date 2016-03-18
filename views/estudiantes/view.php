@@ -1,11 +1,19 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\web\View;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Estudiantes */
 $this->title = $model->nombreCompleto();
-$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => [$url]];
+$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => '#', 'template' => "<li id='link'>{link}</li>\n"];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerJs(<<<JS
+    $("#link").find('a').click(function(){
+        window.history.back();
+    });
+JS
+    , View::POS_READY, 'link_est');
 ?>
 <div class="estudiantes-view">
 
@@ -30,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label'=>'Edad', 'value'=>$model->getEdad($model->getFechaNaC())],
             'CORREO',
             'FONO',
-            ['label'=>'TUTOR', 'format'=>'raw', 'value'=>Html::a($model->tutor->nombreCompleto(), ['tutores/view', 'id' => $model->TUTOR->{'$id'}, 'id_estudiante'=>(string)$model->_id])],
-            ['label'=>'UNIDAD EDUCATIVA', 'format'=>'raw', 'value'=>Html::a($model->uE->NOMBRE_UE, ['ue/view', 'id' => $model->UNIDAD_EDUCATIVA->{'$id'}, 'id_estudiante'=>(string)$model->_id])],
+            ['label'=>'TUTOR', 'format'=>'raw', 'value'=>Html::a($model->tutor->nombreCompleto(), ['tutores/view', 'id' => $model->TUTOR])],
+            ['label'=>'UNIDAD EDUCATIVA', 'format'=>'raw', 'value'=>Html::a($model->uE->NOMBRE_UE, ['ue/view', 'id' => $model->UNIDAD_EDUCATIVA])],
         ],
     ]) ?>
 

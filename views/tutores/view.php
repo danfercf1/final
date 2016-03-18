@@ -2,13 +2,21 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Tutor */
 
 $this->title = $model->nombreCompleto();
-$this->params['breadcrumbs'][] = ['label' => 'Tutores', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Tutores', 'url' => '#', 'template' => "<li id='link'>{link}</li>\n"];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerJs(<<<JS
+    $("#link").find('a').click(function(){
+        window.history.back();
+    });
+JS
+    , View::POS_READY, 'link_tut');
+
 ?>
 
 <?php 

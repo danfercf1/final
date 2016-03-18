@@ -15,6 +15,9 @@ class CustomForm extends Model
     public $cantidad;
     public $atributo;
 
+    const SCENARIO_DEFAULT = 'default';
+    const SCENARIO_ESTADISTICA = 'estadistica';
+
     /**
      * @return array the validation rules.
      */
@@ -26,8 +29,9 @@ class CustomForm extends Model
              [['cantidad'], 'integer'],
              ['cantidad', 'compare', 'compareValue' => 0, 'operator' => '>'],
              ['cantidad', 'compare', 'compareValue' => 100, 'operator' => '<='],        
-            //[['cantidad'], 'number','min'=>1,'max'=>100],
-             [['atributo'],'string']
+             [['atributo', 'gestion'],'string'],
+             [['evento', 'gestion', 'etapa', 'atributo'], 'required', 'message'=>'{attribute} no debe estar vacío.'],
+             //[['evento', 'gestion', 'etapa', 'atributo'], 'safe']
         ];
     }
 
@@ -49,5 +53,13 @@ class CustomForm extends Model
         }
 
         return $gestion;
+    }
+
+    public function scenarios()
+    {
+        return [
+            //self::SCENARIO_DEFAULT => [],
+            self::SCENARIO_ESTADISTICA => ['evento', 'gestion', 'etapa', 'atributo'],
+        ];
     }
 }

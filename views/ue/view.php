@@ -2,13 +2,20 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Ue */
 
 $this->title = $model->NOMBRE_UE;
-$this->params['breadcrumbs'][] = ['label' => 'Unidades Educativas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Unidades Educativas', 'url' => '#', 'template' => "<li id='link'>{link}</li>\n"];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerJs(<<<JS
+    $("#link").find('a').click(function(){
+        window.history.back();
+    });
+JS
+    , View::POS_READY, 'link_ue');
 ?>
 
 <?php 

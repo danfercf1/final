@@ -53,6 +53,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public $status = true;
     public $NRO_ETAPA;
     const SCENARIO_UPDATE = 'update';
+    const SCENARIO_DEFAULT = 'default';
 
     public static function collectionName()
     {
@@ -260,6 +261,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     {
         return [
             self::SCENARIO_UPDATE => ['FECHA_NACIMIENTO'],
+            self::SCENARIO_DEFAULT => ['NOTA_ETAPA1', 'NOTA_ETAPA2','NOTA_ETAPA3','NOTA_ETAPA4','NOTA_ETAPA5'],
         ];
     }
 

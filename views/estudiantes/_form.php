@@ -32,19 +32,14 @@ use kartik\widgets\DatePicker;
     <?php //$form->field($model, 'FECHA_NACIMIENTO') ?>
 
     <?php
-        echo "<div><label>Fecha de Nacimiento:</label> ".$model->getFechaNaC()."</div>";
-    ?>
-
-    <?php
-
-    echo DatePicker::widget([
+        echo "<div><label>Fecha Nacimiento</label> ".DatePicker::widget([
         'name' => 'Estudiantes[FECHA_NACIMIENTO]',
-        'value' => '',
+        'value' => $model->getFechaNaC(),
         'pluginOptions' => [
             'autoclose'=>true,
-            'format' => 'dd-mm-yyyy'
+            'format' => 'dd/mm/yyyy'
         ]
-    ]);
+        ])."</div>";
     ?>
     
     <?= $form->field($model, 'CI') ?>

@@ -175,16 +175,16 @@ table.table-striped  tr td{
     display: inline;
 }
 
-.usuarios-create .input-group, .usuarios-update .input-group{
+.usuarios-create .input-group, .usuarios-update .input-group, .estudiantes-update .input-group{
     display: table;
     width: 60%;
 }
 
-#usuarios-fecha_creacion-kvdate .input-group-addon{
+#usuarios-fecha_creacion-kvdate .input-group-addon, #w1-kvdate .input-group-addon{
     padding: 0 5px 0 7px;
 }
 
-#usuarios-fecha_creacion-kvdate{
+#usuarios-fecha_creacion-kvdate, #w1-kvdate{
     float: right;
      right: 67px;
 }

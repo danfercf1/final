@@ -27,11 +27,11 @@ use kartik\widgets\DatePicker;
     
     
     <?= $form->field($model, 'fecha_creacion')->widget(DatePicker::classname(), [
-    'options' => ['placeholder' => 'Ingresar fecha...'],
-                    'pluginOptions' => [
+                'options' => ['placeholder' => 'Ingresar fecha...'],
+                'pluginOptions' => [
                     'autoclose'=>true
                 ]
-    ]); 
+        ]); 
     ?>
 
     <div class="form-group">

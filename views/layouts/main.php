@@ -85,8 +85,8 @@ AppAsset::register($this);
                             ['label' => 'Personalizar ranking', 'url' => Url::to(['/site/personalizar', 'type'=>$type])/*, 'active' => ($item == 'personalizar')*/],
 
                             ['label' => 'Boletin informativo', 'icon' => 'bullhorn', 'items' => [
+                                ['label' => 'Conteo general', 'url' => Url::to(['/site/estadisticad', 'type'=>$type])/*, 'active' => ($item == 'estadisticas')*/],
                                 ['label' => 'Estadisticas', 'url' => Url::to(['/site/estadisticas', 'type'=>$type])/*, 'active' => ($item == 'estadisticas')*/],
-                                ['label' => 'Estadisticas Datos', 'url' => Url::to(['/site/estadisticad', 'type'=>$type])/*, 'active' => ($item == 'estadisticas')*/],
                                 ['label' => 'Reportes', 'url' => Url::to(['/site/reportes', 'type'=>$type])/*, 'active' => ($item == 'reportes')*/]
                             ]],
                         ]],

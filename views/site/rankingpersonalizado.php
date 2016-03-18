@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="clasificacion">
 
     <?php
-        $heading = 'Ranking de notas';
+        $heading = 'Ranking Personalizado de Mejores Notas';
     ?>
 
     <?php

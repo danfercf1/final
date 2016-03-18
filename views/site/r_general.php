@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="clasificacion">
 
    <?php 
-        $heading = 'Ranking general';
+        $heading = 'Ranking General de Mejores Notas';
    ?>
     
 <?php 

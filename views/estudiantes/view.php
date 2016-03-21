@@ -38,8 +38,8 @@ JS
             ['label'=>'Edad', 'value'=>$model->getEdad($model->getFechaNaC())],
             'CORREO',
             'FONO',
-            ['label'=>'TUTOR', 'format'=>'raw', 'value'=>Html::a($model->tutor->nombreCompleto(), ['tutores/view', 'id' => $model->TUTOR])],
-            ['label'=>'UNIDAD EDUCATIVA', 'format'=>'raw', 'value'=>Html::a($model->uE->NOMBRE_UE, ['ue/view', 'id' => $model->UNIDAD_EDUCATIVA])],
+            ['label'=>'TUTOR', 'format'=>'raw', 'value'=>Html::a($model->tutor->nombreCompleto(), ['tutores/view', 'id' => (string)$model->TUTOR->{'$id'}, 'id_estudiante'=>(string)$model->_id])],
+            ['label'=>'UNIDAD EDUCATIVA', 'format'=>'raw', 'value'=>Html::a($model->uE->NOMBRE_UE, ['ue/view', 'id' => (string)$model->UNIDAD_EDUCATIVA->{'$id'}, 'id_estudiante'=>(string)$model->_id])],
         ],
     ]) ?>
 

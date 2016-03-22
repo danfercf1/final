@@ -27,22 +27,23 @@ $this->title = 'Departamento de Matemáticas - Inicio';
             <div class="col-lg-4">
                 <a href="/site/ranking"><h2>Clasificacion</h2></a>
 
-                <p>Los participantes de las olimpiadas matem&aacute;ticas son seleccionados en cada etapa
+                <p>Los participantes de las Olimpiadas Matem&aacute;ticas son seleccionados en cada etapa
                 correspondiente al certamen segun criterios de evaluacion establecidos por el comite organizador.</p>
 
             </div>
             <div class="col-lg-4">
                 <a href="/site/estadisticas"><h2>Estadisticas</h2></a>
 
-                <p>Todas las calificaciones obtenidas por etapa y en conjunto, son procesadas segun un analisis 
-                estad&iacute;stico como un indicador del buen rendimiento acad&eacute;mico en la gestion actual.</p>
+                <p>Las calificaciones obtenidas por etapa clasificatoria, son sometidas a un an&aacute;lisis 
+                estad&iacute;stico por medio de gr&aacute;ficos representando el desempeño acad&eacute;mico 
+                en la gestion actual.</p>
 
             </div>
             <div class="col-lg-4">
                 <a href="/site/reportes"><h2>Reportes</h2></a>
 
-                <p>Todo el proceso de las olimpiadas matem&aacute;ticas es representada por medio de informes y
-                gr&aacute;ficos indicadores del desempeño acad&eacute;mico.</p>
+                <p>Nómina de estudiantes clasificados en la Etapa final de las Olimpiadas Matem&aacute;ticas, es decir
+                son los estudiantes ganadores del certamen.</p>
             </div>
         </div>
 

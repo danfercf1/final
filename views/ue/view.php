@@ -8,7 +8,10 @@ use yii\web\View;
 /* @var $model app\models\Ue */
 
 $this->title = $model->NOMBRE_UE;
-$this->params['breadcrumbs'][] = ['label' => 'Unidades Educativas', 'url' => '#', 'template' => "<li id='link'>{link}</li>\n"];
+//$this->params['breadcrumbs'][] = ['label' => 'Unidades Educativas', 'url' => '#', 'template' => "<li id='link'>{link}</li>\n"];
+$this->params['breadcrumbs'][] = ['label' => 'Estudiantes: Exploracion de datos', 'url' => ['/estudiantes/index']];
+$this->params['breadcrumbs'][] = ['label' => $_GET["id_estudiante"], 'url'=>['/estudiantes/view', 'id' =>$_GET["id_estudiante"]]];
+$this->params['breadcrumbs'][] = ['label' => 'Unidades Educativas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs(<<<JS
     $("#link").find('a').click(function(){

@@ -6,7 +6,9 @@ use yii\web\View;
 /* @var $this yii\web\View */
 /* @var $model app\models\Estudiantes */
 $this->title = $model->nombreCompleto();
-$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => '#', 'template' => "<li id='link'>{link}</li>\n"];
+//$this->params['breadcrumbs'][] = ['label' => 'Estudiantes: Exploracion de datos', 'url' => '#', 'template' => "<li id='link'>{link}</li>\n"];
+$this->params['breadcrumbs'][] = ['label' => 'Estudiantes: Exploracion de datos', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = $evento_model->NOMBRE_EVENTO;
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs(<<<JS
     $("#link").find('a').click(function(){

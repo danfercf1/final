@@ -13,10 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="lista-eventos">
     <?php
-    $heading = 'Exploracion Olimpiadas';
-    ?>
-
-    <?php
+    $heading = 'Olimpiadas';
 
     $gridColumns = [
         [

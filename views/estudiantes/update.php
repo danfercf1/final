@@ -6,7 +6,10 @@ use yii\helpers\Html;
 /* @var $model app\models\Estudiantes */
 
 $this->title = 'Editar: ' . ' ' . $model->nombreCompleto();
-$this->params['breadcrumbs'][] = ['label' => 'Estudiantes', 'url' => [$url]];
+$this->params['breadcrumbs'][] = ['label' => 'Estudiantes: Exploracion de datos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->nombreCompleto(), 'url'=>['view', 'id' => (string)$model->_id]];
+$this->params['breadcrumbs'][] = 'Editar...';
+
 ?>
 <div class="estudiantes-update">
 

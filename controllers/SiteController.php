@@ -1154,7 +1154,7 @@ class SiteController extends Controller
                 ]
             ];
 
-            return $this->render('datos_dependencia', ['dataProvider'=>$dataProvider, 'dataProviderCU'=>$dataProviderCU, 'gridColumns'=>$gridColumns]);
+            return $this->render('datos_genero', ['dataProvider'=>$dataProvider, 'dataProviderCU'=>$dataProviderCU, 'gridColumns'=>$gridColumns]);
         }
     }
 

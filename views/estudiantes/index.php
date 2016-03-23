@@ -95,6 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'panel'=>[
                 'type'=>GridView::TYPE_PRIMARY,
                 'heading'=>$heading,
+                'after'=>'<div class="pull-right"><a href="/evento/index"><button type="button" class="btn btn-primary" id="AdminEvento">Administrar Eventos</button></a></div><div style="padding-top: 5px;"><em>* Para borrar un evento de la base de datos, utilizar el enlace "Administrar Eventos".</em></div>',
             ],
             'persistResize'=>true,
             //'exportConfig'=>$exportConfig,

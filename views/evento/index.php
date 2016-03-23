@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     
     $gridColumns = [
-            '_id',
+            //'_id',
             'NOMBRE_EVENTO',
             'USUARIO',
             'ETAPAS',
@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     array_push($gridColumns, [
             'class' => '\kartik\grid\ActionColumn',
+            'updateOptions'=> ['hidden'=>true],
             'deleteOptions' => ['label' => '<i class="glyphicon glyphicon-remove"></i>']
         ]);
     

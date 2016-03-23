@@ -6,8 +6,8 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\EstudiantesBusqueda */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Datos Estadisticos';
-$this->params['breadcrumbs'][] = ['label' => 'Estadisticas', 'url' => ['estadisticad']];
+$this->title = 'Edad';
+$this->params['breadcrumbs'][] = ['label' => 'Conteo general', 'url' => ['estadisticad']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="clasificacion">
 
     <?php
-        $heading = 'Participantes por edad';
+        $heading = 'Participantes por Edad';
     ?>
 
     <?php
@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
 
 
-    $heading = 'Participantes Aprobados por edad';
+    $heading = 'Participantes Aprobados por Edad';
 
     echo GridView::widget([
         'dataProvider'=>$dataProviderCU,

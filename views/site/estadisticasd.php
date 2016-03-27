@@ -59,7 +59,10 @@ JS
                 ]
             ]);
      ?>
-     <?= $form->field($model, 'atributo')->dropDownList(array("distrito"=>"Distrito", "curso"=>"Curso", "edad"=>"Edad", "area"=>"Area", "dependencia"=>"Dependencia", "genero"=>"Genero"), ['prompt'=>'Seleccionar atributo...']) ?>
+     <?= $form->field($model, 'atributo')->dropDownList(
+         ["area"=>"Area", "curso"=>"Curso", "cursoxdistrito"=>"Cursos por Distrito", "dependencia"=>"Dependencia", "distrito"=>"Distrito", "edad"=>"Edad", "genero"=>"Genero"],
+         ['prompt'=>'Seleccionar atributo...'])
+     ?>
 
     <div class="form-group">
         <?= Html::submitButton('generar', ['class' => 'btn btn-success', 'name' => 'estadisticas-button']) ?>

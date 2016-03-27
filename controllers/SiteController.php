@@ -1155,6 +1155,139 @@ class SiteController extends Controller
             ];
 
             return $this->render('datos_genero', ['dataProvider'=>$dataProvider, 'dataProviderCU'=>$dataProviderCU, 'gridColumns'=>$gridColumns]);
+        }elseif(isset($params['CustomForm']['atributo']) && $params['CustomForm']['atributo'] == 'cursoxdistrito'){
+
+            $new_dist_tot = [];
+
+            $new_dist_ap = [];
+
+            $distrito_tot = $collection->aggregate(
+
+                ['$match' =>
+                    [
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['CURSO'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['DISTRITO'=>'$DISTRITO', 'CURSO'=>'$CURSO'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            $distrito_ap = $collection->aggregate(
+                ['$match' =>
+                    [
+                        'NOTA_ETAPA'.$params['CustomForm']['etapa'] => ['$gte'=>51],
+                        'GESTION'=>(int)$params['CustomForm']['gestion'],
+                        'NOMBRE_EVENTO'=>new \MongoId($params['CustomForm']['evento'])
+                    ]
+                ],
+                [
+                    '$sort' => ['CURSO'=> 1]
+                ],
+                ['$group' => [
+                    '_id' => ['DISTRITO'=>'$DISTRITO', 'CURSO'=>'$CURSO'],
+                    'number' => ['$sum' => 1]
+                ]]
+            );
+
+            foreach($distrito_tot as $v){
+
+                switch ($v['_id']['CURSO']){
+                    case '1s' : $dist_tot[$v['_id']['DISTRITO']]['1s'] = $v['number'];
+                        break;
+                    case '2s' : $dist_tot[$v['_id']['DISTRITO']]['2s'] = $v['number'];
+                        break;
+                    case '3s' : $dist_tot[$v['_id']['DISTRITO']]['3s'] = $v['number'];
+                        break;
+                    case '4s' : $dist_tot[$v['_id']['DISTRITO']]['4s'] = $v['number'];
+                        break;
+                    case '5s' : $dist_tot[$v['_id']['DISTRITO']]['5s'] = $v['number'];
+                        break;
+                    case '6s' : $dist_tot[$v['_id']['DISTRITO']]['6s'] = $v['number'];
+                        break;
+                }
+            }
+
+
+            foreach ($dist_tot as $k=>$v){
+                array_push($new_dist_tot,
+                    ['DISTRITO'=>$k, '1s' => (isset($v['1s'])) ? $v['1s']: 0, '2s' => (isset($v['2s'])) ? $v['2s']: 0, '3s' => (isset($v['3s'])) ? $v['3s']: 0, '4s' => (isset($v['4s'])) ? $v['4s']: 0, '5s' => (isset($v['5s'])) ? $v['5s']: 0, '6s' => (isset($v['6s'])) ? $v['6s']: 0]);
+            }
+
+            foreach($distrito_ap as $v){
+                switch ($v['_id']['CURSO']){
+                    case '1s' : $dist_ap[$v['_id']['DISTRITO']]['1s'] = $v['number'];
+                        break;
+                    case '2s' : $dist_ap[$v['_id']['DISTRITO']]['2s'] = $v['number'];
+                        break;
+                    case '3s' : $dist_ap[$v['_id']['DISTRITO']]['3s'] = $v['number'];
+                        break;
+                    case '4s' : $dist_ap[$v['_id']['DISTRITO']]['4s'] = $v['number'];
+                        break;
+                    case '5s' : $dist_ap[$v['_id']['DISTRITO']]['5s'] = $v['number'];
+                        break;
+                    case '6s' : $dist_ap[$v['_id']['DISTRITO']]['6s'] = $v['number'];
+                        break;
+                }
+            }
+
+            foreach ($dist_ap as $k=>$v){
+                array_push($new_dist_ap,
+                    ['DISTRITO'=>$k, '1s' => (isset($v['1s'])) ? $v['1s']: 0, '2s' => (isset($v['2s'])) ? $v['2s']: 0, '3s' => (isset($v['3s'])) ? $v['3s']: 0, '4s' => (isset($v['4s'])) ? $v['4s']: 0, '5s' => (isset($v['5s'])) ? $v['5s']: 0, '6s' => (isset($v['6s'])) ? $v['6s']: 0]);
+            }
+
+            array_multisort($new_dist_tot);
+
+            array_multisort($new_dist_ap);
+
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $new_dist_tot,
+                'pagination' => false,
+            ]);
+
+            $dataProviderCU = new ArrayDataProvider([
+                'allModels' => $new_dist_ap,
+                'pagination' => false,
+            ]);
+
+            $gridColumns = [
+                [
+                    'class' => '\kartik\grid\SerialColumn'
+                ],
+                'DISTRITO',
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => '1s',
+                    'pageSummary' => true
+                ],[
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => '2s',
+                    'pageSummary' => true
+                ],[
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => '3s',
+                    'pageSummary' => true
+                ],[
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => '4s',
+                    'pageSummary' => true
+                ],[
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => '5s',
+                    'pageSummary' => true
+                ],[
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => '6s',
+                    'pageSummary' => true
+                ],
+            ];
+
+            return $this->render('datos_cursoxdistrito', ['dataProvider'=>$dataProvider, 'dataProviderCU'=>$dataProviderCU, 'gridColumns'=>$gridColumns]);
         }
     }
 

@@ -1296,7 +1296,12 @@ class SiteController extends Controller
     }
 
     public function sd($array) {
-        return sqrt(array_sum(array_map([$this, 'sd_square'], $array, array_fill(0,count($array), (array_sum($array) / count($array)) ) ) ) / (count($array)-1) );
+        if(count($array)-1 <= 0){
+            $div = 1;
+        }else{
+            $div = count($array)-1;
+        }
+        return sqrt(array_sum(array_map([$this, 'sd_square'], $array, array_fill(0,count($array), (array_sum($array) / count($array)) ) ) ) / ($div) );
     }
 
     public function isValid($id)

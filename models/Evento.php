@@ -82,19 +82,22 @@ class Evento extends \yii\mongodb\ActiveRecord
     }
 
     public function obtenerNombres($list=false){
+
         $usuarios_model = new Usuarios();
 
-        $usuario = $usuarios_model->find()->where(['_id'=>Yii::$app->user->identity->getId()])->with('eventos')->one();
+        //$usuario = $usuarios_model->find()->where(['_id'=>Yii::$app->user->identity->getId()])->with('eventos')->one();
+
+        $eventos = Evento::find()->all();
 
         $datos = [];
 
         if(!$list){
-            foreach($usuario->eventos as $v){
+            foreach($eventos as $v){
                 array_push($datos, $v['NOMBRE_EVENTO']);
             }
             return $datos;
         }else{
-            $eventos = $usuario->eventos;
+            //$eventos = $usuario->eventos;
             //foreach($eventos as $v){
                 for($i=0;$i < count($eventos);$i++){
                     $id = new \MongoId($eventos[$i]['_id']);

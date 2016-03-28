@@ -7,10 +7,17 @@ use yii\web\View;
 /* @var $this yii\web\View */
 /* @var $model app\models\Ue */
 
+if(isset($_GET["id_estudiante"])){
+    $estudiante = \app\models\Estudiantes::findOne($_GET["id_estudiante"]);
+    $nom = $estudiante->nombreCompleto();
+}else{
+    $nom = '';
+}
+
 $this->title = $model->NOMBRE_UE;
 //$this->params['breadcrumbs'][] = ['label' => 'Unidades Educativas', 'url' => '#', 'template' => "<li id='link'>{link}</li>\n"];
 $this->params['breadcrumbs'][] = ['label' => 'Estudiantes: Exploracion de datos', 'url' => ['/estudiantes/index']];
-$this->params['breadcrumbs'][] = ['label' => $_GET["id_estudiante"], 'url'=>['/estudiantes/view', 'id' =>$_GET["id_estudiante"]]];
+$this->params['breadcrumbs'][] = ['label' => $nom, 'url'=>['/estudiantes/view', 'id' =>$_GET["id_estudiante"]]];
 $this->params['breadcrumbs'][] = ['label' => 'Unidades Educativas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs(<<<JS
@@ -23,13 +30,13 @@ JS
 
 <?php 
 
-if (isset($_GET["id_estudiante"])) {?>
+/*if (isset($_GET["id_estudiante"])) {?>
     <div class="back">
         <a href="<?php Yii::$app->homeUrl;?>/estudiantes/view?id=<?php echo $_GET["id_estudiante"] ?> ">Volver a estudiante...</a>
     </div>
 <?php }else{
     // Fallback behaviour goes here
-}
+}*/
 ?>
 
 <div class="ue-view">

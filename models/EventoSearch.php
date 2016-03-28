@@ -56,7 +56,7 @@ class EventoSearch extends Evento
 
         $query->andFilterWhere(['like', '_id', $this->_id])
             ->andFilterWhere(['like', 'NOMBRE_EVENTO', $this->NOMBRE_EVENTO])
-            ->andFilterWhere(['=', 'USUARIO', new \MongoId(\Yii::$app->user->identity->id)])
+            //->andFilterWhere(['=', 'USUARIO', new \MongoId(\Yii::$app->user->identity->id)])
             ->andFilterWhere(['like', 'ETAPAS', $this->ETAPAS]);
 
         if(isset($this->GESTION) && !empty($this->GESTION)){

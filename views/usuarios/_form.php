@@ -23,8 +23,7 @@ use kartik\widgets\DatePicker;
 
     <?= $form->field($model, 'oldPassword')->hiddenInput(['value'=>$model->isNewRecord ? '' : $model->password])->label(false); ?>
 
-    <?= $form->field($model, 'rol') ?>
-    
+    <?= $form->field($model, 'rol')->dropDownList(array("admin"=>"Administrador"), ['prompt'=>'Seleccionar rol...'])?>
     
     <?= $form->field($model, 'fecha_creacion')->widget(DatePicker::classname(), [
                 'options' => ['placeholder' => 'Ingresar fecha...'],

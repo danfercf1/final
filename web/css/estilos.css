@@ -67,7 +67,7 @@
 .form-control{
     display: block;
     width: 90%;
-    height: 25px;
+    height: 26px;
     padding: 5px 10px;
     font-size: 12px;
     line-height: 1.42857;
@@ -170,7 +170,7 @@ table.table-striped  tr td{
     width: 25%;
 }
 
-.estudiantes-update input, .tutor-update input, .ue-update input, .evento-update input, .distrito-update input, .usuarios-update input, .usuarios-create input, .tutor-create input, .ue-create input, .estudiantes-create .control-label{
+.estudiantes-update input, .tutor-update input, .ue-update input, .evento-update input, .distrito-update input, .usuarios-update input, .usuarios-create input, .tutor-create input, .ue-create input, .estudiantes-create .control-label, #usuarios-rol{
     width: 60%;
     display: inline;
 }

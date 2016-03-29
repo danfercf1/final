@@ -260,7 +260,7 @@ class Estudiantes extends \yii\mongodb\ActiveRecord
     public function scenarios()
     {
         return [
-            self::SCENARIO_UPDATE => ['FECHA_NACIMIENTO'],
+            self::SCENARIO_UPDATE => ['FECHA_NACIMIENTO', 'NOMBRE', 'MATERNO', 'PATERNO', 'CI', 'FONO', 'CORREO'],
             self::SCENARIO_DEFAULT => ['NOTA_ETAPA1', 'NOTA_ETAPA2','NOTA_ETAPA3','NOTA_ETAPA4','NOTA_ETAPA5'],
         ];
     }

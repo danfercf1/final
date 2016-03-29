@@ -139,7 +139,7 @@ class SiteController extends Controller
     {
         $model_custom = new CustomForm(['scenario' => 'estadistica']);
 
-        $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
+        $eventos = new Evento();
 
         return $this->render('estadisticas',[
             'model'=>$model_custom,
@@ -460,7 +460,7 @@ class SiteController extends Controller
     {
         $model_custom = new EstudiantesBusquedaRanking(['scenario'=>'search']);
 
-        $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
+        $eventos = new Evento();
 
         return $this->render('personalizar',[
             'model'=>$model_custom,
@@ -705,7 +705,7 @@ class SiteController extends Controller
 
         $model_custom = new CustomForm(['scenario'=>'estadistica']);
 
-        $eventos = Evento::find()->where(['USUARIO'=>new \MongoId(Yii::$app->user->getId())])->one();
+        $eventos = new Evento();
 
         return $this->render('estadisticasd',[
             'model'=>$model_custom,

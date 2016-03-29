@@ -39,8 +39,8 @@ class CustomForm extends Model
 
         $usuario = \Yii::$app->user->getId();
 
-        $anio_min = Evento::find()->where(['USUARIO'=> new \MongoId($usuario)])->min('GESTION');
-        $anio_max = Evento::find()->where(['USUARIO'=> new \MongoId($usuario)])->max('GESTION');
+        $anio_min = Evento::find()->where(['USUARIO'=> ['$ne'=>null]])->min('GESTION');
+        $anio_max = Evento::find()->where(['USUARIO'=> ['$ne'=>null]])->max('GESTION');
 
         $gestion = array();
 

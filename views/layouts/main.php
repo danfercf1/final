@@ -39,23 +39,25 @@ AppAsset::register($this);
                 ],
             ]);
 
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => [
-                    //['label' => 'Inicio', 'url' => ['/site/index']],
-                    //['label' => 'Estudiantes', 'url' => ['/estudiantes/index']],
-                    //['label' => 'Usuarios', 'url' => ['/usuarios/index']],
-                    ['label' => 'Registrarse', 'url' => ['/usuarios/create']],
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Iniciar sesion', 'url' => ['/site/login']] :
-                        ['label' => 'Cerrar sesion (' . Yii::$app->user->identity->nombre . ')',
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
-                            
-                            
-                
-                 ],
-            ]);
+            if(Yii::$app->user->isGuest){
+                echo Nav::widget([
+                    'options' => ['class' => 'navbar-nav navbar-right'],
+                    'items' => [
+                        ['label' => 'Registrarse', 'url' => ['/usuarios/create']],
+                        ['label' => 'Iniciar sesion', 'url' => ['/site/login']]
+                    ],
+                ]);
+            }else{
+                echo Nav::widget([
+                    'options' => ['class' => 'navbar-nav navbar-right'],
+                    'items' => [
+                            ['label' => 'Cerrar sesion (' . Yii::$app->user->identity->nombre . ')',
+                                'url' => ['/site/logout'],
+                                'linkOptions' => ['data-method' => 'post']],
+                    ],
+                ]);
+            }
+
             NavBar::end();
               
         ?>

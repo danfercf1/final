@@ -30,8 +30,8 @@ class CustomForm extends Model
              ['cantidad', 'compare', 'compareValue' => 0, 'operator' => '>'],
              ['cantidad', 'compare', 'compareValue' => 100, 'operator' => '<='],        
              [['atributo', 'gestion'],'string'],
-             [['evento', 'gestion', 'etapa', 'atributo'], 'required', 'message'=>'{attribute} no debe estar vacío.'],
-             //[['evento', 'gestion', 'etapa', 'atributo'], 'safe']
+             [['evento', 'gestion', 'etapa', 'atributo'], 'required', 'message'=>'{attribute} no debe estar vacío.', 'on'=>'estadistica'],
+             [['evento', 'gestion', 'etapa', 'atributo'], 'safe']
         ];
     }
 
@@ -58,7 +58,7 @@ class CustomForm extends Model
     public function scenarios()
     {
         return [
-            //self::SCENARIO_DEFAULT => [],
+            self::SCENARIO_DEFAULT => [],
             self::SCENARIO_ESTADISTICA => ['evento', 'gestion', 'etapa', 'atributo'],
         ];
     }

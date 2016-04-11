@@ -172,7 +172,7 @@ class EstudiantesController extends Controller
                     'header' => 'Nota Etapa '.$i,
                     'inputType' => \kartik\editable\Editable::INPUT_SPIN,
                     'options' => [
-                        'pluginOptions' => ['min'=>0, 'max'=>100]
+                        //'pluginOptions' => ['min'=>0, 'max'=>100]
                     ]
                 ],
                 'hAlign'=>'right',

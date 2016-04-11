@@ -36,13 +36,13 @@ JS
         'method' => 'get', 'action'=>'/site/graficas'
     ]); ?>
     
-     <?= $form->field($model, 'evento')->dropDownList($eventos->obtenerNombres(true), ['prompt'=>'Seleccionar evento...', 'id'=>'evento']) ?>
+     <?= $form->field($model, 'evento')->dropDownList($eventos->obtenerNombres(true), ['prompt'=>'Seleccionar evento...']) ?>
      
      <?php 
         echo $form->field($model, 'gestion')->widget(DepDrop::classname(), [
-            'options' => ['id'=>'id_gestion'],
+            //'options' => ['id'=>'id_gestion'],
             'pluginOptions'=>[
-                'depends'=>['evento'],
+                'depends'=>['customform-evento'],
                 'placeholder' => 'Seleccionar Gestion...',
                 'url' => Url::to(['/estudiantes/gestion'])
             ]
@@ -51,9 +51,9 @@ JS
      
      <?php
          echo $form->field($model, 'etapa')->widget(DepDrop::classname(), [
-                'options' => ['id'=>'id_etapa'],
+                //'options' => ['id'=>'customform-etapa'],
                 'pluginOptions'=>[
-                    'depends'=>['evento'],
+                    'depends'=>['customform-evento'],
                     'placeholder' => 'Seleccionar Etapa...',
                     'url' => Url::to(['/estudiantes/etapa'])
                 ]

@@ -345,7 +345,7 @@ class SiteController extends Controller
 
         $order = [];
 
-        $model = Estudiantes::find()->where(['NOTA_ETAPA'.$get['EstudiantesBusquedaRanking']['NRO_ETAPA'] => ['$gte'=>51]])->select(['DISTRITO', '_id'=>false])->orderBy(['DISTRITO'=>SORT_ASC, 'NOTA_ETAPA'. $get['EstudiantesBusquedaRanking']['NRO_ETAPA']=>SORT_DESC])->asArray()->all();
+        $model = Estudiantes::find()->where(['NOTA_ETAPA'.$get['EstudiantesBusquedaRanking']['NRO_ETAPA'] => ['$gte'=>51], 'NOMBRE_EVENTO'=> new \MongoId($get['EstudiantesBusquedaRanking']['NOMBRE_EVENTO'])])->select(['DISTRITO', '_id'=>false])->orderBy(['DISTRITO'=>SORT_ASC, 'NOTA_ETAPA'. $get['EstudiantesBusquedaRanking']['NRO_ETAPA']=>SORT_DESC])->asArray()->all();
 
         foreach($model as $k=>$v){
             array_push($distrito, $v['DISTRITO']);
@@ -431,7 +431,7 @@ class SiteController extends Controller
         }
 
         foreach($n_distritos as $v){
-            $model = Estudiantes::find()->where(['DISTRITO'=>$v, 'NOTA_ETAPA'.$get['EstudiantesBusquedaRanking']['NRO_ETAPA'] => ['$gte'=>51]])->limit($get['EstudiantesBusquedaRanking']['cantidad'])->orderBy($order)->asArray()->all();
+            $model = Estudiantes::find()->where(['DISTRITO'=>$v, 'NOTA_ETAPA'.$get['EstudiantesBusquedaRanking']['NRO_ETAPA'] => ['$gte'=>51], 'NOMBRE_EVENTO'=> new \MongoId($get['EstudiantesBusquedaRanking']['NOMBRE_EVENTO'])])->limit($get['EstudiantesBusquedaRanking']['cantidad'])->orderBy($order)->asArray()->all();
             array_push($data, $model);
         }
 

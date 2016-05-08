@@ -13,6 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Su registro fue realizado correctamente puede regresar al inicio haciendo clic <?= Html::a('aqu&iacute;', ['/site/index'], ['class'=>'btn btn-primary']) ?></p>
+    <p>Su registro fue realizado correctamente puede regresar al inicio haciendo clic <?= Html::a('aqu&iacute;', ['/site/login'], ['class'=>'btn btn-primary']) ?></p>
 
 </div>

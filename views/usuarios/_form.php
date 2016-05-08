@@ -21,16 +21,18 @@ use kartik\widgets\DatePicker;
 
     <?= $form->field($model, 'password')->passwordInput() ?>
 
-    <?= $form->field($model, 'oldPassword')->hiddenInput(['value'=>$model->isNewRecord ? '' : $model->password])->label(false); ?>
+    <?= $form->field($model, 'repeat_pass')->passwordInput() ?>
+
+    <?php //echo $form->field($model, 'oldPassword')->hiddenInput(['value'=>$model->isNewRecord ? '' : $model->password])->label(false); ?>
 
     <?= $form->field($model, 'rol')->dropDownList(array("admin"=>"Administrador"), ['prompt'=>'Seleccionar rol...'])?>
     
-    <?= $form->field($model, 'fecha_creacion')->widget(DatePicker::classname(), [
+    <?php /*echo $form->field($model, 'fecha_creacion')->widget(DatePicker::classname(), [
                 'options' => ['placeholder' => 'Ingresar fecha...'],
                 'pluginOptions' => [
                     'autoclose'=>true
                 ]
-        ]); 
+        ]); */
     ?>
 
     <div class="form-group">

@@ -178,7 +178,7 @@ class EstudiantesController extends Controller
                 'hAlign'=>'right',
                 'vAlign'=>'middle',
                 'width'=>'100px',
-                'format'=>['integer', 1],
+                //'format'=>['decimal', 1],
                 'pageSummary' => true,
                 'pageSummaryFunc'=>GridView::F_AVG,
                 'refreshGrid'=> true

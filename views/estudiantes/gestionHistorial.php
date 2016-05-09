@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin(['method' => 'get', 'action'=>'/estudiantes/historial']); ?>
 
     <div class="form-group">
-        <?= Html::dropDownList('EventoSearch[GESTION]', [], $gestiones, ['prompt'=>'Seleccionar Gestion...']) ?>
+        <?= Html::dropDownList('EventoSearch[GESTION]', [], $gestiones, ['prompt'=>'Todas las gestiones...']) ?>
         <?= Html::submitButton('Cargar historial', ['class' => 'btn btn-success']) ?>
     </div>
 

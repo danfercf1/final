@@ -28,3 +28,4 @@ phpunit.phar
 /config/web.php
 vendor/bower/bootstrap/bower.json
 web/listas_excel/configuracion.json
+composer.lock

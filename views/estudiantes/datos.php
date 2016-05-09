@@ -25,7 +25,6 @@ $('.check_ganador').click(function(e){
     valor = $(this).val();
     etapa = $(this).attr('data_selecc').toString();
     token = $('#token_csrf').val();
-    console.log(checked);
     if(checked){
         $.post('/estudiantes/updateajax',{'id':valor, 'nro_etapa': etapa, etapa_selecc: 1, '_csrf': token},function(data){
             var respuesta = $.parseJSON(data);

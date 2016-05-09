@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'pluginOptions' => ['highlight'=>true],
                 'dataset' => [
                     [
-                        'local' => $eventos->obtenerNombres(),
+                        'local' => (!empty($eventos->obtenerNombres())) ? $eventos->obtenerNombres() : ['No data'],
                         'limit' => 10
                     ]
                 ]

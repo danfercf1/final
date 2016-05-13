@@ -1,0 +1,1 @@
+db.createUser({user: "datos", pwd: "datos", roles: ["readWrite", "dbAdmin"]})
